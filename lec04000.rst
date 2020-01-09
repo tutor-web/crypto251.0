@@ -1,0 +1,102 @@
+The command line from a Linux script
+************************************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec04000/sl04010
+The Linux shell
+===============
+
+The bash shell accepts commands such as
+
+* ls
+* cd
+
+Output can be redirected into other programs or into a file
+
+* ls | sort
+* ls > delete.me
+
+Most commands are just programs. Commands may take command-line options.
+
+* smileycoin-cli getinfo
+* smileycoin-cli listunspent
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec04000/sl04020
+Startup files
+=============
+
+Many programs use a startup file if it exists somewhere
+
+* .smileycoin/smileycoin.conf
+
+The Smileycoin/Bitcoin/Litecoin config files change the behaviour of the wallets
+
+Example:
+
+* walletnotify=/home/user/bin/readIncoming %s
+
+specifies a command to be run every time an incoming transaction is observer
+
+The script ``readIncoming`` must exist and be executable. It should assume that there is one argument, the transaction id. Commonly this is a ``shell script``, which is just a collection of shell commands.
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec04000/sl04030
+Betzy
+=====
+
+`Betzyyy 
+<https://steemit.com/blockchain/@gstefans/double-or-nothing-on-the-blockchain/>`_
+is an example of a Linux script which is called to handle incoming transactions.
+
+See
+
+
+https://steemit.com/blockchain/@gstefans/double-or-nothing-on-the-blockchain
+
+-- though ``BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik`` is more commonly used as the recipient address
+
+Handout
+-------
+
+Check the script ``ATMDoubleOrNothing`` to see exactly how this works, based on just adding the command
+
+::
+
+  walletnotify=/home/gstefans/atm/ATMDoubleOrNothing %s
+
+to ``smileycoin.conf``. Note that the script is available on `github <https://github.com/gstefans/ATM>`_.
+
+Note also that there is a difference between the notification commands
+
+::
+
+  walletnotify=/home/.../script1 %s
+  blocknotify=/home/.../script1 %s
+  
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec04000/sl04040
+The command script
+==================
+
+Upon startup, a typical ``readIncoming script`` will call the wallet to inspect the incoming transaction:
+
+
+* txId=$1
+* smileycoin-cli  gettransaction $txId
+* tx=`smileycoin-cli  getrawtransaction $txId`
+* stuff=`smileycoin-cli  decoderawtransaction $tx`
+
+and then inspect the elements of ``stuff`` to extract whatever data is needed.

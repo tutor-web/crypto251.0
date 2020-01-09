@@ -1,0 +1,436 @@
+Atomic swaps
+************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec47000/sl47010
+Background
+==========
+
+* There is a considerable demand for exchanging coins
+* This is mostly done on cryptocurrency exchanges
+* An exchange is a **honeypot** and hacks are common
+* Some exchanges are now **decentralised**
+
+In a truly decentralised exchange the exchange should not hold any user funds: The transaction should be solely between users
+
+The atomic swap is an important concept
+
+Atomic swaps need timeout mechanisms to replace trust
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec47000/sl47020
+timeouts
+========
+
+A timeout on a transaction implies that it can not be transmitted before the time limit
+A timeout on a UTXO implies that it can not be spent before the time limit
+
+
+CLTV is OP_CHECKLOCKTIMEVERIFY
+
+See Handout and Example for more detail
+Examples
+--------
+
+Example of use (from `here <https://en.bitcoin.it/wiki/Script#Freezing_funds_until_a_time_in_the_future>`_)
+
+Using OP_CHECKLOCKTIMEVERIFY it is possible to make funds provably unspendable until a certain point in the future.
+
+
+::
+
+  scriptPubKey: <expiry time> OP_CHECKLOCKTIMEVERIFY OP_DROP 
+                OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY 
+                OP_CHECKSIG
+
+  scriptSig: <sig> <pubKey>
+
+Handout
+-------
+
+There are several timeout features in the Bitcoin protocol, implemented as operators in Bitcoin's scrypt language. 
+
+Here we will consider OP_CHECKLOCKTIMEVERIFY, implemented as `BIP: 65 <https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki>`_.
+
+This description of OP_CHECKLOCKTIMEVERIFY, or CLTV is taken mostly from the `Bitcoin wiki <https://en.bitcoin.it/wiki/Script>`_ and the initial CLTV proposal as an improvement to the Bitcoin protocol `BIP: 65 <https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki>`_.
+
+CLTV marks a transaction as invalid if the top stack item is greater than the transaction's nLockTime field, otherwise script evaluation continues as though an OP_NOP was executed. Transaction is also invalid if 
+
+1. the stack is empty; or 
+
+2. the top stack item is negative; or 
+
+3. the top stack item is greater than or equal to 500000000 while the transaction's nLockTime field is less than 500000000, or vice versa; or 
+
+4. the input's nSequence field is equal to 0xffffffff. The precise semantics are described in BIP 0065. 
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec47000/sl47030
+an atomic swap algorithm
+========================
+
+by `TierNolan <https://bitcointalk.org/index.php?topic=193281.msg2224949#msg2224949>`_
+
+
+(see Handout)Handout
+-------
+
+more detail to come...
+
+::
+
+  A picks a random number x
+  A creates TX1: "Pay w BTC to <B's public key> if (x for H(x) known and signed by B) or (signed by A and B)"
+  A creates TX2: "Pay w BTC from TX1 to <A's public key>, locked 48 hours in the future, signed by A"
+  A sends TX2 to B 
+  B signs TX2 and returns to A
+
+  1) A submits TX1 to the network
+
+  B creates TX3: "Pay v alt-coins to <A-public-key> if (x for H(x) known and signed by A) or (signed by A and B)"
+  B creates TX4: "Pay v alt-coins from TX3 to <B's public key>, locked 24 hours in the future, signed by B"
+  B sends TX4 to A
+  A signs TX4 and sends back to B
+
+  2) B submits TX3 to the network
+  3) A spends TX3 giving x
+  4) B spends TX1 using x
+
+This is atomic (with timeout). If the process is halted, it can be reversed no matter when it
+is stopped.
+
+::
+
+  Before 1: Nothing public has been broadcast, so nothing happens 
+  Between 1 and 2: A can use refund transaction after 48 hours to get his money back 
+  Between 2 and 3: B can get refund after 24 hours. A has 24 more hours to get his refund 
+  After 3: Transaction can be completed by each of the 2 parties
+
+::
+
+   - A must spend his new coin within 24 hours or B can claim the refund and keep his coins 
+   - B must spend his new coin within 48 hours or A can claim the refund and keep his coins
+
+For safety, both should complete the process with lots of time until the deadlines.
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec47000/sl47040
+Alternatives
+============
+
+Several decentralised exchanges (DEXs) exist, but the definition of a DEX is not clear
+
+Examples:
+
+Barterdex: https://komodoplatform.com/decentralized-exchange/
+
+Bit Square (bisq): https://bisq.network/
+
+etc
+
+Further reading on atomic swaps etc:
+
+Vitalin Buterik: https://static1.squarespace.com/static/55f73743e4b051cfcc0b02cf/t/5886800ecd0f68de303349b1/1485209617040/Chain+Interoperability.pdf
+
+Kyle Samani: https://www.coindesk.com/opportunity-interoperable-chains-chains/
+
+Adrian Mathieu/Viacoin: https://ethereumworldnews.com/viacoin-developers-successfully-completed-atomic-swap-litecoin/
+
+ 
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec47000/sl47050
+The missing link: Information flow
+==================================
+
+Recall the process:
+
+* A creates TX1: "Pay w BTC to <B's public key> if (x for H(x) known and signed by B) or (signed by A and B)"
+* B creates TX3: "Pay v alt-coins to <A-public-key> if (x for H(x) known and signed by A) or (signed by A and B)"
+
+So **before any exchange is set up**,
+
+* A needs to know that B wants to buy w BTC
+* B needs to know that A will sell for v alt-coins
+
+
+Then, to be able to **start the exchange**
+
+* A needs to know B's BTC public key 
+* B needs to know A's alt-coin public key
+
+This information exchange needs to be done outside the transactions, as an MoU or "announcement(s) of intent".
+The info exchange does NOT need to be binding!
+The info exchange should cost something to avoid spam.
+
+**During the exchange** the parties need to communicate:
+
+* A sends TX2 to B
+* B signs TX2 and returns to A
+* B sends TX4 to A
+* A signs TX4 and sends back to B
+
+**The entire process needs to be without trust and without knowing who the other party is**
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec47000/sl47060
+Announcing the atomic swap
+==========================
+
+* Use a forum (telegram etc)?
+* Use a specialised channel (BarterDex/Bisq)?
+* Use an existing coin (mempool)?
+
+* Alice should in principle be able to use the Smileycoin blockchain to announce 
+
+ - ``SELL 1000 SMLY for 1 LTC``
+
+* and Bob could accept the offer  by responding
+
+ - ``ACCEPT offer TxId```
+
+* etc.
+
+Could be done through modifications of smileycoin-qt
+
+A draft proposal: https://tutor-web.info/news-1/announcing-intent-cross-chain-atomic-swap/
+
+Dedicated wallets? https://atomicwallet.io/  (or scam?)
+
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec47000/sl47070
+Atomic swaps between chains: Litecoin and Bitcoin
+=================================================
+
+One of the first ones: https://twitter.com/SatoshiLite/status/911328252928643072
+
+
+.. image:: http://tutor-web.net/comp/crypto251.0/images/twitter-atomic.png
+   :height: 100px
+   :scale: 100 %
+   :alt: alternate text
+   :align: right
+
+10 LTC for 0.1137 BTC
+
+The Litecoin side: https://insight.litecore.io/address/ML9CNJBtSPMABYcCQV58P2t4M7MpPRJK95
+
+The Bitcoin side: https://insight.bitpay.com/address/3HRWsfjpBHiJ7hC3jKJV5nbHMeBgoCPHDq
+
+See also https://github.com/topics/atomic-swap for many, many atomic swap projects.
+
+Handout
+-------
+
+Bitcoin 0bb5a53a9c7e84e2c45d6a46a7b72afc2feffb8826b9aeb3848699c6fd856480
+
+(note the locktime)
+
+(takes the one below - 92d9c9... - as input)
+
+::
+
+  {
+    "txid": "0bb5a53a9c7e84e2c45d6a46a7b72afc2feffb8826b9aeb3848699c6fd856480",
+    "hash": "0bb5a53a9c7e84e2c45d6a46a7b72afc2feffb8826b9aeb3848699c6fd856480",
+    "version": 2,
+    "size": 308,
+    "vsize": 308,
+    "weight": 1232,
+    "locktime": 1506182939,
+    "vin": [
+      {
+        "txid": "92d9c9d5d52c618b32484032a22f16dc084841ed29ec1b01c0119425a4e76d24",
+        "vout": 1,
+        "scriptSig": {
+          "asm": "30440220748121e83bee8287a2506ca65256f5bf6b30c5d6948aa334a06c3dd70472a50002204b42d5fcd9d28a73cf9ec3f03f50ce2583802ca02883897a24c4854fdc3225e9[ALL] 025d15dd393c000cf9f9b8adf06d275c70959d13764dcb3ac99d0f583c6c1aba0d 6b7dba080c648b0a9eccd0a795ace167f5c124703a17eba9a3d0f80162f0e330 1 63a6142c5b442dcfd70ed65b9c90956844525527d9ab3c8876a9143aa29799bae62940f3235cc58e0420359aa0fdf867041b87c659b17576a91470d0975d5053bc3291e0bad4c08d88e41d9ef5366888ac",
+          "hex": "4730440220748121e83bee8287a2506ca65256f5bf6b30c5d6948aa334a06c3dd70472a50002204b42d5fcd9d28a73cf9ec3f03f50ce2583802ca02883897a24c4854fdc3225e90121025d15dd393c000cf9f9b8adf06d275c70959d13764dcb3ac99d0f583c6c1aba0d206b7dba080c648b0a9eccd0a795ace167f5c124703a17eba9a3d0f80162f0e330514c5163a6142c5b442dcfd70ed65b9c90956844525527d9ab3c8876a9143aa29799bae62940f3235cc58e0420359aa0fdf867041b87c659b17576a91470d0975d5053bc3291e0bad4c08d88e41d9ef5366888ac"
+        },
+        "sequence": 4294967295
+      }
+    ],
+    "vout": [
+      {
+        "value": 0.13336680,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "OP_DUP OP_HASH160 5d8023cd65e3685726c5df8479206937b64264b9 OP_EQUALVERIFY OP_CHECKSIG",
+          "hex": "76a9145d8023cd65e3685726c5df8479206937b64264b988ac",
+          "reqSigs": 1,
+          "type": "pubkeyhash",
+          "addresses": [
+            "19XPM9tgB2Avj2nF1S5JSM9zJM6oGyH41w"
+          ]
+        }
+      }
+    ]
+  }
+
+Bitcoin 92d9c9d5d52c618b32484032a22f16dc084841ed29ec1b01c0119425a4e76d24
+
+(forms input to the one above)
+
+::
+
+  {
+    "txid": "92d9c9d5d52c618b32484032a22f16dc084841ed29ec1b01c0119425a4e76d24",
+    "hash": "92d9c9d5d52c618b32484032a22f16dc084841ed29ec1b01c0119425a4e76d24",
+    "version": 2,
+    "size": 224,
+    "vsize": 224,
+    "weight": 896,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "82ae3ad6c30957a022ef5648ee6bd1883793f34adb1273532fecb842b90d07d7",
+        "vout": 1,
+        "scriptSig": {
+          "asm": "3045022100eabcf4e2d7ca45b54b951624e38caaed7c18598e5091ff3ebf2015db6acef9d702203ff1355dd0c37acf3226250a1aa0ec0b3c1eb829302fa6e60d179a51311486e9[ALL] 02fe470a170035bf78d94c47629ca681c5e08501e9888a5a5dcb918186cb8d4175",
+          "hex": "483045022100eabcf4e2d7ca45b54b951624e38caaed7c18598e5091ff3ebf2015db6acef9d702203ff1355dd0c37acf3226250a1aa0ec0b3c1eb829302fa6e60d179a51311486e9012102fe470a170035bf78d94c47629ca681c5e08501e9888a5a5dcb918186cb8d4175"
+        },
+        "sequence": 4294967294
+      }
+    ],
+    "vout": [
+      {
+        "value": 0.01629776,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "OP_DUP OP_HASH160 462f954c6ae2bcf54107191b42d22419f928995e OP_EQUALVERIFY OP_CHECKSIG",
+          "hex": "76a914462f954c6ae2bcf54107191b42d22419f928995e88ac",
+          "reqSigs": 1,
+          "type": "pubkeyhash",
+          "addresses": [
+            "17Q7JZsAn4iKotrjpfk7H5WzLnznRVyWSU"
+          ]
+        }
+      },
+      {
+        "value": 0.13370000,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "OP_HASH160 ac938614bf4288b3e41385d49fc0531d847551ff OP_EQUAL",
+          "hex": "a914ac938614bf4288b3e41385d49fc0531d847551ff87",
+          "reqSigs": 1,
+          "type": "scripthash",
+          "addresses": [
+            "3HRWsfjpBHiJ7hC3jKJV5nbHMeBgoCPHDq"
+          ]
+        }
+      }
+    ]
+  }
+
+Litecoin 6c497ae07505f6237a810deb4fb366b9d73a2293ce8d8fba21e6203bf93854d2
+
+(note the locktime)
+
+(takes the one below - 75d0ab... - as input)
+
+::
+
+  {
+    "txid": "6c497ae07505f6237a810deb4fb366b9d73a2293ce8d8fba21e6203bf93854d2",
+    "hash": "6c497ae07505f6237a810deb4fb366b9d73a2293ce8d8fba21e6203bf93854d2",
+    "size": 308,
+    "vsize": 308,
+    "version": 2,
+    "locktime": 1506204007,
+    "vin": [
+      {
+        "txid": "75d0ab5f6a9da8633c8da91b791a28641c71234ea1bcfbb30ee8eb7f07b70721",
+        "vout": 1,
+        "scriptSig": {
+          "asm": "304402203faac90d00b21bce1079b402a201692e2bc0ebbc22bfb9476dd4a73e8969b2b702205a077a6eb15a9f98a6f61d3a5c0876c1850c5742e4ca4816c2a61b5e97ff8954[ALL] 02c6183a9cfa40ae70845c9125e3dc16b5412a3fc433c8b5698fd5bba49d795efe 6b7dba080c648b0a9eccd0a795ace167f5c124703a17eba9a3d0f80162f0e330 1 63a6142c5b442dcfd70ed65b9c90956844525527d9ab3c8876a91497cf2d5d3d30dc84b3aa09d68372d2533753b538670467d9c659b17576a91493cc61870ae8c76ccc7926f5c70dec4f5761a58b6888ac",
+          "hex": "47304402203faac90d00b21bce1079b402a201692e2bc0ebbc22bfb9476dd4a73e8969b2b702205a077a6eb15a9f98a6f61d3a5c0876c1850c5742e4ca4816c2a61b5e97ff8954012102c6183a9cfa40ae70845c9125e3dc16b5412a3fc433c8b5698fd5bba49d795efe206b7dba080c648b0a9eccd0a795ace167f5c124703a17eba9a3d0f80162f0e330514c5163a6142c5b442dcfd70ed65b9c90956844525527d9ab3c8876a91497cf2d5d3d30dc84b3aa09d68372d2533753b538670467d9c659b17576a91493cc61870ae8c76ccc7926f5c70dec4f5761a58b6888ac"
+        },
+        "sequence": 4294967295
+      }
+    ],
+    "vout": [
+      {
+        "value": 9.99968600,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "OP_DUP OP_HASH160 ee3c065dab61a1ed0020eb1c456226600dc44af3 OP_EQUALVERIFY OP_CHECKSIG",
+          "hex": "76a914ee3c065dab61a1ed0020eb1c456226600dc44af388ac",
+          "reqSigs": 1,
+          "type": "pubkeyhash",
+          "addresses": [
+            "LgwczUBhCr6XfEWaG4JA22Gi7fW5N38vM1"
+          ]
+        }
+      }
+    ]
+  }
+
+Litecoin 75d0ab5f6a9da8633c8da91b791a28641c71234ea1bcfbb30ee8eb7f07b70721
+
+::
+
+  {
+    "txid": "75d0ab5f6a9da8633c8da91b791a28641c71234ea1bcfbb30ee8eb7f07b70721",
+    "hash": "75d0ab5f6a9da8633c8da91b791a28641c71234ea1bcfbb30ee8eb7f07b70721",
+    "size": 223,
+    "vsize": 223,
+    "version": 2,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "d06f0729fda1564b77480bd38d2a0524b82ae8930a1dec554a26ff82ba146e80",
+        "vout": 0,
+        "scriptSig": {
+          "asm": "304402207325eba06b5a18fb9edadb2c646ee50cffe8062dd64024488419665bf080bd9e0220635242020e26b537d1aa1eef45a0f0ff96375c6743a3093afed373b844a15380[ALL] 03025492162771fe8dac8c74bcf344fb2ff48172482afa2d2a8a9fd09caa0fe79e",
+          "hex": "47304402207325eba06b5a18fb9edadb2c646ee50cffe8062dd64024488419665bf080bd9e0220635242020e26b537d1aa1eef45a0f0ff96375c6743a3093afed373b844a15380012103025492162771fe8dac8c74bcf344fb2ff48172482afa2d2a8a9fd09caa0fe79e"
+        },
+        "sequence": 4294967294
+      }
+    ],
+    "vout": [
+      {
+        "value": 0.89955000,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "OP_DUP OP_HASH160 8b97fa16960b86f69db5d16da02147642aa91494 OP_EQUALVERIFY OP_CHECKSIG",
+          "hex": "76a9148b97fa16960b86f69db5d16da02147642aa9149488ac",
+          "reqSigs": 1,
+          "type": "pubkeyhash",
+          "addresses": [
+            "LXx4FRCeEbZyRB5BNkVR9iNP9oUJzMmNSz"
+          ]
+        }
+      }, 
+      {
+        "value": 10.00000000,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "OP_HASH160 86491d98a99146ab22a066e0d8e6f3a403071af8 OP_EQUAL",
+          "hex": "a91486491d98a99146ab22a066e0d8e6f3a403071af887",
+          "reqSigs": 1,
+          "type": "scripthash",
+          "addresses": [
+            "ML9CNJBtSPMABYcCQV58P2t4M7MpPRJK95"
+          ]
+        }
+      }
+    ]
+  }

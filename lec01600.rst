@@ -1,0 +1,261 @@
+Cryptocurrency mining
+*********************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01600/sl01610
+Mining, hashes and the cryptography puzzle
+==========================================
+
+Bitcoin mining uses the hashcash proof of work function; the hashcash algorithm requires the following parameters: a service string, a nonce, and a counter.
+
+See for example Example: Bitcoin http://bit.ly/2PXIpYR.
+
+and Example: Litecoin http://bit.ly/2oCpdTZ.
+
+(more later)
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01600/sl01615
+Mining from a wallet
+====================
+
+Desktop mining is not reasonable for Bitcoin, Litecoin or other heavily mined coins.
+
+It is, however, quite feasible for SmileyCoin (in 2019).
+
+Most coins have gone through phases where mining is initially done using a computer's CPU, then a graphics card followed by specialised hardware. In-between, mining pools are typically set up, where miners cooperate on mining a coin and share block rewards and transaction fees.
+
+Mining outside mining pools is called **solo mining**.
+
+SmileyCoin is typically still mined by individual computers (in 2019).
+
+Handout
+-------
+
+Under Linux one can start the SmileyCoin daemon from the command line 
+using 
+
+
+::
+
+ smileycoind -algo=qubit -gen -genproclimit=1 --server
+
+The ``gen`` command-lin option sets the coin generation to true and ``genproclimit`` sets the number of cores to be used.
+
+Alternatively, the options can be put into smileycoin.conf
+
+::
+
+  algo=qubit
+  genproclimit=4
+
+With this configuration file, the actual mining must then be turned on after the daemon is started, using either the command line
+
+::
+
+ smileycoin-cli setgenerate true 1
+
+or a similar command, ``setgenerate true 1`` from within the wallet command window. The numeral ``1`` here refers to the number of cores to be used for mining.
+
+For laptops it is **essential** to set a bound on the number of cores used by the wallet to avoid overheating the computer.
+
+Under  Linux the default configuration options are read in from the file
+
+::
+
+  .smileycoin/smileycoin.conf
+
+under the user's home directory.
+
+On the Mac OSX this file is stored as
+
+::
+
+ Library/Application Support/Smileycoin/smileycoin.conf
+
+(beware of the space in the directory name).
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01600/sl01620
+GPU mining
+==========
+
+Screen displays on desktop computers are handled by graphics chips with considerable computing power. 
+
+Graphics cards are dedicated cards, inserted into the computer, to handle complex graphics. 
+
+These graphics cards are much more powerful for mining than is the typical central processing units (CPU) of a computer.
+
+Generic software is freely available to mine arbitrary coins using such graphics cards.
+
+
+
+Handout
+-------
+
+
+One popular miner is ``bfgminer``, available at http://bfgminer.org// or, on Ubuntu:
+
+::
+
+  apt-get install bfgminer
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01600/sl01630
+Mining using specialised hardware (ASIC mining)
+===============================================
+
+SmileyCoin can be mined using e.g. the ``bfgminer`` with a scrypt ASIC.
+Handout
+-------
+
+For SMLY mining using a Scrypt ASIC, the following has been tested.
+
+There are 1 or 2 machines involved. The following assumes the (Linux/Win/OSX) wallet runs on one machine and the miner (bfgminer) on another, where the ASIC is hooked up.
+
+First the wallet machine. In the config file, usually
+
+
+::
+
+  ~/.smileycoin/smileycoin.conf 
+
+
+on a Linux machine, make sure that you have the two lines
+
+
+::
+
+  rpcuser=<your-user-for-RPC>
+  rpcpassword=<your-password-for-RPC>
+
+
+where normally one just uses the user and password provided when you set up the wallet. You will need these later, when you connect bfgminer to the wallet.
+
+Next, you'll want lines of the following form:
+
+
+::
+
+  server=1
+  rpcport=14242
+  rpcallowip=127.0.0.1
+  rpcallowip=<the-IP-of-the-mining-computer>
+
+
+so for example, if your (bfg)miner is on the local area network with IP 192.168.1.57 then that is what you insert here so the wallet accepts incoming calls from that machine.
+
+Also, make a note of the name or IP of the wallet computer.
+
+Once you have this set up, make sure the wallet is running. Under Linux it'll be something like:
+
+
+::
+
+  smileycoind --server &
+
+
+
+
+Next, the machine where bfgminer runs (where the ASIC is connected). Here it should be enough to just run bfgminer off the command line. The settings for bfgminer are highly dependent on the ASIC you are using. The following are the settings for a particular Scrypt ASIC (entire command should go on one line):
+
+
+::
+
+  bfgminer --scrypt 
+      -o http://<walletmachine>:14242 
+      -u <your-user-for-RPC> 
+      -p <your-password-for-RPC> 
+      -S ALL 
+      --set MLD:clock=600
+
+
+where <your-user-for-RPC> is usually set to "smileycoinrpc" by default for the SMLY wallet and <your-password-for-RPC> is usually set to a long string generated at startup. You may have replaced both so make sure to check how the wallet is set up (smileycoin.conf above).
+
+Similarly, <walletmachine> needs to be replaced by whatever you call the computer where you run the wallet.
+
+The port here is 14242. The number is largely irrelevant, but it needs to be the same in the wallet config file as on the bfgminer command line (or the bfgminer config file). It should probably be a high number so that it does not interfere with system ports or priviliges.
+
+This particular setup was tested on a small USB-stick miner, the Futurebit Moonlander 2.0, obtained in 2017 from 
+https://asicpuppy.com/magentoPuppy/index.php/fbmoonlander.html
+
+For that hardware you may or may not need a specias version of bfgminer: https://bitcointalk.org/index.php?topic=2420357.0
+
+The above text is slightly updated from https://bitcointalk.org/index.php?topic=845761.msg30195287
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01600/sl01635
+Mining using a small ASIC
+=========================
+
+This is for the Futurebit Moonlander 2
+Handout
+-------
+
+
+One may need to install `additional Futurebit software <https://www.futurebit.io/moonlander-2-support>`_, in addition to bfgminer and the SMLY wallet.
+
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01600/sl01640
+Which hashes and how
+====================
+
+Handout
+-------
+
+Hash functions are used in several places, from inside the script programming language through solving cryptographic puzzles as proof-of-work to linking the blocks.
+
+The best-known use of hashing is in the cryptographic puzzle which is solved as proof-of-work to generate a valid block.
+
+The transactions in a block are summarised into a single hash using **merkle trees**, combined with a **nonce** and **hashed**.
+
+The most common hash function is **sha256d**, described in detail in 
+https://csrc.nist.gov/publications/detail/fips/180/4/final
+
+Note that it is not essential for the same hash function to be used for proof-of-work as for linking the blocks.
+
+Several other hash functions are used for Bitcoin transactions and even more are used for multi-algo coins such as SmileyCoin and Auroracoin.
+
+**more detail needed**
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01600/sl01650
+The mining algorithm
+====================
+
+The **sha256d** mining algorithm
+
+Handout
+-------
+
+From https://en.bitcoin.it/wiki/Getwork
+
+
+
+calculate: 
+
+::
+
+  hash = SHA256(SHA256(EndianFlipForEach32Bits(First80BytesOf(data))))
+
+If that meets the difficulty, you win (generated a block or share)!
+
+If not, increment the Nonce that is a number stored in portion of the data that starts 608 bits in (bytes 76 to 79), and try again.
+

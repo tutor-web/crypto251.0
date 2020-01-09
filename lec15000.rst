@@ -1,0 +1,25 @@
+Cryptocurrency exchanges
+************************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec15000/sl15020
+Smileycoin exchanges
+====================
+
+Smileycoin can be bought and sold at cryptocurrency exchanges, but through time exchanges may close down temporarily or permanently.
+
+Exchanges supporting SMLY include
+
+* southxchange
+* tradesatoshi
+
+The steps involved are
+
+* buy Bitcoin for fiat money (e.g.at https://isx.is/ )
+* transfer Bitcoin to one of the above exchanges
+* if appropriate, convert Bitcoin to Litecoin or Dogecoin
+* convert to SmileyCoin
+

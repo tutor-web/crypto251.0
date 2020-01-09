@@ -1,0 +1,156 @@
+Bitcoin and Smileycoin basics
+*****************************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00200/sl00210
+Operating a wallet
+==================
+
+A **wallet** is a computer program (or app) which handles the user's funds.
+
+From the user's side, the basics of operating a wallet are made extremely simple.
+
+With a click of a button the user can
+
+* Request funds
+* Send funds
+
+Transmissions of funds are sent out as **transactions**.
+
+If Alice wants to send a transaction to Bob, her wallet needs information on where to send the transaction.
+
+If Alice requests funds from Bob then Alice's wallet will typically show a QR-code which Bob's wallet can scan to set up the required transaction.
+
+A 
+`short video introduction
+<https://www.youtube.com/watch?v=a7EhHyWCrU4&index=4&list=PLzTQcKBiNWB3E7nh5egXI_PaHW1MLnXy8>`_
+is available.
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00200/sl00220
+The block and block explorers
+=============================
+
+**A simple block (SMLY block 361698)**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/block-361698.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+Contains two transactions.
+
+See https://chainz.cryptoid.info/smly/ 
+
+and
+https://blocks.smileyco.in/
+
+Video demonstration: 
+
+https://www.youtube.com/watch?v=a7EhHyWCrU4&index=4&list=PLzTQcKBiNWB3E7nh5egXI_PaHW1MLnXy8
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00200/sl00230
+The transaction
+===============
+
+**The transactions**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/trans-block-332353-eng.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00200/sl00240
+Where we come from (a): the tutor-web
+=====================================
+
+The 
+`tutor-web
+<https://tutor-web.net/>`_
+is an educational resource, mainly developed at the University of Iceland.
+
+ .. image:: http://tutor-web.net/comp/crypto251.0/lec00100/tw-logo.png
+    :height: 250px
+    :scale: 50 %
+    :alt: alternate text
+    :align: center
+
+
+
+
+A 
+`short video introduction
+<https://www.youtube.com/watch?v=z_JQX5GbAvA&index=6&list=PLzTQcKBiNWB3E7nh5egXI_PaHW1MLnXy8/>`_
+is available, giving an overview of the tutor-web SmileyCoin and Education in a Suitcase.
+
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00200/sl00250
+Where we come from (b): Education in a Suitcase
+===============================================
+
+**eias**
+
+ .. image:: http://tutor-web.net/comp/crypto251.0/lec00100/eias-logo.png
+    :height: 250px
+    :scale: 50 %
+    :alt: alternate text
+    :align: center
+
+Non-profit organisation, registered in Iceland as **Styrktarfélagið Broskallar**
+
+**Purpose**: Raise funds to donate educational tech to low-income regions
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00200/sl00260
+Where we come from (c): SMLY
+============================
+
+smly
+
+
+ .. image:: http://tutor-web.net/comp/crypto251.0/lec00100/smileycoin3-1024.png
+    :height: 250px
+    :scale: 50 %
+    :alt: alternate text
+    :align: center
+
+Primary purpose: Rewarding students in the tutor-web system
+
+Long term goal: Provide $1/day for low-income students
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00200/sl00270
+Overview
+========
+
+The handout lists homework.
+
+Your instructor will give more detail.
+Handout
+-------
+
+Homework: Add some material to any single subsection of this section.

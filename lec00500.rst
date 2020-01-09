@@ -1,0 +1,23 @@
+Introduction to the SMLY command line
+*************************************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00500/sl00510
+The SMLY command line
+=====================
+
+The core wallets have a **command line** which can be used to access information as well as send and receive coins
+
+Example: 
+
+* Linux shell: smileycoin-cli getinfo 
+* Windows/MAC: open the debug window and type "getinfo"
+
+Example:
+
+* sendtoaddress BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik 5
+
+`A video explanation is available <https://www.youtube.com/watch?v=tu9eU-XjsKo&index=9&list=PLzTQcKBiNWB3E7nh5egXI_PaHW1MLnXy8>`_

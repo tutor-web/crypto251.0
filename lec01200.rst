@@ -1,0 +1,412 @@
+Basic cryptocurrency economics
+******************************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01200/sl01205
+Background
+==========
+
+Prices of cryptocurrencies have fluctuated wildly
+
+Prices of several cryptocurrencies have started or risen to very high level before plummeting
+
+What are the driving factors behind these fluctuations?
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01200/sl01210
+The issues
+==========
+
+The main issues which drive the price of cryptocurrencies appear to be 
+
+* supply and demand
+* coinbase (mining)
+* difficulty
+* pump and dump
+* hype and fud
+* airdrop
+* lack of - or increase in use cases
+* speculation vs investment
+* change (increase) in public interest
+
+These relate to **supply and demand**. Other economic aspects include
+
+* Donations
+* Divident payments
+* Universal Basic Income (UBI)
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01200/sl01220
+The coinbase, difficulty and mining strategy
+============================================
+
+Each coin has a built-in plan for the generation of new blocks and new coins
+
+
+Bitcoin: 
+
+* A new block should be made every 10 minutes
+* The coinbase for Bitcoin is currently 12.5 Satoshi
+* The coinbase is also the miner's fee
+* The miner receives 12.5 BTC for mining a new block
+
+Smileycoin:
+
+* Same principle but 10,000 SMLY and one block per 3 minutes
+* Coinbase is halved approximately every 7 years
+* Miner receives only 10% of the coinbase
+
+The strategy: The "hash" of the block must decrease (**difficulty** increases) if the blocks are generated too fast.
+
+
+
+Handout
+-------
+
+The student should do some research into hash functions.
+
+See for example
+`Example: Bitcoin http://bit.ly/2PXIpYR 
+<http://bit.ly/2PXIpYR>`_.
+
+and
+`Example: Litecoin http://bit.ly/2oCpdTZ 
+<http://bit.ly/2oCpdTZ>`_.
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01200/sl01223
+Mining: The tragedy of the commons
+==================================
+
+``Block Hash``
+
+``5000	 000000004d78d2a8a93a1d20a24d721268690bebd2b51f7e80657d57e226eef9``
+
+``10000	 0000000099c744455f58e6c6e98b671e1bf7f37346bfd4cf5d0274ad8ee660cb``
+
+``25000	 00000000ae4b125eb183e689b7231eafa8c992d5b8c952d9f3cd30a79a788ddf``
+
+``50000	 000000001aeae195809d120b5d66a39c83eb48792e068f8ea1fea19d84a4278a``
+
+``100000 000000000003ba27aa200b1cecaad478d2b00432346c3f1f3986da1afd33e506``
+
+``200000 000000000000034a7dedef4a161fa058a2d67a173a90155f3a2fe6fc132e0ebf``
+
+``300000 000000000000000082ccf8f1557c5d40b21edabb18d2d691cfbf87118bac7254``
+
+``518367 000000000000000000164ac8a0f61d8157b0920d13cb53cb7d47610bde077898``
+
+This would be called the "tragedy of the commons" in fisheries: The problem is that there is open access to a new resource and the fee for entry (zero) is not high enough.
+
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01200/sl01227
+Mining development
+==================
+
+ * Bitcoin: Currently only large companies ("data centres")
+ * Originally on desktop computer, then using GPSs, followed by ASICs
+ * Other coins: Commonly "mining pool" (grafarahópar?), but similar development
+ * SMLY: Still mostly "solo" mining (coinbase-split is difficult for pools to implement)
+
+
+`Example: http://prohashing.com/ 
+<http://prohashing.com/>`_.
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01200/sl01230
+Basic economics
+===============
+
+Supply and demand drive the price of almost anything.
+
+The supply and demand of a cryptocurrency can be influenced by
+
+* mining to generate new, the coinbase
+* airdrop
+* lack of - or increase in use cases
+
+Increased difficulty will make mining more expensive but will NOT directly affect the price over any period of time: The increased difficulty may mean that some miners will stop mining or technological development will lead to better ASICs being used.
+
+An **airdrop** is used to hand out large amounts of a cryptocurrency to groups of users. **Auroracoin** is such an example.
+
+Examples of **pump and dump** or **hype and fud** abound. These are techniques used by groups and individuals who intend to affect the prices of cryptocurrencies.
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01200/sl01240
+Investment and speculation
+==========================
+
+* speculation vs investment
+* change (increase) in public interest
+* like any asset, cryptocurrencies can be used for investments
+
+See handout at https://tutor-web.net/comp/crypto251.0/lec01200/sl01240 for Bitcoin price development
+
+Example of analysis, see https://hackernoon.com/https-medium-com-zvnowman-building-a-cryptocurrency-portfolio-for-a-10-year-holding-period-e7ed407a9754Handout
+-------
+
+**Bólur og svindl**
+
+https://coinmarketcap.com/all/views/all/
+
+Skrýtin verðþróun, en verð á gulli og demöntum ræðst líka af framboði og eftirspurn (þ.m.t. væntingum og spákaupmennsku)
+
+
+**Bitcoin verðþróun ...**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2013.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+Bóla? Sprungin?
+
+
+**Bitcoin verðþróun út 2013**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2013.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+Bóla? Sprungin?
+
+
+**Bitcoin verðþróun til 2015**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2015.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+Bóla? Sprungin?
+
+
+**Bitcoin verðþróun inn í 2017**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2017-a.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+Bóla? Sprungin?
+
+
+**Bitcoin verðþróun út 2017**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2017-b.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+Bóla? Sprungin?
+
+
+**Bitcoin verðþróun út 2018**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2018-allt.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+Bóla? Sprungin?
+
+
+
+
+**Bitcoin verðþróun árið 2018**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2018-ytd.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+Bóla? Sprungin?
+
+Example of analysis, see https://hackernoon.com/https-medium-com-zvnowman-building-a-cryptocurrency-portfolio-for-a-10-year-holding-period-e7ed407a9754
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01200/sl01250
+The airdrop fallacy
+===================
+
+* airdrop
+
+
+Airdrop: Giving money to everyone
+
+Airdrop without incentive to invest or methods to spend: Useless :-)
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01200/sl01260
+Setting up use cases
+====================
+
+The only way for a cryptocurrency to have a value in the long term is for it to have a use case
+
+The use case might simply be investment:
+
+* Bitcoin is a classic case
+* Cryptocurrencies appear to be used as investment portfolios
+
+Use cases can also consist of companies accepting a cryptocurrency as a payment (Bitcoin in particular, but also Auroracoin)
+
+Selling donated coupons is a common method used by non-profit organisations. Coupons can easily be sold for crypto (http://smly.is)
+
+In the early days of Auroracoin there were too few use cases to support holding or using the coin. 
+
+**Note:** Groups **could** agree that all members of a crypto group should put something up for sale and thus be ready to accept payments in the cryptocurrency.
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01200/sl01270
+Donations
+=========
+
+Several cryptocurrencies encourage 
+
+* donations in the currency
+
+The effect on price would normally be none, unless the coinbase is used as a donation which goes directly into circulation.
+
+An interesting twist on donations is to use 
+
+* investment in the currency as a means to support a cause financed by the currency (Education in a Suitcase)
+
+See  http://www.quotenet.nl/Nieuws/Het-wonder-van-SmileyCoin-rijk-worden-met-donaties-209798
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01200/sl01280
+Divident payments
+=================
+
+Reasoning: 
+
+* Reduce dumping 
+* Increase investment incentive
+
+Smileycoin approach:
+
+* Fixed portion, 45%, of coinbase goes to dividends
+* Recipient group: Addresses with at least 25 M SMLY
+* Method: Oldest untouched address receives entire next payment
+
+Key figures:
+
+* Amount: 4500 SMLY per block
+* Frequency: 480 payments per day
+* Rich list: https://chainz.cryptoid.info/smly/#!rich
+* 180 addresses as of Sept 7, 2018
+
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01200/sl01285
+The SmileyCoin economy
+======================
+
+.. image:: http://tutor-web.net/comp/crypto251.0/images/token_model_v4.png
+Handout
+-------
+
+**The SmileyCoin economy**:  Miners earn a few SMLY from mining but the coinbase is mostly (i) donated in 10 income streams to the Smiley Charity  (fully automatic and decentralised) or (ii) paid as dividends to over 200 large supporters (also fully automatic and decentralised). Donors can also donate fiat directly to the Smiley Charity. The SmileyCoin Fund supporting the tutor-web will support other projects. Students earn SMLY while studying in the tutor-web. Any holders of SMLY can sell SmileyCoin on cryptocurrency exchanges. Vendors supporting the projects provide various discount coupons for sale on smly.is where students and other can purchase them for SMLY. Students may redeem or donate their hard-earned SMLY; and non-redeemed SMLY are eventually donated to the Smiley Charity.
+
+Missing from the graphic is how the Smiley Charity pays forward the SmileyCoin income streams to include other charities as recipients. The forward payments are automatic and transparent.
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01200/sl01290
+Cryptocurrencies as a Universal Basic Income
+============================================
+
+Universal Basic Income (UBI) is a popular term and commonly linked to technological developments which may eventually lead to mass unemployment.
+
+A cryptocurrency could in principle be used as for UBI through a number of means:
+
+* airdrop
+* splitting the coinbase
+* splitting the transaction fee
+
+but all of these only increase supply, not demand. Hence, none of these will work unless there is simultaneously a setup which provides demand for the coin.
+
+An airdrop could be implemented through a premine, but experience to date suggests that this is not a very good idea (Auroracoin, Smileycoin) and it would be better to use the coinbase+fees for this purpose.
+
+Several cryptocurrency-based UBI projects are listed at https://bitcointalk.org/index.php?topic=3242065.0
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01200/sl01292
+Solving UBI implementation issues: delivery and demand
+======================================================
+
+In addition to problems with a premine, the coinbase alone is unlikely to be enough (exercise: test the increase in supply and demand needed to make this work for Iceland with e.g. 100,000 recipients of a UBI equivalent of 100,000 ISK per month).
+
+If a coin is set up such that the UBI recipient are active parts of the community through
+
+* sending the UBI to other addresses (generating a fee)
+* putting a service or object up for sale
+
+then a UBI might be feasible.
+
+Supply would mostly be through the transaction fees.
+
+Demand would be generated by the users themselves.
+
+Examples
+--------
+
+Consider 100,000 recipients of a UBI equivalent of 100,000 ISK per month and suppose this has to come out of the coinbase.
+
+The coinbase of 10,000 new coins are generated in each block, every 3 minutes. With 20 blocks per hour, 480 blocks are generated per day, or 14,400 blocks per month. The total coinbase is therefore 144 million SMLY per month.
+
+For the above UBI, this coinbase of 144 million SMLY has to be worth 10,000 million ISK per month, so each SMLY needs to be worth 10000/144 or 69 ISK.
+
+There are currently almost 30 bn SMLY in circulation (30 10^9) so for the above to work, the market value of all SmileyCoin in circulation needs to be over 2 thousand billion ISK (2 10^12). For comparison, the amount of money in Iceland (as measured by M0) is about 40 bn. Even taking into account money in savings accounts etc (M3), the market value of SMLY needs to be far too high compared to a typical economy, if the UBI is to be generated from the coinbase alone. 
+
+Of course in a typical economy, wages are not paid by printing money. Once paid, wages are first used to pay income taxes and then purchase goods, resulting in sales taxes. These taxes are subsequently used to pay wages again. A crypto-based UBI needs to mimic this circular behaviour of wages and taxes.

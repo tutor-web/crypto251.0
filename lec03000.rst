@@ -1,0 +1,630 @@
+The trilogy: tutor-web, Smileycoin and Education in a Suitcase
+**************************************************************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03000/sl03010
+This is just a placeholder!!
+============================
+
+**WARNING** This is just a placeholder at the moment - don't even bother reading it :-)
+
+**This whole section will become a double lecture on tw, EIAS and SMLY**
+
+* Bitcoin
+* Litecoin
+* Etherium
+* Auroracoin
+* Broskallar :-)
+
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03000/sl03020
+Where we come from
+==================
+
+
+tutor-web
+
+ .. image:: http://tutor-web.net/comp/crypto251.0/lec00100/tw-logo.png
+    :height: 250px
+    :scale: 50 %
+    :alt: alternate text
+    :align: center
+
+
+
+eias
+
+
+ .. image:: http://tutor-web.net/comp/crypto251.0/lec00100/eias-logo.png
+    :height: 250px
+    :scale: 50 %
+    :alt: alternate text
+    :align: center
+
+
+
+
+smly
+
+
+ .. image:: http://tutor-web.net/comp/crypto251.0/lec00100/smileycoin3-1024.png
+    :height: 250px
+    :scale: 50 %
+    :alt: alternate text
+    :align: center
+
+
+
+
+
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03000/sl03025
+The tutor-web system
+====================
+
+**tutor-web kerfið**
+
+ * tutor-web er kennslukerfi á netinu sem er opið öllum án endurgjalds: http://tutor-web.net
+ * Rannsóknar- og þróunarverkefni hóps sem tengist VoN 
+ * Allur hugbúnaður sem kerfið notar er opinn (open source) og getur hver sem er notað og jafnvel breytt kennsluefninu (Creative Commons License)
+ * Styrkt af HÍ, Rannís, ESB, ráðuneytum, UNU FTP o.s.frv.
+
+
+**tutor-web**
+
+ * Í tutor-web eru eru yfir 6000 fjölvalsæfingar í stærðfræði og tölfræði á framhalds- og háskólastigi
+ * Æfingarnar eru ekki til að prófa kunnáttu nemenda heldur til að þeir læri af því að svara þeim 
+ * Nemendur geta svarað eins mörgum spurningum og þá lystir eins lengi og þeir vilja
+ * Nemendur og kennarar geta fylgst með hvernig gengur
+ * Eftir að nemandi svarar fær hann að sjá hvaða svarmöguleiki var sá rétti og útskýringu á rétta svarinu
+
+
+**Árangur rannsakaður**
+
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/experiment.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+
+
+Nemendur stóðu sig betur á stöðumötum efir að hafa notað tutor-web.
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03000/sl03030
+sl03030
+=======
+
+**Kenya**
+
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/kenya2.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+
+
+**Education in a suitcase**
+
+Í Kenía
+
+
+ * er óalgengt að fólk hafi aðgang að tölvum
+ * ekki sjálfgefið að komast í netsamband
+ * getur rafmagn verið óstöðugt 
+ * ...
+
+
+Lausn: Education in a suitcase
+
+
+**Education in a suitcase**
+
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/eias-logo.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+ 
+
+
+**Dæmigerð Keníaferð**
+
+ * Fangelsi í Naivasha
+ * Grunnskóli á Takawirieyju í Victoríuvatni 
+ * Háskóli í Maseno
+ * Shivanga framhaldsskólinn í Kakamega sýslu
+
+
+**Broskallar - Smileycoin**
+ * Notaðir til að verðlauna fyrir góða frammistöðu í tutor-web
+ * Mest til skemmtunar en eru rafmynt!
+ * Rannsóknir á áhrifum þess að greiða nemendum í rafmynt í kennslukerfinu
+ * Geta keypt kaffi, flugmiða, bíómiða, ... 
+
+
+
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/Coffee.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03000/sl03040
+sl03040
+=======
+
+**http://smly.is/**
+
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/smly-is.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+
+
+
+**Hlið notandans**
+ * Hlaða niður veski (forriti) á tölvu (t.d. spjald eða síma)
+ * Fá "senda" rafmynt
+ * "Senda" öðrum rafmynt
+
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/smly-wallet.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+
+**Á bakvið töldin**
+ * Færslukeðja/Bunkakeðja (blockchain) 
+ * Færslur
+ * Grunnhugtakið: UTXO
+ * Námugröftur
+ * Satoshi Nakamoto
+
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/faerslukedja.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+(Hjálmtýr Hafsteinsson, Vísindavefurinn)
+
+
+**Leikmannaskýring**
+ * Keðjan er eins og færslubók 
+ * Hver blokk er eins og síða í færslubókinni
+ * Hver færsla er eins og hefðbundin færsla "Jón sendir Gunnu 10 kr"
+ * Námugrafarinn er bókarinn
+ * Keðjan er eins og færslubók 
+ * sér um að taka saman færslur 
+ * skráir þær í nýja blokk - síðu í bókinni
+ * fær umbun fyrir
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03000/sl03050
+sl03050
+=======
+
+
+
+
+
+**Færslurnar**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/trans-block-332353-eng.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+
+
+
+**Inntakið**
+
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/trans-input-block-332353-EN.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+
+
+
+**Úttakið**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/trans-output-block-332353-EN.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+
+
+**Leyfið til að eyða UTXO**
+
+Munum eftir scriptPubKey:
+
+ * OP-DUP 
+ * OP-HASH160
+ * a4d6b6e2e262e97590564a24b523d993765525fb
+ * OP-EQUALVERIFY
+ * OP-CHECKSIG
+
+
+Þegar eyða skal þessu UTXO þarf að bæta framan við forritið stubbi þannig að samsetta forritið
+skili "TRUE" og engu öðru:
+
+ * undirskrift
+ * dreifilykill
+
+
+
+
+**Veskin**
+Veski fyrir Linux, Windows, Mac o.s.frv. leyfa notanda að gefa skipanir, skoða færslur og smíða sérhæfðar færslur.
+
+Veskin geta séð um námugröft.
+
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/cmd.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03000/sl03055
+sl03055
+=======
+
+x
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03000/sl03060
+sl03060
+=======
+
+xx
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03000/sl03070
+sl03070
+=======
+
+
+
+
+
+
+
+
+**Myntskoðarar (blockchain explorers)**
+
+Hægt að skoða
+
+ * Blokkir
+ * Færslur
+ * Addressur
+ * Ríka lista
+ * o.m.fl.
+
+
+`Dæmi: http://chainz.cryptoid.info/smly 
+<http://chainz.cryptoid.info/smly>`_.
+
+
+**Kauphallir**
+
+ * Viðskipti með rafmyntir
+ * Rafmyntir fyrir fiat (og öfugt)
+
+
+Dæmi: `https://isx.is/ 
+<https://isx.is/>`_.
+
+Dæmi: `https://tradesatoshi.com/Exchange/?market=SMLY_LTC 
+<https://tradesatoshi.com/Exchange/?market=SMLY_LTC>`_.
+
+Dæmigerð kauphöll býður marga markaði með rafmyntir.
+
+
+**Verðmyndun**
+
+Í upphafi var Bitcoin verðlaust
+
+ * 2 pizzur á 10 000 BTC
+ * Nú 1 BTC ca 1 M ISK
+
+Í dag: Fleiri notendur að BTC en að ISK?
+
+Grundvallaratriði: 
+
+Takmarkað framboð og hefur notagildi => verð > 0
+
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03000/sl03080
+sl03080
+=======
+
+**Bólur og svindl**
+
+https://coinmarketcap.com/all/views/all/
+
+Skrýtin verðþróun, en verð á gulli og demöntum ræðst líka af framboði og eftirspurn (þ.m.t. væntingum og spákaupmennsku)
+
+
+**Bitcoin verðþróun ...**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2013.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+Bóla? Sprungin?
+
+
+**Bitcoin verðþróun út 2013**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2013.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+Bóla? Sprungin?
+
+
+**Bitcoin verðþróun til 2015**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2015.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+Bóla? Sprungin?
+
+
+**Bitcoin verðþróun inn í 2017**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2017-a.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+Bóla? Sprungin?
+
+
+**Bitcoin verðþróun út 2017**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2017-b.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+Bóla? Sprungin?
+
+
+**Bitcoin verðþróun út 2018**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2018-allt.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+Bóla? Sprungin?
+
+
+
+
+**Bitcoin verðþróun árið 2018**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2018-ytd.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+Bóla? Sprungin?
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03000/sl03090
+last
+====
+
+**Svindl og svínarí?**
+Ýmsar leiðir, t.d. proof of developer ...
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/pod.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/pod2.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+
+En Baldur og Satoshi geta líka búið til sína mynt - nafnlaust.
+
+Mörg dæmi um mynt til að hafa fé af fjárfestum...
+
+
+**Hvers vegna hafa Broskallar verðgildi?**
+
+Takmarkað framboð og hafa notagildi => verð > 0  :-)
+
+
+Beint notagildi: Uppsetningar fyrir nemendur, sbr smly.is o.fl.
+
+
+En líka spákaupmennska í bland við t.d. fjárfestingarstefnu, þar sem tekið er tillit til nokkurra þátta:
+ * Áhættudreifing í fjárfestingu (portfolio investment)
+ * Flestar myntir deyja (50\% rafmynta árið 2014 eru týndar núna) - en SMLY er hluti af mörgum verkefnum 
+ * Nýtt: fjárfestingar í uppbyggilegum verkefnum (sbr Quote Magazine)
+
+
+
+**Quote**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/quote.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+(The miracle of SmileyCoin: getting rich with donations)
+
+
+**Áhrif af einni grein...**
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/quote-trend.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+
+**Tilraunaverkefni (rannsóknaverkefni)**
+
+ * Tengsl umbunar og vinnu/einkunna nemenda - fjölvalsspurningar
+ * Notkun umbunar fyrir verkefnaskil (t.d. semja texta)
+ * Gera tutor-web sjálfbært (umbuna fyrir þróun)
+ * Lengri tíma: Áhrif í Kenýa -- t.d. 1 USD/dag?
+
+
+
+**Flæði Broskalla**
+
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/token-model.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+
+**Tilraunaverkefni (kennsluverkefni)**
+ * Bestun: Verslun með rafmyntir (þ.m.t. arbitrage)
+ * Viðskiptavakt
+ * Veðmál á keðjunni (sendtoaddress BCJW4iZw7PechFHgtqqSdHmymjnFA6LjNJ 10)
+ * Skilaboð eftir keðjunni
+ * Sjálfvirk myntskipti
+ * Frumskipti (atomic swap)
+ * o.s.frv.
+
+Sjá ýmsar Steemit greinar
+
+
+**Meira**
+
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/ledger.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+
+http://ledgerjournal.org/ojs/index.php/ledger/article/view/103/84
+
+
+**Grunnlesning**
+
+**Aðalbókin**
+
+
+.. image:: http://tutor-web.net/comp/crypto251.0/lec00100/antonopoulos.png
+   :height: 250px
+   :scale: 50 %
+   :alt: alternate text
+   :align: center
+
+**Aðalgreinin**
+
+Satoshi Nakamoto
+Bitcoin: A Peer-to-Peer Electronic Cash System
+https://bitcoin.org/bitcoin.pdf
+

@@ -1,0 +1,87 @@
+More on atomic swaps and smart contracts
+****************************************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec47100/sl47110
+The smart contract
+==================
+
+Back to `Nick Szabo <http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html>`_
+
+(**Copyright (c) 1994 by Nick Szabo**)
+
+"A smart contract is a computerized transaction protocol that executes the terms of a contract." 
+
+With objectives:
+
+"The general objectives of smart contract design are to satisfy common contractual conditions (such as payment terms, liens, confidentiality, and even enforcement), minimize exceptions both malicious and accidental, and minimize the need for trusted intermediaries. Related economic goals include lowering fraud loss, arbitration and enforcement costs, and other transaction costs[1]."
+
+and from `Wikipedia <https://en.wikipedia.org/wiki/Smart_contract>`_:
+
+ .. image:: http://tutor-web.net/comp/crypto251.0/images/smart-contract.png
+    :height: 250px
+    :scale: 50 %
+    :alt: alternate text
+    :align: center
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec47100/sl47120
+Smart contracts: Misunderstandings
+==================================
+
+ * Example of incorrect statement (more than one error here): 
+
+  - ethereum replaces bitcoin's more restrictive language (a scripting language of a hundred or so scripts) and replaces it with a language that allows developers to write their own programs -- https://www.coindesk.com/information/ethereum-smart-contracts-work/
+
+ * Note that
+
+  - The Bitcoin scripting language **is limited** but so are all programming languages. 
+  - Developers can write their own programs in the Bitcoin scripting language!!
+  - A more flexible language gives more flexibility :-)
+  - A more flexible language is often more error-prone and less secure
+  - There is **no limit** to the **number of scripts** one can write in the Bitcoin scripting language!!
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec47100/sl47130
+Tools for atomic swaps
+======================
+
+Examples of tools and discussions
+
+* Very good description with tool-box, Decred: https://blog.decred.org/2017/09/20/On-Chain-Atomic-Swaps/
+
+"These tools were built for those who ... have ... transaction script and OP_CLTV support"
+
+* Detailed example based on the Decred tools: https://hackernoon.com/so-how-do-i-really-do-an-atomic-swap-f797852c7639
+
+And recall that **"these tools do not address the issue of order book management"**
+
+- for which you need Lightning or other tool for announcements of intent etc
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec47100/sl47140
+Which coins are ready?
+======================
+
+Nice overview: https://swapready.net/
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec47100/sl47150
+Lightning
+=========
+
+See https://www.forbes.com/sites/ktorpey/2018/03/15/bitcoins-highly-anticipated-lightning-network-goes-live-as-startup-raises-2-5-million/#60fe82bd7eb0

@@ -1,0 +1,605 @@
+The Bitcoin programming language
+********************************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec30000/sl30010
+From input to output
+====================
+
+Tx cc3b743938e485578315b2f6848c1a416c917585ea2f75d5d3e09f21a95008b0 output 0
+
+
+.. image:: http://tutor-web.net/comp/crypto251.0/images/trans-cc3b.png
+
+            
+"asm:" "OP_DUP OP_HASH160 **df75ee5b514b5253979ed29524fde386482f05cf** OP_EQUALVERIFY OP_CHECKSIG",
+
+"hex:" "76a914df75ee5b514b5253979ed29524fde386482f05cf88ac",
+
+i.e. 
+
+hex: **76** **a9** 14 **df75ee5b514b5253979ed29524fde386482f05cf** **88** **ac**
+
+
+ 
+
+
+
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec30000/sl30020
+The assembler
+=============
+
+where we see (from https://en.bitcoin.it/wiki/Script ) the meaning of the sequence
+
+``OP_DUP OP_HASH160 OP_EQUALVERY OP_CHECKSIG OP_EQUAL OP_VERIFY``
+
+in the table in the handout.
+
+
+Handout
+-------
+
++-------------------+------------+-----------+----------+------------+-----------------------------------+ 
+|  code             |    dec     |    hex    | Input    |     Output |             Description           |
++===================+============+===========+==========+============+===================================+
+|   OP_DUP          |  118       |  0x76     |          |            | | Duplicates the                  |
+|                   |            |           |          |            |   top stack item.                 |
+|                   |            |           |          |            | |                                 |
++-------------------+------------+-----------+----------+------------+-----------------------------------+
+|   OP_HASH160      |   169      |  0xa9     |   in     |  hash      | | The input is hashed twice:      |
+|                   |            |           |          |            |   first with SHA-256 and then     |
+|                   |            |           |          |            |   with RIPEMD-160.                |
+|                   |            |           |          |            | |                                 |
++-------------------+------------+-----------+----------+------------+-----------------------------------+
+|   OP_EQUALVERIFY  |   136      |  0x88     | x1 x2    |Nothing/fail| | Same as OP_EQUAL, but           |
+|                   |            |           |          |            |   runs OP_VERIFY afterward.       |
+|                   |            |           |          |            | |                                 |
++-------------------+------------+-----------+----------+------------+-----------------------------------+
+|   OP_CHECKSIG     |  172       |  0xac     |sig pubkey|True / false| | The entire transaction          |
+|                   |            |           |          |            |   outputs, inputs, and script     |
+|                   |            |           |          |            |   (from the most recently-executed|
+|                   |            |           |          |            |   OP_CODESEPARATOR to the end)    |
+|                   |            |           |          |            |   are hashed. The signature used  |
+|                   |            |           |          |            |   by OP_CHECKSIG must be a valid  |
+|                   |            |           |          |            |   signature for this hash and     |
+|                   |            |           |          |            |   public key. If it is, 1 is      |
+|                   |            |           |          |            |   returned, 0 otherwise.          |
+|                   |            |           |          |            | |                                 |
++-------------------+------------+-----------+----------+------------+-----------------------------------+
+|    OP_EQUAL       |    135     |  0x87     | x1 x2    | True/false | | Returns 1 if the inputs are     |
+|                   |            |           |          |            |   exactly equal, 0 otherwise.     |
+|                   |            |           |          |            | |                                 |
++-------------------+------------+-----------+----------+------------+-----------------------------------+
+|    OP_VERIFY      |   105      |  0x69     | | True / | | Nothing/ | | Marks transaction as invalid    |
+|                   |            |           |   false  |   / fail   |   if top stack value is not true. |
+|                   |            |           | |        | |          |   The top stack value is removed. |
+|                   |            |           |          |            | |                                 |
++-------------------+------------+-----------+----------+------------+-----------------------------------+
+|                   |    20      |  0x14     |          |            | | push 20 bytes onto the stack    |
+|                   |            |           |          |            |   the following 160 bit hash      |
+|                   |            |           |          |            | |                                 |
++-------------------+------------+-----------+----------+------------+-----------------------------------+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec30000/sl30030
+Simple example
+==============
+
+``2 7 OP_ADD 3 OP_SUB 1 OP_ADD 7 OP_EQUAL``
+Example
+-------
+
+Consider how the following code would be executed
+
+``2 7 OP_ADD 3 OP_SUB 1 OP_ADD 7 OP_EQUAL``
+
+
++-----------+-----+-------+-----------------------------+
+| 2         |     |       | 2 goes on stack             |
++-----------+-----+-------+-----------------------------+
+| 7         | 2   |       | 2 on stack; 7 goes on stack |
++-----------+-----+-------+-----------------------------+
+|           | 7   | 2     | 7 and 2 on stack            |
++-----------+-----+-------+-----------------------------+
+| OP_ADD    | 7   | 2     | \+ operator adds from stack |
++-----------+-----+-------+-----------------------------+
+|           | 9   |       | sum gets put on stack       |
++-----------+-----+-------+-----------------------------+
+| 3         | 9   |       | 3 goes on stack             |
++-----------+-----+-------+-----------------------------+
+|           | 3   | 9     | 3 and 9 on stack            |
++-----------+-----+-------+-----------------------------+
+| OP_SUB    | 3   | 9     | \- operator                 |
++-----------+-----+-------+-----------------------------+
+|           | 6   |       | difference is put on stack  |
++-----------+-----+-------+-----------------------------+
+| 1         | 6   |       | 1 goes on stack             |
++-----------+-----+-------+-----------------------------+
+|           | 1   | 6     | 1 and 6 on stack            |
++-----------+-----+-------+-----------------------------+
+| OP_ADD    | 1   | 6     | \+ operator adds from stack | 
++-----------+-----+-------+-----------------------------+
+|           | 7   |       | sum gets put on stack       |
++-----------+-----+-------+-----------------------------+
+| 7         | 7   |       | new 7 to be put on stack    |
++-----------+-----+-------+-----------------------------+
+|           | 7   | 7     |                             |
++-----------+-----+-------+-----------------------------+
+| OP_EQUAL  | 7   | 7     | = operator compares         |
++-----------+-----+-------+-----------------------------+
+|           | TRUE|       | result is TRUE              |
++-----------+-----+-------+-----------------------------+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec30000/sl30040
+spending
+========
+
+Then the value gets used in 
+
+Tx e870614afe3cb9fde97566b024a72f11d22ce08dbd89a971655b15f71d6e203b
+
+(see handout)Handout
+-------
+
+with 
+
+asm: 
+
+::
+
+  30450221009411566e0a7965fc5b8a73ca788a52c4fc0d4f6eaf3089812e55 \
+  e7def520c79502205d7db54c0851d650d80e9236ecfbe9a94ea0b17976255f \
+  2170259b652524d0b301
+
+
+hex:
+
+::
+ 
+  4830450221009411566e0a7965fc5b8a73ca788a52c4fc0d4f6eaf3089812e55 \
+  e7def520c79502205d7db54c0851d650d80e9236ecfbe9a94ea0b17976255f \
+  2170259b652524d0b3012102df1da8c39a9823016dbe56d11b11b1369b4567 \
+  4115cbbd9a2a531e365a532bc7``
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec30000/sl30050
+A more detailed look inside the spending transaction
+====================================================
+
+Looking at SMLY transactions
+
+``dee018b9be101c519ad326c581807581a4e46711f242b4878afa1d98c5f521e1``
+
+and
+
+``08a5430a667a700e7b913d1895908c56d035559cd32a999a5c8cd56f409f4d15``
+
+The former’s vout:0 gets spent in the latter.
+Example
+-------
+
+Consider SMLY transactions
+``dee018b9be101c519ad326c581807581a4e46711f242b4878afa1d98c5f521e1``
+and
+``08a5430a667a700e7b913d1895908c56d035559cd32a999a5c8cd56f409f4d15``
+
+The former’s ``vout:0`` gets spent in the latter.
+
+The output of ``dee0...``
+
+::
+
+   "vout": [
+      {
+         "value": 61,
+         "n": 0,
+         "scriptPubKey": {
+            "asm": "OP_DUP OP_HASH160 52a7c9d832b31c044faa63782ef252e7a4a34291 \
+                    OP_EQUALVERIFY OP_CHECKSIG",
+            "hex": "76a91452a7c9d832b31c044faa63782ef252e7a4a3429188ac",
+            "reqSigs": 1,
+            "type": "pubkeyhash",
+            "addresses": [
+               "BBz82bHDLKC3CGMHhJtNPbwTAYFGrRT1o6"
+            ]
+         }
+      },
+
+
+and the spending part in 08a5...
+
+
+::
+
+   "vin": [
+      {
+         "txid": "dee018b9be101c519ad326c581807581a4e46711f242b4878afa1d98c5f521e1",
+         "vout": 0,
+         "scriptSig": {
+            "asm": "3044022050587d300d060b912526164f24b1e24897ed9822b1d23fce9a7c103e1c6b3d2102202b42a536a82582 \
+                    ac26495c3a3f5c34add4c1aa2fecede1c50ce5f22fd06739920102188c91a675464d2dc475d4f0 \
+                    1bc8cd60fe418d99142ed1ce5f8ce45a997080d5",
+            "hex": "473044022050587d300d060b912526164f24b1e24897ed9822b1d23fce9a7c103e1c6b3d2102202b42a536a82 \
+                    582ac26495c3a3f5c34add4c1aa2fecede1c50ce5f22fd0673992012102188c91a675464d2dc475d4f0 \
+                    1bc8cd60fe418d99142ed1ce5f8ce45a997080d5"
+         },
+         "sequence": 4294967295
+      }
+   ],
+
+
+We want to understand the entire process.
+
+First, to spend the UTXO you need to be the owner of the addres, so verify that:
+
+::
+
+ validateaddress BBz82bHDLKC3CGMHhJtNPbwTAYFGrRT1o6
+ {
+ "isvalid" : true,
+ "address" : "BBz82bHDLKC3CGMHhJtNPbwTAYFGrRT1o6",
+ "ismine" : true,
+ "isscript" : false,
+ "pubkey" : "02188c91a675464d2dc475d4f01bc8cd60fe418d99142ed1ce5f8ce45a997080d5",
+ "iscompressed" : true
+ }
+
+Note how the validateaddress command also shows the public key and this is the second part in the "asm” string in the spending transaction. You can also verify that this address does indeed correspond to this public key: https://en.bitcoin.it/wiki/Base58Check_encoding#Creating_a_Base58Check_string
+
+Next, validate the public key to hash transformation, ripemd160(sha256(publickey)) using python:
+
+::
+
+ >>> import hashlib
+ >>> publickey = '02188c91a675464d2dc475d4f01bc8cd60fe418d99142ed1ce5f8ce45a997080d5' \
+                 .decode('hex')
+ >>> s = hashlib.new('sha256',    publickey).digest()
+ >>> r = hashlib.new('ripemd160', s        ).digest()
+ >>> s.encode('hex')
+ '7c8edaf5fe99c4729e8903271fb5f0f34fdf3e461c4db1890b298b3807964505'
+ >>> r.encode('hex')
+ '52a7c9d832b31c044faa63782ef252e7a4a34291'
+ >>> 
+
+or in R, not so subtle:
+
+::
+
+ > public<-"02188c91a675464d2dc475d4f01bc8cd60fe418d99142ed1ce5f8ce45a997080d5"
+ > as.character(ripemd160(sha256(as.raw(strtoi(sapply(seq(1, nchar(public), by=2), \
+                function(x) substr(public, x, x+1)), 16L)))))
+ [1] "52a7c9d832b31c044faa63782ef252e7a4a34291"
+
+
+The final action is to validate the signature, which was the first part of the "asm” string in the spending transaction, i.e.
+
+:: 
+ 
+  3044022050587d300d060b912526164f24b1e24897ed9822b1d23fce9a7c103e1c6b3d2102202b42a536a8 \
+  2582ac26495c3a3f5c34add4c1aa2fecede1c50ce5f22fd067399201 
+
+This is validated using ``OP_CHECKSIG`` which is the last operation in the locking script. This opcode takes the two values left on the stack, namely the signature and the public key, and validates the signature. The process is fairly involved but can be found here: https://en.bitcoin.it/wiki/OP_CHECKSIG
+
+These various parts of the spending transaction can be reasonably easily found in the hex output from ``getrawtransaction`` as follows:
+
+::
+
+ getrawtransaction 08a5430a667a700e7b913d1895908c56d035559cd32a999a5c8cd56f409f4d15
+ 0100000001e121f5c5981dfa8a87b442f21167e4a481758081c526d39a511c10beb918e0de \
+ 000000006a473044022050587d300d060b912526164f24b1e24897ed9822b1d23fce9a7c10 \
+ 3e1c6b3d2102202b42a536a82582ac26495c3a3f5c34add4c1aa2fecede1c50ce5f22fd067 \
+ 3992012102188c91a675464d2dc475d4f01bc8cd60fe418d99142ed1ce5f8ce45a997080d5 \
+ ffffffff0200f2052a010000001976a91401227043367a947a0754e44f0c0da197cc1d929d \
+ 88ac00ca9a3b000000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac00000000
+
+.. image:: http://tutor-web.net/comp/crypto251.0/images/getrawtransaction.png
+   :height: 100px
+   :scale: 200 %
+   :alt: alternate text
+   :align: right
+
+
+The signature part is seen in green and the public key is given in blue. 
+
+As this is the spending transaction it will send outputs to new addresses. The corresponding opcodes are highlighted in yellow: 76=OP_DUP, a9=OP_HASH160, 88=OP_EQUALVERIFY and ac=OP_CHECKSIG. All of these can be found at https://en.bitcoin.it/wiki/Script. Right after each 0xa9, one can see 0x14 (=20 decimal) followed by 20 bytes of data, these being the hashed public keys for the new recipients.
+
+Finally, look carefully at the hex code again and you will find the string 00f2052a01 which contains the byte representation of the amount, in **reverse byte order**, so to evaluate the amount, take the reversed hex notation, 0x012a05f200, and convert this to decimal (in R) ::
+
+ 0x012a05f200
+ [1] 5e+09
+
+These amounts are given in units of :math:`10^{-8}` SMLY (Smile-oshi?), so these are 50 SMLY, as can be seen by looking at 
+https://chainz.cryptoid.info/smly/tx.dws?08a5430a667a700e7b913d1895908c56d035559cd32a999a5c8cd56f409f4d15.htm
+
+This can also be computed directly using the algorithm to go from base 16 to base 10:
+
+::
+
+           0    1    2       a     0     5      f     2     0     0
+ > ((((((((0*16+1)*16+2)*16+10)*16+0)*16+5)*16+15)*16+2)*16+0)*16+0
+ [1] 5e+09
+
+The other amount is coded as the string 
+``00ca9a3b00000000``
+which amounts to 
+``0x3b9aca00`` 
+or 10 SMLY.
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec30000/sl30060
+A more detailed look at P2SH
+============================
+
+A case study in P2SH is given below in the form of using a **multisig address**
+
+Several tutorials are available on this topic
+
+https://www.soroushjp.com/2014/12/20/bitcoin-multisig-the-hard-way-understanding-raw-multisignature-bitcoin-transactions/
+Handout
+-------
+
+A detailed explanation of using a multisig address, from setting up through generating the address to deposits and spending.
+
+Example
+-------
+
+The addresses are generated on three Linux computers using the command
+
+``smileycoin-cli getnewaddress``
+
+on each computer separately.
+
+In this case study the following 3 addresses were obtained, belonging to wallets on 3 different computers
+::
+
+ BTU58m57Jo61jU3WeWujPj2aZ9LEYLnpYd
+ BP6AsFWQHPggnXNYTLssykopsx6r3y2Qnh
+ B66UXukGkPCgasKp9nVTwb93K7XGMzvjTX
+
+
+By running 
+``validateaddress``
+on each computer, the corresponding public key is also shown.
+
+For example, the 
+``validateaddress``
+command on computer 1 resulted in the following output:
+::
+
+ smileycoind validateaddress BTU58m57Jo61jU3WeWujPj2aZ9LEYLnpYd
+ {
+    "isvalid" : true,
+    "address" : "BTU58m57Jo61jU3WeWujPj2aZ9LEYLnpYd",
+    "ismine" : true,
+    "isscript" : false,
+    "pubkey" : "03971fbd962c5b61432efecf07dbf69f93653ea8a14cc104dc71700e7874c63646",
+    "iscompressed" : true,
+    "account" : ""
+ }
+
+Note that requesting this exact
+``validateaddress``
+on another computer will not give the public key, which will be required later. Thus the
+``validateaddress``
+command needs to be executed on each of the three computers.
+
+In our example we obtain::
+
+ Address                            - Public key
+ BTU58m57Jo61jU3WeWujPj2aZ9LEYLnpYd - 03971fbd962c5b61432efecf07dbf69f93653ea8a14cc104dc71700e7874c63646
+ BP6AsFWQHPggnXNYTLssykopsx6r3y2Qnh - 02b416988c8f209b4ccddb96132685882932405641bac69ba3cae38dd21f619983
+ B66UXukGkPCgasKp9nVTwb93K7XGMzvjTX - 0380304a74398b04af944831a4e51c41cc0c9f29d4b25f6530976d46db3fee65df
+
+Normally the process would involve three different individuals as it is usually of importance that the three signatures be independent. Thus no one person should know all private keys nor have access to the three
+wallets.
+
+At this stage we have all the information to set up a 
+``multisig address``
+where two of the three signatures are required for spending.
+
+We have two methods for generating the address. The first and simpler is 
+``addmultisigaddress``::
+
+ smileyCoin/src/smileycoin-cli addmultisigaddress 2 \
+ '["0380304a74398b04af944831a4e51c41cc0c9f29d4b25f6530976d46db3fee65df",\
+ "02b416988c8f209b4ccddb96132685882932405641bac69ba3cae38dd21f619983",\
+ "03971fbd962c5b61432efecf07dbf69f93653ea8a14cc104dc71700e7874c63646"]'
+ **3KZ98MnX4Uzv7hcQNyA5QfMaGCqLvbF3Sp**
+
+The output from the command is the "multisig address" or "script hash", **3KZ98MnX4Uzv7hcQNyA5QfMaGCqLvbF3Sp**.
+
+Note that the backslashes are not a part of the command, which should be all on one line. 
+
+Note also that all three public keys are used when generating the 
+address, which is not a traditional address but a hash which can receive payments just like a regular address.
+
+
+The second method is to use the 
+``createmultisig`` 
+command. This is very similar::
+
+ smileycoin-cli createmultisig 2 
+ '["0380304a74398b04af944831a4e51c41cc0c9f29d4b25f6530976d46db3fee65df",\
+   "02b416988c8f209b4ccddb96132685882932405641bac69ba3cae38dd21f619983",\
+   "03971fbd962c5b61432efecf07dbf69f93653ea8a14cc104dc71700e7874c63646"]'
+
+but provides more output, which will be used later::
+
+ {
+    "address" : "3KZ98MnX4Uzv7hcQNyA5QfMaGCqLvbF3Sp",
+    "redeemScript" : "52210380304a74398b04af944831a4e51c41cc0c9f29d4b25f6530976d46db\
+                      3fee65df2102b416988c8f209b4ccddb96132685882932405641bac69ba3ca\
+                      e38dd21f6199832103971fbd962c5b61432efecf07dbf69f93653ea8a14cc1\
+                      04dc71700e7874c6364653ae"
+ }
+
+Note that the 
+``redeemScript``
+is on one line but is merely printed here on multiple lines (as indicated by the backslash, the continuation symbol).
+
+The redeemScript will be used later, when we will find a way to spend from the address.
+
+Also note that the multisig address is the same as before: If you use the same three public keys and request the same number of signatures, then the same address is generated.
+ 
+Now, note that the address is valid on all machines, but it is only “mine” on machines which know how it was generated, as seen in this session on another one of the three::
+
+ smileycoin-cli validateaddress 3KZ98MnX4Uzv7hcQNyA5QfMaGCqLvbF3Sp
+ {
+ "isvalid" : true,
+ "address" : "3KZ98MnX4Uzv7hcQNyA5QfMaGCqLvbF3Sp",
+ "ismine" : false
+ }
+
+Now we can send to this "address"::
+ smileyCoin/src/smileycoind sendtoaddress 3KZ98MnX4Uzv7hcQNyA5QfMaGCqLvbF3Sp 1000
+ f05d1c98d761f1b53727436c2b168bcb4f4e17e92779d065a8ca928f17089e60
+
+The transaction Id can be viewed by using 
+``getrawtransaction``
+followed by
+``decoderawtransaction`` ::
+
+ smileyCoin/src/smileycoind  decoderawtransaction \
+ 010000000113adb392c276310901597edfdae180cdaa60f71bcbe1148419e27b\
+ dc6718bf20000000006a47304402204d1ffe1c1d6d03d03912e6ecc495ff1172\
+ cc61530e17402d436069a6afa33b0a0220036436af1c0d60af4973b07d5e54c8\
+ ad8830ecb4686354e6cd71a8e766975338012103a75b127dcb90966b99ae8951\
+ ac83b6fb57752f80138125042d14cafeac8e0cd1ffffffff0200e87648170000\
+ 0017a914c3f4f3243886b8ed77a9d4d464d27be55ae7000b8700ff0f270b0000\
+ 001976a91462745ef11b10e42f05799d1ea6e1289537d52cf388ac00000000
+ {
+    "txid" : "f05d1c98d761f1b53727436c2b168bcb4f4e17e92779d065a8ca928f17089e60",
+    "version" : 1,
+    "locktime" : 0,
+    "vin" : [
+        {
+            "txid" : "20bf1867dc7be2198414e1cb1bf760aacd80e1dadf7e5901093176c292b3ad13",
+            "vout" : 0,
+            "scriptSig" : {
+                "asm" : "304402204d1ffe1c1d6d03d03912e6ecc495ff1172cc61530e17402d436069a6\ 
+                         afa33b0a0220036436af1c0d60af4973b07d5e54c8ad8830ecb4686354e6cd71a8e76697533801 
+                         03a75b127dcb90966b99ae8951ac83b6fb57752f80138125042d14cafeac8e0cd1",
+                "hex" : "47304402204d1ffe1c1d6d03d03912e6ecc495ff1172cc61530e17402d436069\
+                         a6afa33b0a0220036436af1c0d60af4973b07d5e54c8ad8830ecb4686354e6cd\
+                         71a8e766975338012103a75b127dcb90966b99ae8951ac83b6fb57752f801381\
+                         25042d14cafeac8e0cd1"
+            },
+            "sequence" : 4294967295
+        }
+    ],
+    "vout" : [
+        {
+            "value" : 1000.00000000,
+            "n" : 0,
+            "scriptPubKey" : {
+                "asm" : "OP_HASH160 c3f4f3243886b8ed77a9d4d464d27be55ae7000b OP_EQUAL",
+                "hex" : "a914c3f4f3243886b8ed77a9d4d464d27be55ae7000b87",
+                "reqSigs" : 1,
+                "type" : "scripthash",
+                "addresses" : [
+                    "3KZ98MnX4Uzv7hcQNyA5QfMaGCqLvbF3Sp"
+                ]
+            }
+        },
+        {
+            "value" : 479.00000000,
+            "n" : 1,
+            "scriptPubKey" : {
+                "asm" : "OP_DUP OP_HASH160 62745ef11b10e42f05799d1ea6e1289537d52cf3 OP_EQUALVERIFY OP_CHECKSIG",
+                "hex" : "76a91462745ef11b10e42f05799d1ea6e1289537d52cf388ac",
+                "reqSigs" : 1,
+                "type" : "pubkeyhash",
+                "addresses" : [
+                    "BDRfF71aUNzBWdgw3f7W8Ai1pwF7DVPiC8"
+                ]
+            }
+        }
+    ]
+ }
+
+
+Check the amount in the P2SH address:
+https://chainz.cryptoid.info/smly/address.dws?3KZ98MnX4Uzv7hcQNyA5QfMaGCqLvbF3Sp.htm
+
+**Creating the raw transaction**
+
+Recall that the UTXO is::
+ vout: 0 
+ txid: f05d1c98d761f1b53727436c2b168bcb4f4e17e92779d065a8ca928f17089e60
+
+and this needs to be specified in the transaction.
+
+Now we are all set to try to spend the funds::
+
+ createrawtransaction '[{"txid":"f05d1c98d761f1b53727436c2b168bcb4f4e17e92779d065a8ca928f17089e60","vout":0}]' \
+                      '{"BNVZ3mJ2jadZtEfT8wyw6ttHVuZFos9Vw3":100,"3KZ98MnX4Uzv7hcQNyA5QfMaGCqLvbF3Sp":899}'
+
+ 0100000001609e08178f92caa865d07927e9174e4fcb8b162b6c432737b5f161d7981c5df00000000000\
+ ffffffff0200e40b54020000001976a914c5e9feb90ddcd06bb538ec87ab13643121b5131388ac002375\
+ ee1400000017a914c3f4f3243886b8ed77a9d4d464d27be55ae7000b8700000000
+
+Alternatively we may be on a machine which does not know about the redeemScript and then we need to provide it, aka Gavin Andersen::
+
+ smileycoin-cli createrawtransaction \
+ '[{"txid":"f05d1c98d761f1b53727436c2b168bcb4f4e17e92779d065a8ca928f17089e60",\
+    "vout":0,\
+    "scriptPubKey":"a914c3f4f3243886b8ed77a9d4d464d27be55ae7000b87",\
+    "redeemScript":"52210380304a74398b04af944831a4e51c41cc0c9f29d4b\
+                    25f6530976d46db3fee65df2102b416988c8f209b4ccddb\
+                    96132685882932405641bac69ba3cae38dd21f619983210\
+                    3971fbd962c5b61432efecf07dbf69f93653ea8a14cc104\
+                    dc71700e7874c6364653ae"}]' \
+  '{"BNVZ3mJ2jadZtEfT8wyw6ttHVuZFos9Vw3":100,"3KZ98MnX4Uzv7hcQNyA5QfMaGCqLvbF3Sp":899}'
+
+and this gives a fully constructed transaction as before::
+
+ 0100000001609e08178f92caa865d07927e9174e4fcb8b162b6c432737b5f161d\
+ 7981c5df00000000000ffffffff0200e40b54020000001976a914c5e9feb90ddc\
+ d06bb538ec87ab13643121b5131388ac002375ee1400000017a914c3f4f324388\
+ 6b8ed77a9d4d464d27be55ae7000b8700000000
+
+This transaction needs to be signed by at least two of the three address-holders.
+
+**User 1**::
+
+ pi@raspberrypi ~ $ smileyCoin/src/smileycoind signrawtransaction 
+ 0100000001609e08178f92caa865d07927e9174e4fcb8b162b6c432737b5f161d7981c5df00000000000ffffffff0200e40b54020000001976a914c5e9feb90ddcd06bb538ec87ab13643121b5131388ac002375ee1400000017a914c3f4f3243886b8ed77a9d4d464d27be55ae7000b8700000000
+ {
+    "hex" : "0100000001609e08178f92caa865d07927e9174e4fcb8b162b6c432737b5f161d7981c5df000000000b500483045022100ad97bd7a35043187ac1972db1127f3fd74e63f5e3b2a1c660bff29a62ffb786a02201853bddb9ff92c96e5a09b442455b39234de898e03ac8516717c43f0ac6e7190014c6952210380304a74398b04af944831a4e51c41cc0c9f29d4b25f6530976d46db3fee65df2102b416988c8f209b4ccddb96132685882932405641bac69ba3cae38dd21f6199832103971fbd962c5b61432efecf07dbf69f93653ea8a14cc104dc71700e7874c6364653aeffffffff0200e40b54020000001976a914c5e9feb90ddcd06bb538ec87ab13643121b5131388ac002375ee1400000017a914c3f4f3243886b8ed77a9d4d464d27be55ae7000b8700000000",
+    "complete" : false
+ }
+
+**User 2** ::
+
+ signrawtransaction 
+ 0100000001609e08178f92caa865d07927e9174e4fcb8b162b6c432737b5f161d7981c5df000000000b500483045022100ad97bd7a35043187ac1972db1127f3fd74e63f5e3b2a1c660bff29a62ffb786a02201853bddb9ff92c96e5a09b442455b39234de898e03ac8516717c43f0ac6e7190014c6952210380304a74398b04af944831a4e51c41cc0c9f29d4b25f6530976d46db3fee65df2102b416988c8f209b4ccddb96132685882932405641bac69ba3cae38dd21f6199832103971fbd962c5b61432efecf07dbf69f93653ea8a14cc104dc71700e7874c6364653aeffffffff0200e40b54020000001976a914c5e9feb90ddcd06bb538ec87ab13643121b5131388ac002375ee1400000017a914c3f4f3243886b8ed77a9d4d464d27be55ae7000b8700000000
+
+ {
+ "hex" : "0100000001609e08178f92caa865d07927e9174e4fcb8b162b6c432737b5f161d7981c5df000000000fdfe0000483045022100b3c3d230fa677230b05f352a1c5481d4ad6792e579f2d559069563ad412c3ebd02207c5cf419d4a2a5fb242d840491b664ba69ae5fd2547adb790b7c9b1aa8ff34e801483045022100ad97bd7a35043187ac1972db1127f3fd74e63f5e3b2a1c660bff29a62ffb786a02201853bddb9ff92c96e5a09b442455b39234de898e03ac8516717c43f0ac6e7190014c6952210380304a74398b04af944831a4e51c41cc0c9f29d4b25f6530976d46db3fee65df2102b416988c8f209b4ccddb96132685882932405641bac69ba3cae38dd21f6199832103971fbd962c5b61432efecf07dbf69f93653ea8a14cc104dc71700e7874c6364653aeffffffff0200e40b54020000001976a914c5e9feb90ddcd06bb538ec87ab13643121b5131388ac002375ee1400000017a914c3f4f3243886b8ed77a9d4d464d27be55ae7000b8700000000",
+ "complete" : true
+ }
+
+Note how the second signature generates a valid transaction (complete=true).
+
+This transaction is seen as
+
+https://chainz.cryptoid.info/smly/tx.dws?b781767195aec4ecf0f0aa0dca550c5ecd8fd90f6617b7eec8cdd7beb2256e68.htm
