@@ -1,0 +1,152 @@
+Automation on the blockchain  (stores, ATM, gambling etc)
+*********************************************************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec26000/sl26010
+Doing stuff on the blockchain
+=============================
+
+The blockchain can be used for a lot more than transactions:
+
+* Sending data, using the data fields
+* Coding data into the amounts
+* Monitoring transactions
+* Executing code as a response to transactions
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec26000/sl26020
+So how do you do stuff?
+=======================
+
+Method 1: the config file...
+
+option to monitor incoming transactions:
+
+``walletnotify=/home/user/bin/command %s``
+
+code everything into the transactions
+
+Benefits: No changes to the wallets
+
+Method 2: Change the wallet, add wallet commands
+
+Benefits: No changes to the protocol
+
+Method 3: Change the protocol
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec26000/sl26030
+Gambling on the blockchain
+==========================
+
+**basics...**
+
+``sendtoaddress BCJW4iZw7PechFHgtqqSdHmymjnFA6LjNJ 10``
+
+etc
+
+vanity address: Betzy...
+
+``sendtoaddress BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik 10``
+
+... needs to be written up
+
+See https://steemit.com/blockchain/@gstefans/double-or-nothing-on-the-blockchain
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec26000/sl26040
+Messages on the blockchain
+==========================
+
+See github thread sendwithmessage for Smileycoin
+
+Can send messages by coding it into the blockchain
+
+``smileycoin-cli sendwithmessage BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik 1000 "Hello, Betzyy"``
+
+See transaction ``daf75d1ae31877b51856b4dee931600a5a5db819f52a5d98627f8a070a72b723``:
+
+https://chainz.cryptoid.info/smly/search.dws?q=daf75d1ae31877b51856b4dee931600a5a5db819f52a5d98627f8a070a72b723
+
+Note how the coding uses ASCII characters 32-128 (0x20-0x7F), requiring 2 bytes per character, see http://www.asciitable.com/ (subtracting 32 dec from each ASCII code)
+
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec26000/sl26050
+A very simple ATM on the blockchain
+===================================
+
+An Automatic Teller Machine, ATM, dispenses money when you put in a credit card.
+
+An ATM could also dispense Euro when you put in USD.
+
+A blockchain ATM could dispense SMLY when you put in LTC.
+
+For this you need to use two chains, the LTC and SMLY chains. 
+
+* To "put in LTC" means to send LTC to an address. 
+* To "dispense SMLY" means to send SMLY to a SMLY address.
+
+For this to work (1) the ATM needs to have a LTC address and (2) the ATM needs to be told about a SMLY address.
+
+This can be done by sending a SMLY address encoded in a LTC transaction.
+
+For more info see
+
+https://steemit.com/blockchain/@gstefans/more-messing-around-with-the-blockchain-an-atm-for-smly
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec26000/sl26060
+A more elaborate ATM on the blockchain
+======================================
+
+for more info see
+
+
+https://steemit.com/crypto/@gstefans/on-line-atm-looking-for-testers
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec26000/sl26070
+Traditional data
+================
+
+Normal use is through the op return
+
+usually limited to 80 characters, but see
+
+https://bitcoin.stackexchange.com/questions/78572/op-return-max-bytes-clarification
+
+and example belowExamples
+--------
+
+
+Example of the use of the data field in a SmileyCoin transaction:
+
+::
+
+  createrawtransaction 
+    '[{"txid":"b99f638e3a2763f55dba9515382ba6a9f23f6789989660bb893047430c335105",
+       "vout":0}]' 
+    '{"BQLegZNT2hid77hNXgyFK1vZJ1BU2AvcdV":9,
+      "data":"31313131"}'
+
+The reader should try to generate several such transactions to see exactly what changes in the hex code by 
+including strings of different lengths. 

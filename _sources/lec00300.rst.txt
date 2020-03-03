@@ -1,0 +1,93 @@
+Picking up a wallet
+*******************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00300/sl00310
+Single-coin vs multi-coin wallets
+=================================
+
+Most cryptocurrency wallets are designed to handle a **single coin**.
+
+**Multi-coin wallets** are used to handle **multiple currencies**.
+
+A multi-coin wallet may assist the user in converting from one currency to another.
+
+The usual single-coin wallets store the user's keys and addresses and keep track of the coins associated with each address.
+
+`Video explanations are available <https://www.youtube.com/watch?v=gpyV7_zGarg&index=7&list=PLzTQcKBiNWB3E7nh5egXI_PaHW1MLnXy8>`_ 
+Handout
+-------
+
+A popular multicoin wallet is the Coinomi wallet.
+
+All coins also have dedicated wallets for desktop/laptop computer.
+
+Some coins have HTML5-wallets. This is code which implements the wallet as a web-page in a browser.
+
+All of the above are implemented for SmileyCoin.
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00300/sl00320
+Smileycoin wallets
+==================
+
+The reference (core) wallet for Smileycoin is available for 
+
+ * Linux (as source code)
+ * Windows  (as binary)
+ * OS X (as binary, for Mac) 
+
+from  https://tutor-web.info/smileycoin/download
+
+ * Android users should choose the Coinomi wallet.
+ * The Coinomi wallet is also available for iOS.
+
+ * An HTML5 wallet is also available at https://wallet.smileyco.in
+
+(for detail, see handout)Handout
+-------
+
+The reference (core) wallet for Smileycoin is available for several operating systems.
+
+ * Linux: This is only made available as source code. It should be ready to compile and install for Ubuntu. Components may need to be installed for other Linux versions.
+ * Windows: Only a binary version is made available.  This is typically a bit behind the Linux version.
+ * OSX: A binary version is available. This is typically a bit behind the Linux version.
+
+Directions on where to pick these up can be found at  https://tutor-web.info/smileycoin/download
+
+For tablets and phones a Coinomi wallet is available (Android and iOS). Searching for Coinomi in the appropriate store should work.
+
+An HTML5 wallet is also available at https://wallet.smileyco.in and runs directly in the browser. Be specially careful to store the passphrase. This can be used for several experimental testing projects.
+
+**Warning:** The core wallet needs to be used for any projects in the course which refer to the BASE address. Any of the versions (Linux, Mac, Windows) can in principle be used.
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00300/sl00330
+Overview
+========
+
+Homework: Pick up a wallet to use (WIN, MAC, Linux)
+
+UI: Import the private key issued as a part of the course
+
+See the handout for the homework task
+Handout
+-------
+
+The first thing to do is to obtain a wallet and start experimenting with it. The primary wallet should be one for Windows, Mac OSX or Linux.
+
+Students enrolled in the cryptocurrency course at the University of Iceland will receive a private key.
+
+This key should be imported into the primary wallet. Several of the exercises will refer to the private key or address.
+
+**UI students:** Exercises are listed in a single place in a Google doc. They are also listed individually in handouts such as this one. If there are conflict between descriptions of exercises/homework, the Google document is correct.
+
+**Task 0:** Solve some exercises somewhere in the tutor-web to earn some SMLY&have them sent to the base address (UI students: see also the Google doc). This task will be listed as **solved** once the base address has received funds from the tutor-web wallet.

@@ -1,0 +1,230 @@
+The transaction
+***************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01400/sl01410
+Background
+==========
+
+The concept of a transaction as a description of transfer of funds is simple but not enough
+
+How does one guarantee that the funds are not sent twice?
+
+How does one ensure that the sender is authorised to spend the funds?
+
+To see how this is done we need to look inside the transactions and study their structure
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01400/sl01420
+A typical transaction
+=====================
+
+Consider a specific SMLY transaction, eg ``e870614afe3cb9fde97566b024a72f11d22ce08dbd89a971655b15f71d6e203b``
+which can be seen in block 332353, at 
+
+https://chainz.cryptoid.info/smly/block.dws?33e1da4929acfa4cbf2dceb28f469c5179e67077a9642a6c9e2e3bfe590cce1a.htm
+
+A summary of the transaction is given at
+
+https://chainz.cryptoid.info/smly/tx.dws?e870614afe3cb9fde97566b024a72f11d22ce08dbd89a971655b15f71d6e203b.htm
+
+but we want to see some of the detail.
+
+.. image:: http://tutor-web.net/comp/crypto251.0/images/trans-full.png
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01400/sl01430
+Inside the transaction: The output
+==================================
+
+Consider the outputs from transaction e870614afe3cb9fde97566b024a72f11d22ce08dbd89a971655b15f71d6e203b
+
+.. image:: http://tutor-web.net/comp/crypto251.0/images/trans-full-vout.png
+
+
+The outputs form two UTXOs: "n"=0 og "n"=1 
+
+These can later be referenced, e.g. as UTXO n=0 from Tx=e870614afe3cb9fde97566b024a72f11d22ce08dbd89a971655b15f71d6e203b
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01400/sl01440
+Inside the transaction: The input
+=================================
+
+TxId: e870614afe3cb9fde97566b024a72f11d22ce08dbd89a971655b15f71d6e203b
+
+.. image:: http://tutor-web.net/comp/crypto251.0/images/trans-full-vin.png
+
+
+The input is only defined as an older output, which has not been spent, UTXO, as the following components:
+
+* Start of input description: vin
+* The input transaction refers to an older transaction: TxId
+* "vout" refers to a numbered output ("n") in that transaction
+* NB: The amount is not listed!
+* NB: The address is not listed!
+
+So the input to our transaction is output number 0 from transaction cc3b743938e485578315b2f6848c1a416c917585ea2f75d5d3e09f21a95008b0
+
+We can verify by looking up that UTXO.
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01400/sl01450
+The UTXO
+========
+
+We have seen that 
+
+* the input to transaction e870614afe3cb9fde97566b024a72f11d22ce08dbd89a971655b15f71d6e203b is 
+* the UTXO from transaction cc3b743938e485578315b2f6848c1a416c917585ea2f75d5d3e09f21a95008b0.
+
+To verify this we can look up that UTXO as seen in the handout.Handout
+-------
+
+To verify this we can look up that UTXO and we find
+
+.. image:: http://tutor-web.net/comp/crypto251.0/images/trans-cc3b.png
+
+or specifically 
+
+.. image:: http://tutor-web.net/comp/crypto251.0/images/trans-cc3b-zoom.png
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01400/sl01460
+Keys
+====
+
+Cryptocurrencies use cryptographic keys
+
+For example, ownership is demonstrated using a combination of keys and addresses
+
+ * public-private key pairs
+ * Private key -> public key -> address
+
+This will be explained in more detail later.
+
+* An address can be freely distributed
+* The private key is never disclosed
+* A transaction can be signed using the private key
+* A signature can be **verified** using the public key
+* The public key is only disclosed when a transaction is spent
+
+A **spending transaction** publishes the public key and a signature.
+
+Handout
+-------
+
+A **private key** is just a string of random numbers.
+
+A **public key** is generated from the private key.
+
+An **address** is generated from the public key.
+
+A good description of the process is available:
+
+https://en.bitcoin.it/wiki/Technical_background_of_version_1_Bitcoin_addresses
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01400/sl01470
+Spending the UTXO
+=================
+
+The permission to spend the UTXO is determined by the programming code written into the transaction.
+
+Will be described later in the course, but a short code snippet is seen in every transaction.
+
+It is an incomplete snippet, usually with components of the form
+
+* OP_DUP 
+* OP_HASH160
+* a4d6b6e2e262e97590564a24b523d993765525fb
+* OP_EQUALVERIFY
+* OP_CHECKSIG
+
+
+To spend this UTXO the spending transaction needs to prepend to this another snippet so the combined code can be run and will return "TRUE" and nothing else.
+
+Completion of this particular snippet is done with
+
+* signature
+* public key
+Handout
+-------
+
+See 
+https://en.bitcoin.it/wiki/Script
+for a description of the codes involved.
+
+Note that **OP_HASH160** involves two operations:
+The input is hashed twice: first with SHA-256 and then with RIPEMD-160
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01400/sl01480
+The transaction on the command line
+===================================
+
+Step-by-step example of how to generate, sign, check, announce and inspect a transaction - to be done in detail in class
+
+* ``listunspent``
+* ``createrawtransaction '[{"txid" : "fbd60d37acfb30eba7153db741dce7d1ebf71c0ee0ec8802fba29e865402ba8f", "vout" : 1}]' '{"B79tjNk8oZktdd7DLnznKXu9UA67GMWP9g" : 2000, "BHgx5rehx2Wkx4wME2DXwZAHL7KskUjXmK" : 2499}'``
+* ``signrawtransaction 01000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb0100000000ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac00000000``
+* ``decoderawtransaction 01000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb010000006b483045022100815d96c306cbffb6cd0c0a4b92a72f2c5067b2f389334bcc2e735a1d06cc929f02200526f4b2d9c0f0221354b73974f194e6bb507f85dd8a05561c6eafcd2994fb980121030b71e1d6d9cf28e1111b9b5fa75a0476a8e9925e4ca6c2e1668f01a8bdebe765ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac0000000001000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb0100000000ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac00000000``
+* ``sendrawtransaction 01000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb010000006b483045022100815d96c306cbffb6cd0c0a4b92a72f2c5067b2f389334bcc2e735a1d06cc929f02200526f4b2d9c0f0221354b73974f194e6bb507f85dd8a05561c6eafcd2994fb980121030b71e1d6d9cf28e1111b9b5fa75a0476a8e9925e4ca6c2e1668f01a8bdebe765ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac0000000001000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb0100000000ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac00000000``
+* ``getrawtransaction e98b533cf3290fa58c23074aa0b1e273e25e4756321155e7ad165f2d3ed61760``
+* ``decoderawtransaction 01000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb010000006b483045022100815d96c306cbffb6cd0c0a4b92a72f2c5067b2f389334bcc2e735a1d06cc929f02200526f4b2d9c0f0221354b73974f194e6bb507f85dd8a05561c6eafcd2994fb980121030b71e1d6d9cf28e1111b9b5fa75a0476a8e9925e4ca6c2e1668f01a8bdebe765ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac00000000``
+
+This is just the **how-to**. The next few lectures will go into what is actually going on!
+Handout
+-------
+
+Example of how to generate, sign, check, announce and inspect a transaction
+
+* ``listunspent``
+* ``createrawtransaction '[{"txid" : "fbd60d37acfb30eba7153db741dce7d1ebf71c0ee0ec8802fba29e865402ba8f", "vout" : 1}]' '{"B79tjNk8oZktdd7DLnznKXu9UA67GMWP9g" : 2000, "BHgx5rehx2Wkx4wME2DXwZAHL7KskUjXmK" : 2499}'``
+* ``signrawtransaction 01000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb0100000000ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac00000000``
+* ``decoderawtransaction 01000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb010000006b483045022100815d96c306cbffb6cd0c0a4b92a72f2c5067b2f389334bcc2e735a1d06cc929f02200526f4b2d9c0f0221354b73974f194e6bb507f85dd8a05561c6eafcd2994fb980121030b71e1d6d9cf28e1111b9b5fa75a0476a8e9925e4ca6c2e1668f01a8bdebe765ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac0000000001000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb0100000000ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac00000000``
+* ``sendrawtransaction 01000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb010000006b483045022100815d96c306cbffb6cd0c0a4b92a72f2c5067b2f389334bcc2e735a1d06cc929f02200526f4b2d9c0f0221354b73974f194e6bb507f85dd8a05561c6eafcd2994fb980121030b71e1d6d9cf28e1111b9b5fa75a0476a8e9925e4ca6c2e1668f01a8bdebe765ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac0000000001000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb0100000000ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac00000000``
+* ``getrawtransaction e98b533cf3290fa58c23074aa0b1e273e25e4756321155e7ad165f2d3ed61760``
+* ``decoderawtransaction 01000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb010000006b483045022100815d96c306cbffb6cd0c0a4b92a72f2c5067b2f389334bcc2e735a1d06cc929f02200526f4b2d9c0f0221354b73974f194e6bb507f85dd8a05561c6eafcd2994fb980121030b71e1d6d9cf28e1111b9b5fa75a0476a8e9925e4ca6c2e1668f01a8bdebe765ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac00000000``
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec01400/sl01490
+The UTXO set
+============
+
+The UTXO set has a tendency to increase in size.
+
+For Bitcoin (from https://www.blockchain.com/charts/utxo-count?timespan=all):
+
+
+.. image:: http://tutor-web.net/comp/crypto251.0/images/number-of-unspent-transaction-outputs-blockchain.pngHandout
+-------
+
+The UTXO is one of the basic concepts in Bitcoin and other cryptocurrencies. Each unspent transaction output represents a unit which the holder of a private key can spend.
+
+Each transaction results in one or more UTXO and only these **unspent** outputs can be used as inputs in a subsequent transaction.
+
+A full node verifies transactions and every full node therefore needs to keep track of the entire UTXO set.

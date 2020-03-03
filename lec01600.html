@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Cryptocurrency mining &#8212; Cryptocurrency and the Smileycoin (crypto251.0)  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Cryptography and cryptocurrencies" href="lec02000.html" />
+    <link rel="prev" title="The block and the blockchain" href="lec01500.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="cryptocurrency-mining">
+<h1>Cryptocurrency mining<a class="headerlink" href="#cryptocurrency-mining" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="mining-hashes-and-the-cryptography-puzzle">
+<h2>Mining, hashes and the cryptography puzzle<a class="headerlink" href="#mining-hashes-and-the-cryptography-puzzle" title="Permalink to this headline">¶</a></h2>
+<p>Bitcoin mining uses the hashcash proof of work function; the hashcash algorithm requires the following parameters: a service string, a nonce, and a counter.</p>
+<p>See for example Example: Bitcoin <a class="reference external" href="http://bit.ly/2PXIpYR">http://bit.ly/2PXIpYR</a>.</p>
+<p>and Example: Litecoin <a class="reference external" href="http://bit.ly/2oCpdTZ">http://bit.ly/2oCpdTZ</a>.</p>
+<p>(more later)</p>
+</div>
+<div class="section" id="mining-from-a-wallet">
+<h2>Mining from a wallet<a class="headerlink" href="#mining-from-a-wallet" title="Permalink to this headline">¶</a></h2>
+<p>Desktop mining is not reasonable for Bitcoin, Litecoin or other heavily mined coins.</p>
+<p>It is, however, quite feasible for SmileyCoin (in 2019).</p>
+<p>Most coins have gone through phases where mining is initially done using a computer’s CPU, then a graphics card followed by specialised hardware. In-between, mining pools are typically set up, where miners cooperate on mining a coin and share block rewards and transaction fees.</p>
+<p>Mining outside mining pools is called <strong>solo mining</strong>.</p>
+<p>SmileyCoin is typically still mined by individual computers (in 2019).</p>
+<div class="section" id="handout">
+<h3>Handout<a class="headerlink" href="#handout" title="Permalink to this headline">¶</a></h3>
+<p>Under Linux one can start the SmileyCoin daemon from the command line
+using</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">smileycoind</span> <span class="o">-</span><span class="n">algo</span><span class="o">=</span><span class="n">qubit</span> <span class="o">-</span><span class="n">gen</span> <span class="o">-</span><span class="n">genproclimit</span><span class="o">=</span><span class="mi">1</span> <span class="o">--</span><span class="n">server</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">gen</span></code> command-lin option sets the coin generation to true and <code class="docutils literal notranslate"><span class="pre">genproclimit</span></code> sets the number of cores to be used.</p>
+<p>Alternatively, the options can be put into smileycoin.conf</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">algo</span><span class="o">=</span><span class="n">qubit</span>
+<span class="n">genproclimit</span><span class="o">=</span><span class="mi">4</span>
+</pre></div>
+</div>
+<p>With this configuration file, the actual mining must then be turned on after the daemon is started, using either the command line</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">smileycoin</span><span class="o">-</span><span class="n">cli</span> <span class="n">setgenerate</span> <span class="n">true</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>or a similar command, <code class="docutils literal notranslate"><span class="pre">setgenerate</span> <span class="pre">true</span> <span class="pre">1</span></code> from within the wallet command window. The numeral <code class="docutils literal notranslate"><span class="pre">1</span></code> here refers to the number of cores to be used for mining.</p>
+<p>For laptops it is <strong>essential</strong> to set a bound on the number of cores used by the wallet to avoid overheating the computer.</p>
+<p>Under  Linux the default configuration options are read in from the file</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">smileycoin</span><span class="o">/</span><span class="n">smileycoin</span><span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+<p>under the user’s home directory.</p>
+<p>On the Mac OSX this file is stored as</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Library</span><span class="o">/</span><span class="n">Application</span> <span class="n">Support</span><span class="o">/</span><span class="n">Smileycoin</span><span class="o">/</span><span class="n">smileycoin</span><span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+<p>(beware of the space in the directory name).</p>
+</div>
+</div>
+<div class="section" id="gpu-mining">
+<h2>GPU mining<a class="headerlink" href="#gpu-mining" title="Permalink to this headline">¶</a></h2>
+<p>Screen displays on desktop computers are handled by graphics chips with considerable computing power.</p>
+<p>Graphics cards are dedicated cards, inserted into the computer, to handle complex graphics.</p>
+<p>These graphics cards are much more powerful for mining than is the typical central processing units (CPU) of a computer.</p>
+<p>Generic software is freely available to mine arbitrary coins using such graphics cards.</p>
+<div class="section" id="id1">
+<h3>Handout<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>One popular miner is <code class="docutils literal notranslate"><span class="pre">bfgminer</span></code>, available at <a class="reference external" href="http://bfgminer.org//">http://bfgminer.org//</a> or, on Ubuntu:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">bfgminer</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="mining-using-specialised-hardware-asic-mining">
+<h2>Mining using specialised hardware (ASIC mining)<a class="headerlink" href="#mining-using-specialised-hardware-asic-mining" title="Permalink to this headline">¶</a></h2>
+<p>SmileyCoin can be mined using e.g. the <code class="docutils literal notranslate"><span class="pre">bfgminer</span></code> with a scrypt ASIC.
+Handout
+——-</p>
+<p>For SMLY mining using a Scrypt ASIC, the following has been tested.</p>
+<p>There are 1 or 2 machines involved. The following assumes the (Linux/Win/OSX) wallet runs on one machine and the miner (bfgminer) on another, where the ASIC is hooked up.</p>
+<p>First the wallet machine. In the config file, usually</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">~/.</span><span class="n">smileycoin</span><span class="o">/</span><span class="n">smileycoin</span><span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+<p>on a Linux machine, make sure that you have the two lines</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rpcuser</span><span class="o">=&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">user</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="n">RPC</span><span class="o">&gt;</span>
+<span class="n">rpcpassword</span><span class="o">=&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">password</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="n">RPC</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>where normally one just uses the user and password provided when you set up the wallet. You will need these later, when you connect bfgminer to the wallet.</p>
+<p>Next, you’ll want lines of the following form:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">rpcport</span><span class="o">=</span><span class="mi">14242</span>
+<span class="n">rpcallowip</span><span class="o">=</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span>
+<span class="n">rpcallowip</span><span class="o">=&lt;</span><span class="n">the</span><span class="o">-</span><span class="n">IP</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">the</span><span class="o">-</span><span class="n">mining</span><span class="o">-</span><span class="n">computer</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>so for example, if your (bfg)miner is on the local area network with IP 192.168.1.57 then that is what you insert here so the wallet accepts incoming calls from that machine.</p>
+<p>Also, make a note of the name or IP of the wallet computer.</p>
+<p>Once you have this set up, make sure the wallet is running. Under Linux it’ll be something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">smileycoind</span> <span class="o">--</span><span class="n">server</span> <span class="o">&amp;</span>
+</pre></div>
+</div>
+<p>Next, the machine where bfgminer runs (where the ASIC is connected). Here it should be enough to just run bfgminer off the command line. The settings for bfgminer are highly dependent on the ASIC you are using. The following are the settings for a particular Scrypt ASIC (entire command should go on one line):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bfgminer</span> <span class="o">--</span><span class="n">scrypt</span>
+    <span class="o">-</span><span class="n">o</span> <span class="n">http</span><span class="p">:</span><span class="o">//&lt;</span><span class="n">walletmachine</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">14242</span>
+    <span class="o">-</span><span class="n">u</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">user</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="n">RPC</span><span class="o">&gt;</span>
+    <span class="o">-</span><span class="n">p</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">password</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="n">RPC</span><span class="o">&gt;</span>
+    <span class="o">-</span><span class="n">S</span> <span class="n">ALL</span>
+    <span class="o">--</span><span class="nb">set</span> <span class="n">MLD</span><span class="p">:</span><span class="n">clock</span><span class="o">=</span><span class="mi">600</span>
+</pre></div>
+</div>
+<p>where &lt;your-user-for-RPC&gt; is usually set to “smileycoinrpc” by default for the SMLY wallet and &lt;your-password-for-RPC&gt; is usually set to a long string generated at startup. You may have replaced both so make sure to check how the wallet is set up (smileycoin.conf above).</p>
+<p>Similarly, &lt;walletmachine&gt; needs to be replaced by whatever you call the computer where you run the wallet.</p>
+<p>The port here is 14242. The number is largely irrelevant, but it needs to be the same in the wallet config file as on the bfgminer command line (or the bfgminer config file). It should probably be a high number so that it does not interfere with system ports or priviliges.</p>
+<p>This particular setup was tested on a small USB-stick miner, the Futurebit Moonlander 2.0, obtained in 2017 from
+<a class="reference external" href="https://asicpuppy.com/magentoPuppy/index.php/fbmoonlander.html">https://asicpuppy.com/magentoPuppy/index.php/fbmoonlander.html</a></p>
+<p>For that hardware you may or may not need a specias version of bfgminer: <a class="reference external" href="https://bitcointalk.org/index.php?topic=2420357.0">https://bitcointalk.org/index.php?topic=2420357.0</a></p>
+<p>The above text is slightly updated from <a class="reference external" href="https://bitcointalk.org/index.php?topic=845761.msg30195287">https://bitcointalk.org/index.php?topic=845761.msg30195287</a></p>
+</div>
+<div class="section" id="mining-using-a-small-asic">
+<h2>Mining using a small ASIC<a class="headerlink" href="#mining-using-a-small-asic" title="Permalink to this headline">¶</a></h2>
+<p>This is for the Futurebit Moonlander 2
+Handout
+——-</p>
+<p>One may need to install <a class="reference external" href="https://www.futurebit.io/moonlander-2-support">additional Futurebit software</a>, in addition to bfgminer and the SMLY wallet.</p>
+</div>
+<div class="section" id="which-hashes-and-how">
+<h2>Which hashes and how<a class="headerlink" href="#which-hashes-and-how" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>Handout<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Hash functions are used in several places, from inside the script programming language through solving cryptographic puzzles as proof-of-work to linking the blocks.</p>
+<p>The best-known use of hashing is in the cryptographic puzzle which is solved as proof-of-work to generate a valid block.</p>
+<p>The transactions in a block are summarised into a single hash using <strong>merkle trees</strong>, combined with a <strong>nonce</strong> and <strong>hashed</strong>.</p>
+<p>The most common hash function is <strong>sha256d</strong>, described in detail in
+<a class="reference external" href="https://csrc.nist.gov/publications/detail/fips/180/4/final">https://csrc.nist.gov/publications/detail/fips/180/4/final</a></p>
+<p>Note that it is not essential for the same hash function to be used for proof-of-work as for linking the blocks.</p>
+<p>Several other hash functions are used for Bitcoin transactions and even more are used for multi-algo coins such as SmileyCoin and Auroracoin.</p>
+<p><strong>more detail needed</strong></p>
+</div>
+</div>
+<div class="section" id="the-mining-algorithm">
+<h2>The mining algorithm<a class="headerlink" href="#the-mining-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>sha256d</strong> mining algorithm</p>
+<div class="section" id="id3">
+<h3>Handout<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>From <a class="reference external" href="https://en.bitcoin.it/wiki/Getwork">https://en.bitcoin.it/wiki/Getwork</a></p>
+<p>calculate:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">hash</span> <span class="o">=</span> <span class="n">SHA256</span><span class="p">(</span><span class="n">SHA256</span><span class="p">(</span><span class="n">EndianFlipForEach32Bits</span><span class="p">(</span><span class="n">First80BytesOf</span><span class="p">(</span><span class="n">data</span><span class="p">))))</span>
+</pre></div>
+</div>
+<p>If that meets the difficulty, you win (generated a block or share)!</p>
+<p>If not, increment the Nonce that is a number stored in portion of the data that starts 608 bits in (bytes 76 to 79), and try again.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Cryptocurrency and the Smileycoin (crypto251.0)</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lec00100.html">Introduction to cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00200.html">Bitcoin and Smileycoin basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00300.html">Picking up a wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00400.html">Compiling the wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00500.html">Introduction to the SMLY command line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01200.html">Basic cryptocurrency economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01400.html">The transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01500.html">The block and the blockchain</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cryptocurrency mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02000.html">Cryptography and cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02100.html">Hash function introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02200.html">Elliptic curves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03000.html">The trilogy: tutor-web, Smileycoin and Education in a Suitcase</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03100.html">The SmileyCoin Fund</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03200.html">Splitting the coinbase: No longer just a miner’s fee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03400.html">Staking and proof-of-stake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03500.html">The tutor-web as a faucet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec04000.html">The command line from a Linux script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec04500.html">Building slightly more complex transactions on the command line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec15000.html">Cryptocurrency exchanges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec15500.html">API access to exchanges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec26000.html">Automation on the blockchain  (stores, ATM, gambling etc)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec30000.html">The Bitcoin programming language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec30100.html">Fun and games with Bitcoin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec31000.html">The SmileyCoin Fund revisited</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec47000.html">Atomic swaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec47100.html">More on atomic swaps and smart contracts</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="lec01500.html" title="previous chapter">The block and the blockchain</a></li>
+      <li>Next: <a href="lec02000.html" title="next chapter">Cryptography and cryptocurrencies</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Gunnar Stefansson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/lec01600.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

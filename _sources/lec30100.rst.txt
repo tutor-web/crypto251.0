@@ -1,0 +1,221 @@
+Fun and games with Bitcoin
+**************************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec30100/sl30110
+Puzzles, poetry, bounties etc etc
+=================================
+
+The Bitcoin blockchain has been used for many things other than transferring funds.
+
+Some examples of puzzles in the blockchain:
+
+https://en.bitcoin.it/wiki/Script#Transaction_puzzle
+
+Poetry and other text has also been inserted into the chain
+
+The blockchain also contains bounties: They are automatically paid out to anyone who can solve a specified task. Similar to generic puzzles, a bounty can also serve a purpose.  See below for bounties to find `sha` collisions.
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec30100/sl30120
+Sticking data into the blockchain - 0
+=====================================
+
+The OP_RETURN operator can be used to insert data into a transactio Examples
+--------
+
+Consider the text
+
+::
+  Betzyy is the double or nothing game BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik abcdefgh
+
+which is 80 single-byte characters.
+
+When encoded using 80 hexadecimal ASCII codes, this string becomes
+
+::
+
+  4265747a79792069732074686520646f75626c65206f \
+  72206e6f7468696e672067616d65204245745a797959 \
+  714458716d524a4a34356e6e4c313563754153666958 \
+  673959696b206162636465666768
+
+(all on one line, no spaces).
+
+::
+
+ smileycoin-cli  createrawtransaction 
+   '[{"txid":"b9cd1f1b74ff1445cc1dd6bfb1540d7d4f06c080538edf9933c5bc1a7ad4073a","vout":1}]'
+   '{"BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik":6,
+   "data":"4265747a79792069732074686520646f75626c65206f
+           72206e6f7468696e672067616d65204245745a797959
+           714458716d524a4a34356e6e4c313563754153666958
+           673959696b206162636465666768"}'
+
+The resulting hex string can then be signed and broadcast to the network. 
+
+In this case, the resulting transaction is
+
+::
+
+  c629a1d1e4680d26c44726c672d33022737d637f8c6ca2a441b221c7feba174e
+
+which can be seen in a `blockchain explorer <https://chainz.cryptoid.info/smly/tx.dws?c629a1d1e4680d26c44726c672d33022737d637f8c6ca2a441b221c7feba174e.htm>`_ or viewed using a data-enabled wallet.
+
+::
+
+01000000013a07d47a1abcc53399df8e5380c0064f7d0d54b1bfd61dcc4514ff741b1fcdb90100000000ffffffff020046c323000000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac0000000000000000536a4c504265747a79792069732074686520646f75626c65206f72206e6f7468696e672067616d65204245745a797959714458716d524a4a34356e6e4c313563754153666958673959696b20616263646566676800000000
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec30100/sl30120-1
+Sticking data into the blockchain - 1
+=====================================
+
+The OP_RETURN operator can be used to insert data into a transactio Examples
+--------
+
+Consider the text
+
+::
+
+  Betzyy is the double or nothing game BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik abcdefgh
+
+which is 80 single-byte characters.
+
+When encoded using 80 hexadecimal ASCII codes, this string becomes
+
+::
+
+  4265747a79792069732074686520646f75626c65206f \
+  72206e6f7468696e672067616d65204245745a797959 \
+  714458716d524a4a34356e6e4c313563754153666958 \
+  673959696b206162636465666768
+
+(all on one line, no spaces).
+
+::
+
+ smileycoin-cli  createrawtransaction 
+   '[{"txid":"b9cd1f1b74ff1445cc1dd6bfb1540d7d4f06c080538edf9933c5bc1a7ad4073a","vout":1}]'
+   '{"BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik":6,
+   "data":"4265747a79792069732074686520646f75626c65206f
+           72206e6f7468696e672067616d65204245745a797959
+           714458716d524a4a34356e6e4c313563754153666958
+           673959696b206162636465666768"}'
+
+The resulting hex string can then be signed and broadcast to the network. 
+
+In this case, the resulting transaction is
+
+::
+
+  c629a1d1e4680d26c44726c672d33022737d637f8c6ca2a441b221c7feba174e
+
+which can be seen in a `blockchain explorer <https://chainz.cryptoid.info/smly/tx.dws?c629a1d1e4680d26c44726c672d33022737d637f8c6ca2a441b221c7feba174e.htm>`_ or viewed using a data-enabled wallet.
+
+::
+
+01000000013a07d47a1abcc53399df8e5380c0064f7d0d54b1bfd61dcc4514ff741b1fcdb90100000000ffffffff020046c323000000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac0000000000000000536a4c504265747a79792069732074686520646f75626c65206f72206e6f7468696e672067616d65204245745a797959714458716d524a4a34356e6e4c313563754153666958673959696b20616263646566676800000000
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec30100/sl30120-2
+Sticking data into the blockchain - 2
+=====================================
+
+The OP_RETURN operator can be used to insert data into a transactio Examples
+--------
+
+Consider the text
+
+::
+
+  Betzyy is the double or nothing game BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik abcdefgh
+
+which is 80 single-byte characters.
+
+When encoded using 80 hexadecimal ASCII codes, this string becomes
+
+::
+
+  4265747a79792069732074686520646f75626c65206f \
+  72206e6f7468696e672067616d65204245745a797959 \
+  714458716d524a4a34356e6e4c313563754153666958 \
+  673959696b206162636465666768
+
+(all on one line, no spaces). 
+
+Note that each byte is represented as a 2-digit hex code (0x00-0xff) so the original 80-byte string now needs 160 hex numerals (0-f).
+
+To write this into the SMLY blockchain we first find a UTXO to use as input. In this case we can use 
+``vout=1`` from transaction
+``b9cd1f1b74ff1445cc1dd6bfb1540d7d4f06c080538edf9933c5bc1a7ad4073a``. 
+
+We are now in a position to set up a transaction including this hex-encoded string as a data field.
+
+::
+
+ smileycoin-cli  createrawtransaction 
+   '[{"txid":"b9cd1f1b74ff1445cc1dd6bfb1540d7d4f06c080538edf9933c5bc1a7ad4073a","vout":1}]'
+   '{"BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik":6,
+   "data":"4265747a79792069732074686520646f75626c65206f
+           72206e6f7468696e672067616d65204245745a797959
+           714458716d524a4a34356e6e4c313563754153666958
+           673959696b206162636465666768"}'
+
+The resulting output is the hex coded version of the transaction and can be signed and broadcast to the network. 
+
+In this case, the resulting transaction is
+
+::
+
+  c629a1d1e4680d26c44726c672d33022737d637f8c6ca2a441b221c7feba174e
+
+which can be seen in a `blockchain explorer <https://chainz.cryptoid.info/smly/tx.dws?c629a1d1e4680d26c44726c672d33022737d637f8c6ca2a441b221c7feba174e.htm>`_ or viewed using a data-enabled wallet.
+
+::
+
+   01000000013a07d47a1abcc53399df8e5380c0064f7d0d54b1bfd61dcc4514ff741b1fcdb90100000000ffffffff020046c323000000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac0000000000000000536a4c504265747a79792069732074686520646f75626c65206f72206e6f7468696e672067616d65204245745a797959714458716d524a4a34356e6e4c313563754153666958673959696b20616263646566676800000000
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec30100/sl30170
+Bounties: Reporting hash collisions
+===================================
+
+Taken from https://en.bitcoin.it/wiki/Script#Incentivized_finding_of_hash_collisions
+
+Example
+-------
+
+In 2013 Peter Todd created scripts that result in true if a hash collision is found. Bitcoin addresses resulting from these scripts can have money sent to them. If someone finds a hash collision they can spend the bitcoins on that address, so this setup acts as an incentive for somebody to do so.
+
+For example the SHA1 script:
+
+* scriptPubKey: ``OP_2DUP OP_EQUAL OP_NOT OP_VERIFY OP_SHA1 OP_SWAP OP_SHA1 OP_EQUAL``
+* scriptSig: <preimage1> <preimage2>
+
+What this means::
+
+ OP_2DUP	110	0x6e	x1 x2	x1 x2 x1 x2	Duplicates the top two stack items.
+ OP_EQUAL	135	0x87	x1 x2	True / false	Returns 1 if the inputs are exactly equal, 0 otherwise.
+ OP_NOT	145	0x91	in	out	If the input is 0 or 1, it is flipped. Otherwise the output will be 0.
+ OP_VERIFY	105	0x69	True / false	Nothing / fail	Marks transaction as invalid if top stack value is not true. The top stack value is removed.
+ OP_SHA1	167	0xa7	in	hash	The input is hashed using SHA-1.
+ OP_SWAP	124	0x7c	x1 x2	x2 x1	The top two items on the stack are swapped.
+ OP_SHA1	167	0xa7	in	hash	The input is hashed using SHA-1.
+ OP_EQUAL	135	0x87	x1 x2	True / false	Returns 1 if the inputs are exactly equal, 0 otherwise.

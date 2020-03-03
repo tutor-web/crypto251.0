@@ -1,0 +1,19 @@
+Cryptography and cryptocurrencies
+*********************************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec02000/sl02010
+Cryptography use by cryptocurrencies
+====================================
+
+Cryptocurrencies use cryptography for several tasks, including:
+
+* signing transactions using a private key
+* verifying ownership of an amount to be spent using a public key
+* summarising a transaction into a hash
+* summaring all transactions in a block into a hash
+* summarising a block into a hash
+* defining criteria for a block hash to satisfy for a block to be acceptable

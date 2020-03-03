@@ -1,0 +1,478 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Atomic swaps &#8212; Cryptocurrency and the Smileycoin (crypto251.0)  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="More on atomic swaps and smart contracts" href="lec47100.html" />
+    <link rel="prev" title="The SmileyCoin Fund revisited" href="lec31000.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="atomic-swaps">
+<h1>Atomic swaps<a class="headerlink" href="#atomic-swaps" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>There is a considerable demand for exchanging coins</p></li>
+<li><p>This is mostly done on cryptocurrency exchanges</p></li>
+<li><p>An exchange is a <strong>honeypot</strong> and hacks are common</p></li>
+<li><p>Some exchanges are now <strong>decentralised</strong></p></li>
+</ul>
+<p>In a truly decentralised exchange the exchange should not hold any user funds: The transaction should be solely between users</p>
+<p>The atomic swap is an important concept</p>
+<p>Atomic swaps need timeout mechanisms to replace trust</p>
+</div>
+<div class="section" id="timeouts">
+<h2>timeouts<a class="headerlink" href="#timeouts" title="Permalink to this headline">¶</a></h2>
+<p>A timeout on a transaction implies that it can not be transmitted before the time limit
+A timeout on a UTXO implies that it can not be spent before the time limit</p>
+<p>CLTV is OP_CHECKLOCKTIMEVERIFY</p>
+<p>See Handout and Example for more detail
+Examples
+——–</p>
+<p>Example of use (from <a class="reference external" href="https://en.bitcoin.it/wiki/Script#Freezing_funds_until_a_time_in_the_future">here</a>)</p>
+<p>Using OP_CHECKLOCKTIMEVERIFY it is possible to make funds provably unspendable until a certain point in the future.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scriptPubKey</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">expiry</span> <span class="n">time</span><span class="o">&gt;</span> <span class="n">OP_CHECKLOCKTIMEVERIFY</span> <span class="n">OP_DROP</span>
+              <span class="n">OP_DUP</span> <span class="n">OP_HASH160</span> <span class="o">&lt;</span><span class="n">pubKeyHash</span><span class="o">&gt;</span> <span class="n">OP_EQUALVERIFY</span>
+              <span class="n">OP_CHECKSIG</span>
+
+<span class="n">scriptSig</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">sig</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">pubKey</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="section" id="handout">
+<h3>Handout<a class="headerlink" href="#handout" title="Permalink to this headline">¶</a></h3>
+<p>There are several timeout features in the Bitcoin protocol, implemented as operators in Bitcoin’s scrypt language.</p>
+<p>Here we will consider OP_CHECKLOCKTIMEVERIFY, implemented as <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki">BIP: 65</a>.</p>
+<p>This description of OP_CHECKLOCKTIMEVERIFY, or CLTV is taken mostly from the <a class="reference external" href="https://en.bitcoin.it/wiki/Script">Bitcoin wiki</a> and the initial CLTV proposal as an improvement to the Bitcoin protocol <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki">BIP: 65</a>.</p>
+<p>CLTV marks a transaction as invalid if the top stack item is greater than the transaction’s nLockTime field, otherwise script evaluation continues as though an OP_NOP was executed. Transaction is also invalid if</p>
+<ol class="arabic simple">
+<li><p>the stack is empty; or</p></li>
+<li><p>the top stack item is negative; or</p></li>
+<li><p>the top stack item is greater than or equal to 500000000 while the transaction’s nLockTime field is less than 500000000, or vice versa; or</p></li>
+<li><p>the input’s nSequence field is equal to 0xffffffff. The precise semantics are described in BIP 0065.</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="an-atomic-swap-algorithm">
+<h2>an atomic swap algorithm<a class="headerlink" href="#an-atomic-swap-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>by <a class="reference external" href="https://bitcointalk.org/index.php?topic=193281.msg2224949#msg2224949">TierNolan</a></p>
+<div class="section" id="see-handout-handout">
+<h3>(see Handout)Handout<a class="headerlink" href="#see-handout-handout" title="Permalink to this headline">¶</a></h3>
+<p>more detail to come…</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="n">picks</span> <span class="n">a</span> <span class="n">random</span> <span class="n">number</span> <span class="n">x</span>
+<span class="n">A</span> <span class="n">creates</span> <span class="n">TX1</span><span class="p">:</span> <span class="s2">&quot;Pay w BTC to &lt;B&#39;s public key&gt; if (x for H(x) known and signed by B) or (signed by A and B)&quot;</span>
+<span class="n">A</span> <span class="n">creates</span> <span class="n">TX2</span><span class="p">:</span> <span class="s2">&quot;Pay w BTC from TX1 to &lt;A&#39;s public key&gt;, locked 48 hours in the future, signed by A&quot;</span>
+<span class="n">A</span> <span class="n">sends</span> <span class="n">TX2</span> <span class="n">to</span> <span class="n">B</span>
+<span class="n">B</span> <span class="n">signs</span> <span class="n">TX2</span> <span class="ow">and</span> <span class="n">returns</span> <span class="n">to</span> <span class="n">A</span>
+
+<span class="mi">1</span><span class="p">)</span> <span class="n">A</span> <span class="n">submits</span> <span class="n">TX1</span> <span class="n">to</span> <span class="n">the</span> <span class="n">network</span>
+
+<span class="n">B</span> <span class="n">creates</span> <span class="n">TX3</span><span class="p">:</span> <span class="s2">&quot;Pay v alt-coins to &lt;A-public-key&gt; if (x for H(x) known and signed by A) or (signed by A and B)&quot;</span>
+<span class="n">B</span> <span class="n">creates</span> <span class="n">TX4</span><span class="p">:</span> <span class="s2">&quot;Pay v alt-coins from TX3 to &lt;B&#39;s public key&gt;, locked 24 hours in the future, signed by B&quot;</span>
+<span class="n">B</span> <span class="n">sends</span> <span class="n">TX4</span> <span class="n">to</span> <span class="n">A</span>
+<span class="n">A</span> <span class="n">signs</span> <span class="n">TX4</span> <span class="ow">and</span> <span class="n">sends</span> <span class="n">back</span> <span class="n">to</span> <span class="n">B</span>
+
+<span class="mi">2</span><span class="p">)</span> <span class="n">B</span> <span class="n">submits</span> <span class="n">TX3</span> <span class="n">to</span> <span class="n">the</span> <span class="n">network</span>
+<span class="mi">3</span><span class="p">)</span> <span class="n">A</span> <span class="n">spends</span> <span class="n">TX3</span> <span class="n">giving</span> <span class="n">x</span>
+<span class="mi">4</span><span class="p">)</span> <span class="n">B</span> <span class="n">spends</span> <span class="n">TX1</span> <span class="n">using</span> <span class="n">x</span>
+</pre></div>
+</div>
+<p>This is atomic (with timeout). If the process is halted, it can be reversed no matter when it
+is stopped.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Before</span> <span class="mi">1</span><span class="p">:</span> <span class="n">Nothing</span> <span class="n">public</span> <span class="n">has</span> <span class="n">been</span> <span class="n">broadcast</span><span class="p">,</span> <span class="n">so</span> <span class="n">nothing</span> <span class="n">happens</span>
+<span class="n">Between</span> <span class="mi">1</span> <span class="ow">and</span> <span class="mi">2</span><span class="p">:</span> <span class="n">A</span> <span class="n">can</span> <span class="n">use</span> <span class="n">refund</span> <span class="n">transaction</span> <span class="n">after</span> <span class="mi">48</span> <span class="n">hours</span> <span class="n">to</span> <span class="n">get</span> <span class="n">his</span> <span class="n">money</span> <span class="n">back</span>
+<span class="n">Between</span> <span class="mi">2</span> <span class="ow">and</span> <span class="mi">3</span><span class="p">:</span> <span class="n">B</span> <span class="n">can</span> <span class="n">get</span> <span class="n">refund</span> <span class="n">after</span> <span class="mi">24</span> <span class="n">hours</span><span class="o">.</span> <span class="n">A</span> <span class="n">has</span> <span class="mi">24</span> <span class="n">more</span> <span class="n">hours</span> <span class="n">to</span> <span class="n">get</span> <span class="n">his</span> <span class="n">refund</span>
+<span class="n">After</span> <span class="mi">3</span><span class="p">:</span> <span class="n">Transaction</span> <span class="n">can</span> <span class="n">be</span> <span class="n">completed</span> <span class="n">by</span> <span class="n">each</span> <span class="n">of</span> <span class="n">the</span> <span class="mi">2</span> <span class="n">parties</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">A</span> <span class="n">must</span> <span class="n">spend</span> <span class="n">his</span> <span class="n">new</span> <span class="n">coin</span> <span class="n">within</span> <span class="mi">24</span> <span class="n">hours</span> <span class="ow">or</span> <span class="n">B</span> <span class="n">can</span> <span class="n">claim</span> <span class="n">the</span> <span class="n">refund</span> <span class="ow">and</span> <span class="n">keep</span> <span class="n">his</span> <span class="n">coins</span>
+<span class="o">-</span> <span class="n">B</span> <span class="n">must</span> <span class="n">spend</span> <span class="n">his</span> <span class="n">new</span> <span class="n">coin</span> <span class="n">within</span> <span class="mi">48</span> <span class="n">hours</span> <span class="ow">or</span> <span class="n">A</span> <span class="n">can</span> <span class="n">claim</span> <span class="n">the</span> <span class="n">refund</span> <span class="ow">and</span> <span class="n">keep</span> <span class="n">his</span> <span class="n">coins</span>
+</pre></div>
+</div>
+<p>For safety, both should complete the process with lots of time until the deadlines.</p>
+</div>
+</div>
+<div class="section" id="alternatives">
+<h2>Alternatives<a class="headerlink" href="#alternatives" title="Permalink to this headline">¶</a></h2>
+<p>Several decentralised exchanges (DEXs) exist, but the definition of a DEX is not clear</p>
+<p>Examples:</p>
+<p>Barterdex: <a class="reference external" href="https://komodoplatform.com/decentralized-exchange/">https://komodoplatform.com/decentralized-exchange/</a></p>
+<p>Bit Square (bisq): <a class="reference external" href="https://bisq.network/">https://bisq.network/</a></p>
+<p>etc</p>
+<p>Further reading on atomic swaps etc:</p>
+<p>Vitalin Buterik: <a class="reference external" href="https://static1.squarespace.com/static/55f73743e4b051cfcc0b02cf/t/5886800ecd0f68de303349b1/1485209617040/Chain+Interoperability.pdf">https://static1.squarespace.com/static/55f73743e4b051cfcc0b02cf/t/5886800ecd0f68de303349b1/1485209617040/Chain+Interoperability.pdf</a></p>
+<p>Kyle Samani: <a class="reference external" href="https://www.coindesk.com/opportunity-interoperable-chains-chains/">https://www.coindesk.com/opportunity-interoperable-chains-chains/</a></p>
+<p>Adrian Mathieu/Viacoin: <a class="reference external" href="https://ethereumworldnews.com/viacoin-developers-successfully-completed-atomic-swap-litecoin/">https://ethereumworldnews.com/viacoin-developers-successfully-completed-atomic-swap-litecoin/</a></p>
+</div>
+<div class="section" id="the-missing-link-information-flow">
+<h2>The missing link: Information flow<a class="headerlink" href="#the-missing-link-information-flow" title="Permalink to this headline">¶</a></h2>
+<p>Recall the process:</p>
+<ul class="simple">
+<li><p>A creates TX1: “Pay w BTC to &lt;B’s public key&gt; if (x for H(x) known and signed by B) or (signed by A and B)”</p></li>
+<li><p>B creates TX3: “Pay v alt-coins to &lt;A-public-key&gt; if (x for H(x) known and signed by A) or (signed by A and B)”</p></li>
+</ul>
+<p>So <strong>before any exchange is set up</strong>,</p>
+<ul class="simple">
+<li><p>A needs to know that B wants to buy w BTC</p></li>
+<li><p>B needs to know that A will sell for v alt-coins</p></li>
+</ul>
+<p>Then, to be able to <strong>start the exchange</strong></p>
+<ul class="simple">
+<li><p>A needs to know B’s BTC public key</p></li>
+<li><p>B needs to know A’s alt-coin public key</p></li>
+</ul>
+<p>This information exchange needs to be done outside the transactions, as an MoU or “announcement(s) of intent”.
+The info exchange does NOT need to be binding!
+The info exchange should cost something to avoid spam.</p>
+<p><strong>During the exchange</strong> the parties need to communicate:</p>
+<ul class="simple">
+<li><p>A sends TX2 to B</p></li>
+<li><p>B signs TX2 and returns to A</p></li>
+<li><p>B sends TX4 to A</p></li>
+<li><p>A signs TX4 and sends back to B</p></li>
+</ul>
+<p><strong>The entire process needs to be without trust and without knowing who the other party is</strong></p>
+</div>
+<div class="section" id="announcing-the-atomic-swap">
+<h2>Announcing the atomic swap<a class="headerlink" href="#announcing-the-atomic-swap" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Use a forum (telegram etc)?</p></li>
+<li><p>Use a specialised channel (BarterDex/Bisq)?</p></li>
+<li><p>Use an existing coin (mempool)?</p></li>
+<li><p>Alice should in principle be able to use the Smileycoin blockchain to announce</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SELL</span> <span class="pre">1000</span> <span class="pre">SMLY</span> <span class="pre">for</span> <span class="pre">1</span> <span class="pre">LTC</span></code></p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>and Bob could accept the offer  by responding</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ACCEPT</span> <span class="pre">offer</span> <span class="pre">TxId`</span></code></p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>etc.</p></li>
+</ul>
+<p>Could be done through modifications of smileycoin-qt</p>
+<p>A draft proposal: <a class="reference external" href="https://tutor-web.info/news-1/announcing-intent-cross-chain-atomic-swap/">https://tutor-web.info/news-1/announcing-intent-cross-chain-atomic-swap/</a></p>
+<p>Dedicated wallets? <a class="reference external" href="https://atomicwallet.io/">https://atomicwallet.io/</a>  (or scam?)</p>
+</div>
+<div class="section" id="atomic-swaps-between-chains-litecoin-and-bitcoin">
+<h2>Atomic swaps between chains: Litecoin and Bitcoin<a class="headerlink" href="#atomic-swaps-between-chains-litecoin-and-bitcoin" title="Permalink to this headline">¶</a></h2>
+<p>One of the first ones: <a class="reference external" href="https://twitter.com/SatoshiLite/status/911328252928643072">https://twitter.com/SatoshiLite/status/911328252928643072</a></p>
+<a class="reference internal image-reference" href="http://tutor-web.net/comp/crypto251.0/images/twitter-atomic.png"><img alt="alternate text" class="align-right" src="http://tutor-web.net/comp/crypto251.0/images/twitter-atomic.png" style="height: 100.0px;" /></a>
+<p>10 LTC for 0.1137 BTC</p>
+<p>The Litecoin side: <a class="reference external" href="https://insight.litecore.io/address/ML9CNJBtSPMABYcCQV58P2t4M7MpPRJK95">https://insight.litecore.io/address/ML9CNJBtSPMABYcCQV58P2t4M7MpPRJK95</a></p>
+<p>The Bitcoin side: <a class="reference external" href="https://insight.bitpay.com/address/3HRWsfjpBHiJ7hC3jKJV5nbHMeBgoCPHDq">https://insight.bitpay.com/address/3HRWsfjpBHiJ7hC3jKJV5nbHMeBgoCPHDq</a></p>
+<p>See also <a class="reference external" href="https://github.com/topics/atomic-swap">https://github.com/topics/atomic-swap</a> for many, many atomic swap projects.</p>
+<div class="section" id="id2">
+<h3>Handout<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Bitcoin 0bb5a53a9c7e84e2c45d6a46a7b72afc2feffb8826b9aeb3848699c6fd856480</p>
+<p>(note the locktime)</p>
+<p>(takes the one below - 92d9c9… - as input)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;txid&quot;</span><span class="p">:</span> <span class="s2">&quot;0bb5a53a9c7e84e2c45d6a46a7b72afc2feffb8826b9aeb3848699c6fd856480&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;0bb5a53a9c7e84e2c45d6a46a7b72afc2feffb8826b9aeb3848699c6fd856480&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">308</span><span class="p">,</span>
+  <span class="s2">&quot;vsize&quot;</span><span class="p">:</span> <span class="mi">308</span><span class="p">,</span>
+  <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="mi">1232</span><span class="p">,</span>
+  <span class="s2">&quot;locktime&quot;</span><span class="p">:</span> <span class="mi">1506182939</span><span class="p">,</span>
+  <span class="s2">&quot;vin&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;txid&quot;</span><span class="p">:</span> <span class="s2">&quot;92d9c9d5d52c618b32484032a22f16dc084841ed29ec1b01c0119425a4e76d24&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;vout&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="s2">&quot;scriptSig&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;asm&quot;</span><span class="p">:</span> <span class="s2">&quot;30440220748121e83bee8287a2506ca65256f5bf6b30c5d6948aa334a06c3dd70472a50002204b42d5fcd9d28a73cf9ec3f03f50ce2583802ca02883897a24c4854fdc3225e9[ALL] 025d15dd393c000cf9f9b8adf06d275c70959d13764dcb3ac99d0f583c6c1aba0d 6b7dba080c648b0a9eccd0a795ace167f5c124703a17eba9a3d0f80162f0e330 1 63a6142c5b442dcfd70ed65b9c90956844525527d9ab3c8876a9143aa29799bae62940f3235cc58e0420359aa0fdf867041b87c659b17576a91470d0975d5053bc3291e0bad4c08d88e41d9ef5366888ac&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hex&quot;</span><span class="p">:</span> <span class="s2">&quot;4730440220748121e83bee8287a2506ca65256f5bf6b30c5d6948aa334a06c3dd70472a50002204b42d5fcd9d28a73cf9ec3f03f50ce2583802ca02883897a24c4854fdc3225e90121025d15dd393c000cf9f9b8adf06d275c70959d13764dcb3ac99d0f583c6c1aba0d206b7dba080c648b0a9eccd0a795ace167f5c124703a17eba9a3d0f80162f0e330514c5163a6142c5b442dcfd70ed65b9c90956844525527d9ab3c8876a9143aa29799bae62940f3235cc58e0420359aa0fdf867041b87c659b17576a91470d0975d5053bc3291e0bad4c08d88e41d9ef5366888ac&quot;</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;sequence&quot;</span><span class="p">:</span> <span class="mi">4294967295</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;vout&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.13336680</span><span class="p">,</span>
+      <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">&quot;scriptPubKey&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;asm&quot;</span><span class="p">:</span> <span class="s2">&quot;OP_DUP OP_HASH160 5d8023cd65e3685726c5df8479206937b64264b9 OP_EQUALVERIFY OP_CHECKSIG&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hex&quot;</span><span class="p">:</span> <span class="s2">&quot;76a9145d8023cd65e3685726c5df8479206937b64264b988ac&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;reqSigs&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;pubkeyhash&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;addresses&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&quot;19XPM9tgB2Avj2nF1S5JSM9zJM6oGyH41w&quot;</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Bitcoin 92d9c9d5d52c618b32484032a22f16dc084841ed29ec1b01c0119425a4e76d24</p>
+<p>(forms input to the one above)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;txid&quot;</span><span class="p">:</span> <span class="s2">&quot;92d9c9d5d52c618b32484032a22f16dc084841ed29ec1b01c0119425a4e76d24&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;92d9c9d5d52c618b32484032a22f16dc084841ed29ec1b01c0119425a4e76d24&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">224</span><span class="p">,</span>
+  <span class="s2">&quot;vsize&quot;</span><span class="p">:</span> <span class="mi">224</span><span class="p">,</span>
+  <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="mi">896</span><span class="p">,</span>
+  <span class="s2">&quot;locktime&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s2">&quot;vin&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;txid&quot;</span><span class="p">:</span> <span class="s2">&quot;82ae3ad6c30957a022ef5648ee6bd1883793f34adb1273532fecb842b90d07d7&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;vout&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="s2">&quot;scriptSig&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;asm&quot;</span><span class="p">:</span> <span class="s2">&quot;3045022100eabcf4e2d7ca45b54b951624e38caaed7c18598e5091ff3ebf2015db6acef9d702203ff1355dd0c37acf3226250a1aa0ec0b3c1eb829302fa6e60d179a51311486e9[ALL] 02fe470a170035bf78d94c47629ca681c5e08501e9888a5a5dcb918186cb8d4175&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hex&quot;</span><span class="p">:</span> <span class="s2">&quot;483045022100eabcf4e2d7ca45b54b951624e38caaed7c18598e5091ff3ebf2015db6acef9d702203ff1355dd0c37acf3226250a1aa0ec0b3c1eb829302fa6e60d179a51311486e9012102fe470a170035bf78d94c47629ca681c5e08501e9888a5a5dcb918186cb8d4175&quot;</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;sequence&quot;</span><span class="p">:</span> <span class="mi">4294967294</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;vout&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.01629776</span><span class="p">,</span>
+      <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">&quot;scriptPubKey&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;asm&quot;</span><span class="p">:</span> <span class="s2">&quot;OP_DUP OP_HASH160 462f954c6ae2bcf54107191b42d22419f928995e OP_EQUALVERIFY OP_CHECKSIG&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hex&quot;</span><span class="p">:</span> <span class="s2">&quot;76a914462f954c6ae2bcf54107191b42d22419f928995e88ac&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;reqSigs&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;pubkeyhash&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;addresses&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&quot;17Q7JZsAn4iKotrjpfk7H5WzLnznRVyWSU&quot;</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.13370000</span><span class="p">,</span>
+      <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="s2">&quot;scriptPubKey&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;asm&quot;</span><span class="p">:</span> <span class="s2">&quot;OP_HASH160 ac938614bf4288b3e41385d49fc0531d847551ff OP_EQUAL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hex&quot;</span><span class="p">:</span> <span class="s2">&quot;a914ac938614bf4288b3e41385d49fc0531d847551ff87&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;reqSigs&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;scripthash&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;addresses&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&quot;3HRWsfjpBHiJ7hC3jKJV5nbHMeBgoCPHDq&quot;</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Litecoin 6c497ae07505f6237a810deb4fb366b9d73a2293ce8d8fba21e6203bf93854d2</p>
+<p>(note the locktime)</p>
+<p>(takes the one below - 75d0ab… - as input)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;txid&quot;</span><span class="p">:</span> <span class="s2">&quot;6c497ae07505f6237a810deb4fb366b9d73a2293ce8d8fba21e6203bf93854d2&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;6c497ae07505f6237a810deb4fb366b9d73a2293ce8d8fba21e6203bf93854d2&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">308</span><span class="p">,</span>
+  <span class="s2">&quot;vsize&quot;</span><span class="p">:</span> <span class="mi">308</span><span class="p">,</span>
+  <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s2">&quot;locktime&quot;</span><span class="p">:</span> <span class="mi">1506204007</span><span class="p">,</span>
+  <span class="s2">&quot;vin&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;txid&quot;</span><span class="p">:</span> <span class="s2">&quot;75d0ab5f6a9da8633c8da91b791a28641c71234ea1bcfbb30ee8eb7f07b70721&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;vout&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="s2">&quot;scriptSig&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;asm&quot;</span><span class="p">:</span> <span class="s2">&quot;304402203faac90d00b21bce1079b402a201692e2bc0ebbc22bfb9476dd4a73e8969b2b702205a077a6eb15a9f98a6f61d3a5c0876c1850c5742e4ca4816c2a61b5e97ff8954[ALL] 02c6183a9cfa40ae70845c9125e3dc16b5412a3fc433c8b5698fd5bba49d795efe 6b7dba080c648b0a9eccd0a795ace167f5c124703a17eba9a3d0f80162f0e330 1 63a6142c5b442dcfd70ed65b9c90956844525527d9ab3c8876a91497cf2d5d3d30dc84b3aa09d68372d2533753b538670467d9c659b17576a91493cc61870ae8c76ccc7926f5c70dec4f5761a58b6888ac&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hex&quot;</span><span class="p">:</span> <span class="s2">&quot;47304402203faac90d00b21bce1079b402a201692e2bc0ebbc22bfb9476dd4a73e8969b2b702205a077a6eb15a9f98a6f61d3a5c0876c1850c5742e4ca4816c2a61b5e97ff8954012102c6183a9cfa40ae70845c9125e3dc16b5412a3fc433c8b5698fd5bba49d795efe206b7dba080c648b0a9eccd0a795ace167f5c124703a17eba9a3d0f80162f0e330514c5163a6142c5b442dcfd70ed65b9c90956844525527d9ab3c8876a91497cf2d5d3d30dc84b3aa09d68372d2533753b538670467d9c659b17576a91493cc61870ae8c76ccc7926f5c70dec4f5761a58b6888ac&quot;</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;sequence&quot;</span><span class="p">:</span> <span class="mi">4294967295</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;vout&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">9.99968600</span><span class="p">,</span>
+      <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">&quot;scriptPubKey&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;asm&quot;</span><span class="p">:</span> <span class="s2">&quot;OP_DUP OP_HASH160 ee3c065dab61a1ed0020eb1c456226600dc44af3 OP_EQUALVERIFY OP_CHECKSIG&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hex&quot;</span><span class="p">:</span> <span class="s2">&quot;76a914ee3c065dab61a1ed0020eb1c456226600dc44af388ac&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;reqSigs&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;pubkeyhash&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;addresses&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&quot;LgwczUBhCr6XfEWaG4JA22Gi7fW5N38vM1&quot;</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Litecoin 75d0ab5f6a9da8633c8da91b791a28641c71234ea1bcfbb30ee8eb7f07b70721</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;txid&quot;</span><span class="p">:</span> <span class="s2">&quot;75d0ab5f6a9da8633c8da91b791a28641c71234ea1bcfbb30ee8eb7f07b70721&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;75d0ab5f6a9da8633c8da91b791a28641c71234ea1bcfbb30ee8eb7f07b70721&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">223</span><span class="p">,</span>
+  <span class="s2">&quot;vsize&quot;</span><span class="p">:</span> <span class="mi">223</span><span class="p">,</span>
+  <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s2">&quot;locktime&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s2">&quot;vin&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;txid&quot;</span><span class="p">:</span> <span class="s2">&quot;d06f0729fda1564b77480bd38d2a0524b82ae8930a1dec554a26ff82ba146e80&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;vout&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">&quot;scriptSig&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;asm&quot;</span><span class="p">:</span> <span class="s2">&quot;304402207325eba06b5a18fb9edadb2c646ee50cffe8062dd64024488419665bf080bd9e0220635242020e26b537d1aa1eef45a0f0ff96375c6743a3093afed373b844a15380[ALL] 03025492162771fe8dac8c74bcf344fb2ff48172482afa2d2a8a9fd09caa0fe79e&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hex&quot;</span><span class="p">:</span> <span class="s2">&quot;47304402207325eba06b5a18fb9edadb2c646ee50cffe8062dd64024488419665bf080bd9e0220635242020e26b537d1aa1eef45a0f0ff96375c6743a3093afed373b844a15380012103025492162771fe8dac8c74bcf344fb2ff48172482afa2d2a8a9fd09caa0fe79e&quot;</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;sequence&quot;</span><span class="p">:</span> <span class="mi">4294967294</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;vout&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.89955000</span><span class="p">,</span>
+      <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">&quot;scriptPubKey&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;asm&quot;</span><span class="p">:</span> <span class="s2">&quot;OP_DUP OP_HASH160 8b97fa16960b86f69db5d16da02147642aa91494 OP_EQUALVERIFY OP_CHECKSIG&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hex&quot;</span><span class="p">:</span> <span class="s2">&quot;76a9148b97fa16960b86f69db5d16da02147642aa9149488ac&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;reqSigs&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;pubkeyhash&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;addresses&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&quot;LXx4FRCeEbZyRB5BNkVR9iNP9oUJzMmNSz&quot;</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">10.00000000</span><span class="p">,</span>
+      <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="s2">&quot;scriptPubKey&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;asm&quot;</span><span class="p">:</span> <span class="s2">&quot;OP_HASH160 86491d98a99146ab22a066e0d8e6f3a403071af8 OP_EQUAL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hex&quot;</span><span class="p">:</span> <span class="s2">&quot;a91486491d98a99146ab22a066e0d8e6f3a403071af887&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;reqSigs&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;scripthash&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;addresses&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&quot;ML9CNJBtSPMABYcCQV58P2t4M7MpPRJK95&quot;</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Cryptocurrency and the Smileycoin (crypto251.0)</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lec00100.html">Introduction to cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00200.html">Bitcoin and Smileycoin basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00300.html">Picking up a wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00400.html">Compiling the wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00500.html">Introduction to the SMLY command line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01200.html">Basic cryptocurrency economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01400.html">The transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01500.html">The block and the blockchain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01600.html">Cryptocurrency mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02000.html">Cryptography and cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02100.html">Hash function introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02200.html">Elliptic curves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03000.html">The trilogy: tutor-web, Smileycoin and Education in a Suitcase</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03100.html">The SmileyCoin Fund</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03200.html">Splitting the coinbase: No longer just a miner’s fee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03400.html">Staking and proof-of-stake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03500.html">The tutor-web as a faucet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec04000.html">The command line from a Linux script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec04500.html">Building slightly more complex transactions on the command line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec15000.html">Cryptocurrency exchanges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec15500.html">API access to exchanges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec26000.html">Automation on the blockchain  (stores, ATM, gambling etc)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec30000.html">The Bitcoin programming language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec30100.html">Fun and games with Bitcoin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec31000.html">The SmileyCoin Fund revisited</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Atomic swaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec47100.html">More on atomic swaps and smart contracts</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="lec31000.html" title="previous chapter">The SmileyCoin Fund revisited</a></li>
+      <li>Next: <a href="lec47100.html" title="next chapter">More on atomic swaps and smart contracts</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Gunnar Stefansson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/lec47000.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

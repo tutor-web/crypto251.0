@@ -1,0 +1,35 @@
+Staking and proof-of-stake
+**************************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03400/03405
+Staking
+=======
+
+**Staking** refers to having a **stake** in a venture
+
+Staking in a cryptocurrency context implies owning some coins in the currency
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03400/sl03410
+Proof of stake
+==============
+
+Proof-of-stake (PoS) is an alternative method to Proof-of-Work to maintain a blockchain.
+
+In a PoS network the holders of coins may take turns in generating the next block.
+
+This replaces the competition for mining by a method where only allowing those who have demonstrated a stake to participate.
+
+An obvious advantage is the reduction in mining costs.
+
+An obvious disadvantage is the reduction in competition and possibility of monopoly.
+
+The implementations may vary, ranging from a simple weighted lottery for who gets the next block to setting a minimum stake to enter the pool of miners (or individuals permitted to generate blocks).
+

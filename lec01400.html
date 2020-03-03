@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>The transaction &#8212; Cryptocurrency and the Smileycoin (crypto251.0)  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The block and the blockchain" href="lec01500.html" />
+    <link rel="prev" title="Basic cryptocurrency economics" href="lec01200.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="the-transaction">
+<h1>The transaction<a class="headerlink" href="#the-transaction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>The concept of a transaction as a description of transfer of funds is simple but not enough</p>
+<p>How does one guarantee that the funds are not sent twice?</p>
+<p>How does one ensure that the sender is authorised to spend the funds?</p>
+<p>To see how this is done we need to look inside the transactions and study their structure</p>
+</div>
+<div class="section" id="a-typical-transaction">
+<h2>A typical transaction<a class="headerlink" href="#a-typical-transaction" title="Permalink to this headline">¶</a></h2>
+<p>Consider a specific SMLY transaction, eg <code class="docutils literal notranslate"><span class="pre">e870614afe3cb9fde97566b024a72f11d22ce08dbd89a971655b15f71d6e203b</span></code>
+which can be seen in block 332353, at</p>
+<p><a class="reference external" href="https://chainz.cryptoid.info/smly/block.dws?33e1da4929acfa4cbf2dceb28f469c5179e67077a9642a6c9e2e3bfe590cce1a.htm">https://chainz.cryptoid.info/smly/block.dws?33e1da4929acfa4cbf2dceb28f469c5179e67077a9642a6c9e2e3bfe590cce1a.htm</a></p>
+<p>A summary of the transaction is given at</p>
+<p><a class="reference external" href="https://chainz.cryptoid.info/smly/tx.dws?e870614afe3cb9fde97566b024a72f11d22ce08dbd89a971655b15f71d6e203b.htm">https://chainz.cryptoid.info/smly/tx.dws?e870614afe3cb9fde97566b024a72f11d22ce08dbd89a971655b15f71d6e203b.htm</a></p>
+<p>but we want to see some of the detail.</p>
+<img alt="http://tutor-web.net/comp/crypto251.0/images/trans-full.png" src="http://tutor-web.net/comp/crypto251.0/images/trans-full.png" />
+</div>
+<div class="section" id="inside-the-transaction-the-output">
+<h2>Inside the transaction: The output<a class="headerlink" href="#inside-the-transaction-the-output" title="Permalink to this headline">¶</a></h2>
+<p>Consider the outputs from transaction e870614afe3cb9fde97566b024a72f11d22ce08dbd89a971655b15f71d6e203b</p>
+<img alt="http://tutor-web.net/comp/crypto251.0/images/trans-full-vout.png" src="http://tutor-web.net/comp/crypto251.0/images/trans-full-vout.png" />
+<p>The outputs form two UTXOs: “n”=0 og “n”=1</p>
+<p>These can later be referenced, e.g. as UTXO n=0 from Tx=e870614afe3cb9fde97566b024a72f11d22ce08dbd89a971655b15f71d6e203b</p>
+</div>
+<div class="section" id="inside-the-transaction-the-input">
+<h2>Inside the transaction: The input<a class="headerlink" href="#inside-the-transaction-the-input" title="Permalink to this headline">¶</a></h2>
+<p>TxId: e870614afe3cb9fde97566b024a72f11d22ce08dbd89a971655b15f71d6e203b</p>
+<img alt="http://tutor-web.net/comp/crypto251.0/images/trans-full-vin.png" src="http://tutor-web.net/comp/crypto251.0/images/trans-full-vin.png" />
+<p>The input is only defined as an older output, which has not been spent, UTXO, as the following components:</p>
+<ul class="simple">
+<li><p>Start of input description: vin</p></li>
+<li><p>The input transaction refers to an older transaction: TxId</p></li>
+<li><p>“vout” refers to a numbered output (“n”) in that transaction</p></li>
+<li><p>NB: The amount is not listed!</p></li>
+<li><p>NB: The address is not listed!</p></li>
+</ul>
+<p>So the input to our transaction is output number 0 from transaction cc3b743938e485578315b2f6848c1a416c917585ea2f75d5d3e09f21a95008b0</p>
+<p>We can verify by looking up that UTXO.</p>
+</div>
+<div class="section" id="the-utxo">
+<h2>The UTXO<a class="headerlink" href="#the-utxo" title="Permalink to this headline">¶</a></h2>
+<p>We have seen that</p>
+<ul class="simple">
+<li><p>the input to transaction e870614afe3cb9fde97566b024a72f11d22ce08dbd89a971655b15f71d6e203b is</p></li>
+<li><p>the UTXO from transaction cc3b743938e485578315b2f6848c1a416c917585ea2f75d5d3e09f21a95008b0.</p></li>
+</ul>
+<div class="section" id="to-verify-this-we-can-look-up-that-utxo-as-seen-in-the-handout-handout">
+<h3>To verify this we can look up that UTXO as seen in the handout.Handout<a class="headerlink" href="#to-verify-this-we-can-look-up-that-utxo-as-seen-in-the-handout-handout" title="Permalink to this headline">¶</a></h3>
+<p>To verify this we can look up that UTXO and we find</p>
+<img alt="http://tutor-web.net/comp/crypto251.0/images/trans-cc3b.png" src="http://tutor-web.net/comp/crypto251.0/images/trans-cc3b.png" />
+<p>or specifically</p>
+<img alt="http://tutor-web.net/comp/crypto251.0/images/trans-cc3b-zoom.png" src="http://tutor-web.net/comp/crypto251.0/images/trans-cc3b-zoom.png" />
+</div>
+</div>
+<div class="section" id="keys">
+<h2>Keys<a class="headerlink" href="#keys" title="Permalink to this headline">¶</a></h2>
+<p>Cryptocurrencies use cryptographic keys</p>
+<p>For example, ownership is demonstrated using a combination of keys and addresses</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>public-private key pairs</p></li>
+<li><p>Private key -&gt; public key -&gt; address</p></li>
+</ul>
+</div></blockquote>
+<p>This will be explained in more detail later.</p>
+<ul class="simple">
+<li><p>An address can be freely distributed</p></li>
+<li><p>The private key is never disclosed</p></li>
+<li><p>A transaction can be signed using the private key</p></li>
+<li><p>A signature can be <strong>verified</strong> using the public key</p></li>
+<li><p>The public key is only disclosed when a transaction is spent</p></li>
+</ul>
+<p>A <strong>spending transaction</strong> publishes the public key and a signature.</p>
+<div class="section" id="handout">
+<h3>Handout<a class="headerlink" href="#handout" title="Permalink to this headline">¶</a></h3>
+<p>A <strong>private key</strong> is just a string of random numbers.</p>
+<p>A <strong>public key</strong> is generated from the private key.</p>
+<p>An <strong>address</strong> is generated from the public key.</p>
+<p>A good description of the process is available:</p>
+<p><a class="reference external" href="https://en.bitcoin.it/wiki/Technical_background_of_version_1_Bitcoin_addresses">https://en.bitcoin.it/wiki/Technical_background_of_version_1_Bitcoin_addresses</a></p>
+</div>
+</div>
+<div class="section" id="spending-the-utxo">
+<h2>Spending the UTXO<a class="headerlink" href="#spending-the-utxo" title="Permalink to this headline">¶</a></h2>
+<p>The permission to spend the UTXO is determined by the programming code written into the transaction.</p>
+<p>Will be described later in the course, but a short code snippet is seen in every transaction.</p>
+<p>It is an incomplete snippet, usually with components of the form</p>
+<ul class="simple">
+<li><p>OP_DUP</p></li>
+<li><p>OP_HASH160</p></li>
+<li><p>a4d6b6e2e262e97590564a24b523d993765525fb</p></li>
+<li><p>OP_EQUALVERIFY</p></li>
+<li><p>OP_CHECKSIG</p></li>
+</ul>
+<p>To spend this UTXO the spending transaction needs to prepend to this another snippet so the combined code can be run and will return “TRUE” and nothing else.</p>
+<p>Completion of this particular snippet is done with</p>
+<ul class="simple">
+<li><p>signature</p></li>
+<li><p>public key</p></li>
+</ul>
+<div class="section" id="id1">
+<h3>Handout<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>See
+<a class="reference external" href="https://en.bitcoin.it/wiki/Script">https://en.bitcoin.it/wiki/Script</a>
+for a description of the codes involved.</p>
+<p>Note that <strong>OP_HASH160</strong> involves two operations:
+The input is hashed twice: first with SHA-256 and then with RIPEMD-160</p>
+</div>
+</div>
+<div class="section" id="the-transaction-on-the-command-line">
+<h2>The transaction on the command line<a class="headerlink" href="#the-transaction-on-the-command-line" title="Permalink to this headline">¶</a></h2>
+<p>Step-by-step example of how to generate, sign, check, announce and inspect a transaction - to be done in detail in class</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">listunspent</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">createrawtransaction</span> <span class="pre">'[{&quot;txid&quot;</span> <span class="pre">:</span> <span class="pre">&quot;fbd60d37acfb30eba7153db741dce7d1ebf71c0ee0ec8802fba29e865402ba8f&quot;,</span> <span class="pre">&quot;vout&quot;</span> <span class="pre">:</span> <span class="pre">1}]'</span> <span class="pre">'{&quot;B79tjNk8oZktdd7DLnznKXu9UA67GMWP9g&quot;</span> <span class="pre">:</span> <span class="pre">2000,</span> <span class="pre">&quot;BHgx5rehx2Wkx4wME2DXwZAHL7KskUjXmK&quot;</span> <span class="pre">:</span> <span class="pre">2499}'</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">signrawtransaction</span> <span class="pre">01000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb0100000000ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac00000000</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">decoderawtransaction</span> <span class="pre">01000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb010000006b483045022100815d96c306cbffb6cd0c0a4b92a72f2c5067b2f389334bcc2e735a1d06cc929f02200526f4b2d9c0f0221354b73974f194e6bb507f85dd8a05561c6eafcd2994fb980121030b71e1d6d9cf28e1111b9b5fa75a0476a8e9925e4ca6c2e1668f01a8bdebe765ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac0000000001000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb0100000000ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac00000000</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sendrawtransaction</span> <span class="pre">01000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb010000006b483045022100815d96c306cbffb6cd0c0a4b92a72f2c5067b2f389334bcc2e735a1d06cc929f02200526f4b2d9c0f0221354b73974f194e6bb507f85dd8a05561c6eafcd2994fb980121030b71e1d6d9cf28e1111b9b5fa75a0476a8e9925e4ca6c2e1668f01a8bdebe765ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac0000000001000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb0100000000ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac00000000</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getrawtransaction</span> <span class="pre">e98b533cf3290fa58c23074aa0b1e273e25e4756321155e7ad165f2d3ed61760</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">decoderawtransaction</span> <span class="pre">01000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb010000006b483045022100815d96c306cbffb6cd0c0a4b92a72f2c5067b2f389334bcc2e735a1d06cc929f02200526f4b2d9c0f0221354b73974f194e6bb507f85dd8a05561c6eafcd2994fb980121030b71e1d6d9cf28e1111b9b5fa75a0476a8e9925e4ca6c2e1668f01a8bdebe765ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac00000000</span></code></p></li>
+</ul>
+<p>This is just the <strong>how-to</strong>. The next few lectures will go into what is actually going on!
+Handout
+——-</p>
+<p>Example of how to generate, sign, check, announce and inspect a transaction</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">listunspent</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">createrawtransaction</span> <span class="pre">'[{&quot;txid&quot;</span> <span class="pre">:</span> <span class="pre">&quot;fbd60d37acfb30eba7153db741dce7d1ebf71c0ee0ec8802fba29e865402ba8f&quot;,</span> <span class="pre">&quot;vout&quot;</span> <span class="pre">:</span> <span class="pre">1}]'</span> <span class="pre">'{&quot;B79tjNk8oZktdd7DLnznKXu9UA67GMWP9g&quot;</span> <span class="pre">:</span> <span class="pre">2000,</span> <span class="pre">&quot;BHgx5rehx2Wkx4wME2DXwZAHL7KskUjXmK&quot;</span> <span class="pre">:</span> <span class="pre">2499}'</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">signrawtransaction</span> <span class="pre">01000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb0100000000ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac00000000</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">decoderawtransaction</span> <span class="pre">01000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb010000006b483045022100815d96c306cbffb6cd0c0a4b92a72f2c5067b2f389334bcc2e735a1d06cc929f02200526f4b2d9c0f0221354b73974f194e6bb507f85dd8a05561c6eafcd2994fb980121030b71e1d6d9cf28e1111b9b5fa75a0476a8e9925e4ca6c2e1668f01a8bdebe765ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac0000000001000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb0100000000ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac00000000</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sendrawtransaction</span> <span class="pre">01000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb010000006b483045022100815d96c306cbffb6cd0c0a4b92a72f2c5067b2f389334bcc2e735a1d06cc929f02200526f4b2d9c0f0221354b73974f194e6bb507f85dd8a05561c6eafcd2994fb980121030b71e1d6d9cf28e1111b9b5fa75a0476a8e9925e4ca6c2e1668f01a8bdebe765ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac0000000001000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb0100000000ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac00000000</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getrawtransaction</span> <span class="pre">e98b533cf3290fa58c23074aa0b1e273e25e4756321155e7ad165f2d3ed61760</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">decoderawtransaction</span> <span class="pre">01000000018fba0254869ea2fb0288ece00e1cf7ebd1e7dc41b73d15a7eb30fbac370dd6fb010000006b483045022100815d96c306cbffb6cd0c0a4b92a72f2c5067b2f389334bcc2e735a1d06cc929f02200526f4b2d9c0f0221354b73974f194e6bb507f85dd8a05561c6eafcd2994fb980121030b71e1d6d9cf28e1111b9b5fa75a0476a8e9925e4ca6c2e1668f01a8bdebe765ffffffff0200d0ed902e0000001976a9141da838326eaf3755f4c606e60f2c7e9af2252d1488ac0063332f3a0000001976a91491392bd50321d2c2c2dc702d1bcb7c5a3b85c12088ac00000000</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="the-utxo-set">
+<h2>The UTXO set<a class="headerlink" href="#the-utxo-set" title="Permalink to this headline">¶</a></h2>
+<p>The UTXO set has a tendency to increase in size.</p>
+<p>For Bitcoin (from <a class="reference external" href="https://www.blockchain.com/charts/utxo-count?timespan=all">https://www.blockchain.com/charts/utxo-count?timespan=all</a>):</p>
+<img alt="http://tutor-web.net/comp/crypto251.0/images/number-of-unspent-transaction-outputs-blockchain.pngHandout" src="http://tutor-web.net/comp/crypto251.0/images/number-of-unspent-transaction-outputs-blockchain.pngHandout" />
+<hr class="docutils" />
+<p>The UTXO is one of the basic concepts in Bitcoin and other cryptocurrencies. Each unspent transaction output represents a unit which the holder of a private key can spend.</p>
+<p>Each transaction results in one or more UTXO and only these <strong>unspent</strong> outputs can be used as inputs in a subsequent transaction.</p>
+<p>A full node verifies transactions and every full node therefore needs to keep track of the entire UTXO set.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Cryptocurrency and the Smileycoin (crypto251.0)</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lec00100.html">Introduction to cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00200.html">Bitcoin and Smileycoin basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00300.html">Picking up a wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00400.html">Compiling the wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00500.html">Introduction to the SMLY command line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01200.html">Basic cryptocurrency economics</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01500.html">The block and the blockchain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01600.html">Cryptocurrency mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02000.html">Cryptography and cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02100.html">Hash function introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02200.html">Elliptic curves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03000.html">The trilogy: tutor-web, Smileycoin and Education in a Suitcase</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03100.html">The SmileyCoin Fund</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03200.html">Splitting the coinbase: No longer just a miner’s fee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03400.html">Staking and proof-of-stake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03500.html">The tutor-web as a faucet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec04000.html">The command line from a Linux script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec04500.html">Building slightly more complex transactions on the command line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec15000.html">Cryptocurrency exchanges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec15500.html">API access to exchanges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec26000.html">Automation on the blockchain  (stores, ATM, gambling etc)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec30000.html">The Bitcoin programming language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec30100.html">Fun and games with Bitcoin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec31000.html">The SmileyCoin Fund revisited</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec47000.html">Atomic swaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec47100.html">More on atomic swaps and smart contracts</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="lec01200.html" title="previous chapter">Basic cryptocurrency economics</a></li>
+      <li>Next: <a href="lec01500.html" title="next chapter">The block and the blockchain</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Gunnar Stefansson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/lec01400.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

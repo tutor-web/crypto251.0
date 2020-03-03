@@ -1,0 +1,227 @@
+Building slightly more complex transactions on the command line
+***************************************************************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec04500/sl04510
+A simple transaction
+====================
+
+Recall how to create a simple transaction, with just one input and one output
+Use ``smileycoin-cli listunspent``to find an UTXO
+
+Suppose this includes the output lines:
+
+``        "txid" : "cf808bcc1f38fdaa4930cb0bdf0ad71f970cd253994d4c571ad2fd08d3cd793d",``
+
+``        "vout" : 0,``
+
+``        "amount" : 13493.00000000,``
+
+``...``
+
+``    },``
+
+``    {``
+
+``...``
+
+``        "address" : "B69QTo216bcaA3SD2Da7Q9arThMy7Z8ayJ",``
+
+``...``
+
+
+Then the following one-line Linux command will aggregate the two addresses:
+
+``smileycoin-cli createrawtransaction '[{"txid":"cf808bcc1f38fdaa4930cb0bdf0ad71f970cd253994d4c571ad2fd08d3cd793d","vout":0}]' '{"B69QTo216bcaA3SD2Da7Q9arThMy7Z8ayJ":13492.00000000}'``Handout
+-------
+
+Create it
+
+\`\`smileycoin-cli createrawtransaction
+’[“txid”:“cf808bcc1f38fdaa4930cb0bdf0ad71f970cd253994d4c571ad2fd08d3cd793d”,“vout”:0]’
+’“B69QTo216bcaA3SD2Da7Q9arThMy7Z8ayJ”:13492.00000000’\`\`\`
+
+\`\`01000000013d79cdd308fdd21a574c4d9953d20c971fd70adf0bcb3049aafd381fcc8b80cf0000000000ffffffff01003496223a0100001976a91412987f0ac5ac71d66bd672d6be6f227a0ec9895888ac00000000\`\`
+
+Compare with the \`\`listunspent\`\` output – we did account for the
+transaction fee.
+
+Sign it
+
+\`\`smileycoin-cli signrawtransaction
+01000000013d79cdd308fdd21a574c4d9953d20c971fd70adf0bcb3049aafd381fcc8b80cf0000000000ffffffff01003496223a0100001976a91412987f0ac5ac71d66bd672d6be6f227a0ec9895888ac00000000\`\`
+
+\`\`\`\` \`\` “hex” :\`\`
+\`\`“01000000013d79cdd308fdd21a574c4d9953d20c971fd70adf0bcb3049aafd381fcc8b80cf000000006a473044022042f46f214e1d44f18f5f1ad7f3be64aac647d4827b9b5aa7f4599f995ca9e02d0220617058f66c89ba5dc2b8c6ce5ff5e0f7ff47c2b10858d6e366e7cc4f26096385012103cb8b5e31be52ed0d19250f4fa3efe6473bfb919d2b2609e7439b7bfcaeb77971ffffffff01003496223a0100001976a91412987f0ac5ac71d66bd672d6be6f227a0ec9895888ac00000000”,\`\`
+\`\` “complete” : true\`\` \`\`\`\`
+
+Then just send it:
+
+\`\`smileycoin-cli sendrawtransaction\`\`
+\`\`01000000013d79cdd308fdd21a574c4d9953d20c971fd70adf0bcb3049aafd381fcc8b80cf000000006a473044022042f46f214e1d44f18f5f1ad7f3be64aac647d4827b9b5aa7f4599f995ca9e02d0220617058f66c89ba5dc2b8c6ce5ff5e0f7ff47c2b10858d6e366e7cc4f26096385012103cb8b5e31be52ed0d19250f4fa3efe6473bfb919d2b2609e7439b7bfcaeb77971ffffffff01003496223a0100001976a91412987f0ac5ac71d66bd672d6be6f227a0ec9895888ac00000000\`\`
+
+\`\`5cc83b9728ec3eead163ce8640b7d65076ad43534734da47706d008f8db862ee\`\`
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec04500/sl04520
+Maintaining a single address
+============================
+
+It is often useful to maintain a single main address.
+
+Example: Anonymous user 'Pine' used ``3P3QsMVK89JBNqZQv5zMAKG8FK3kJM4rjt`` as the Bitcoin address for a fund of 5104 Bitcoin, as described at https://pineapplefund.org/
+
+A typical transaction is Bitcoin transaction ``f065cc0bbede00d3fb56d1dd704fb8e85e706f7d22cee5ec554136d452697331``
+where Pineapplefund transfers 300 BTC to a destination address and sends the entire remainder of the fund back to the original address, ``3P3QsMVK89JBNqZQv5zMAKG8FK3kJM4rjt``.
+
+This transaction is seen in
+https://www.blockchain.com/btc/tx/f065cc0bbede00d3fb56d1dd704fb8e85e706f7d22cee5ec554136d452697331
+
+Such transactions are very easy to generate on the command line.
+
+Keeping the entire fund at a single address makes it extremely easy to publicly verify the development of the fund as grants are dispensed to recipients.
+Example
+-------
+
+Consider the following output from a ``listunspent`` command
+
+        ``"txid" : "faadd4f329cc234a9b22368fe36131252002ff295ab466b9fdf4b2d1eb13d38c",``
+
+        ``"vout" : 0,``
+
+        ``"address" : "B69QTo216bcaA3SD2Da7Q9arThMy7Z8ayJ",``
+
+        ``"account" : "",``
+
+        ``"scriptPubKey" : "76a91412987f0ac5ac71d66bd672d6be6f227a0ec9895888ac",``
+
+        ``"amount" : 1975796.00000000,``
+
+One can then send just 1000 SMLY to a destination address and keep the entire rest in the original address using 
+
+``smileycoin-cli createrawtransaction '[{"txid":"faadd4f329cc234a9b22368fe36131252002ff295ab466b9fdf4b2d1eb13d38c","vout":0}]' '{"BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik":1000,"B69QTo216bcaA3SD2Da7Q9arThMy7Z8ayJ":1974795}'``
+
+``01000000018cd313ebd1b2f4fdb966b45a29ff0220253161e38f36229b4a23cc29f3d4adfa0000000000ffffffff0200e87648170000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac00ab72479bb300001976a91412987f0ac5ac71d66bd672d6be6f227a0ec9895888ac00000000``
+
+``smileycoin-cli signrawtransaction 01000000018cd313ebd1b2f4fdb966b45a29ff0220253161e38f36229b4a23cc29f3d4adfa0000000000ffffffff0200e87648170000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac00ab72479bb300001976a91412987f0ac5ac71d66bd672d6be6f227a0ec9895888ac00000000``
+
+``{``
+
+``    "hex" : "01000000018cd313ebd1b2f4fdb966b45a29ff0220253161e38f36229b4a23cc29f3d4adfa000000006b483045022100fcb221e7530002f91e0ff9e2e7b6ef70216f66cfcf8031302c0fc02ac4eba17702200bde8c7d7da8e74f57712915569ef9f05653352513c80daadd24b79a0c1454bd0121020b2242f11807f2d5404b0e17b63dedfd19600457d6555c2411b0da2b5b25e439ffffffff0200e87648170000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac00ab72479bb300001976a91412987f0ac5ac71d66bd672d6be6f227a0ec9895888ac00000000",``
+
+``    "complete" : true``
+
+``}``
+
+``smileycoin-cli  sendrawtransaction 01000000018cd313ebd1b2f4fdb966b45a29ff0220253161e38f36229b4a23cc29f3d4adfa000000006b483045022100fcb221e7530002f91e0ff9e2e7b6ef70216f66cfcf8031302c0fc02ac4eba17702200bde8c7d7da8e74f57712915569ef9f05653352513c80daadd24b79a0c1454bd0121020b2242f11807f2d5404b0e17b63dedfd19600457d6555c2411b0da2b5b25e439ffffffff0200e87648170000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac00ab72479bb300001976a91412987f0ac5ac71d66bd672d6be6f227a0ec9895888ac00000000``
+
+``1fa1ebcb69a361b56eeb283fb3adb87c0031ed88ca8b9e539fc3b33fcd225a38``
+
+The output from the last command was the TxId and as always the transaction can be viewed in any block explorer, e.g.
+``https://chainz.cryptoid.info/smly/tx.dws?1fa1ebcb69a361b56eeb283fb3adb87c0031ed88ca8b9e539fc3b33fcd225a38.htm``
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec04500/sl04550
+Making a non standard transaction using P2SH
+============================================
+
+Handout
+-------
+
+by
+
+Magnea Haraldsdóttir
+
+The instructions that I followed are:
+
+- Standard transaction: https://medium.com/@darosior/bitcoin-raw-transactions-the-hard-way-f139615f195b
+- P2SH transaction: https://medium.com/@darosior/bitcoin-raw-transactions-part-2-p2sh-94df206fee8d
+
+Using functions from these instructions I modified the code and functions and ended up with
+a small python program I am using for this.
+
+The functions that I am using are ``hash160()`` which is the ``ripemd160(sha256())`` frequently used in Smileycoin just like in Bitcoin
+
+The next function is just a sizeof() which gets the size in bytes of an integer
+
+Then we have the class Script() which represents a Smileycoin script and a function parse() that takes in the opcode names
+as strings and returns them as the hex value of that opcode. The last function is serialize() which takes in all elements of
+a transaction and makes the hex needed for the signrawtransaction in the smileycoin-cli.
+
+The main steps are taken after we have got all of these functions working:
+
+1. We need to get the previous hash which is the txid of the smly that we want to spend, called prev_hash
+
+::
+
+  prev_hash = binascii.unhexlify('7b1e1d86d0ce8f614cfad93f1ab592a1973b097aba0fd357aa3acd6cd33643c2')
+
+The next step is done when wanting to make a standard transaction, described in the first link linked above
+2A. We need the public key of the address we want to send to, a new address can be obtained with ``getnewaddress`` in the smileycoin command line
+and the public key of that address is found by doing ``validateaddress <address>``. After that we get the address not encoded with base58
+
+::
+
+  pubkey = b'02e0ec45655eb4f1b7cd76ea116f9cd80c4b1df060c2f2500ff7fd7e87528f8121'
+  address = hash160(binascii.unhexlify(pubkey))
+
+Then we need to make the scriptPubKey:
+
+::
+
+  script = 'OP_DUP OP_HASH160 ' + address + ' OP_EQUALVERIFY OP_CHECKSIG
+  scriptPubKey = Script(script)
+  scriptPubKey= scriptPubKey.serialized
+
+After this we go to step 3
+
+Step 2B is done when wanting to make a non standard transaction using P2SH 2B. 
+
+Here we don't need an address because the address will be the script we want to lock the transaction with.
+
+The script here is:
+
+::
+
+  script = 'OP_2 OP_ADD OP_4 OP_NUMEQUALVERIFY'
+  scriptPubKey = Script(script)
+
+We then need to get the hash160 of the scriptPubKey as that is how P2SH works, then I construct the lockingscript.
+
+::
+
+  scriptPubKeyHash = hash160(scriptPubKey.serialized)
+  lockscript = 'OP_HASH160 ' + spkhash + ' OP_EQUAL'
+  lockingScript = Script(lockscript)
+  lockingScript = lockingScript.serialized
+
+3. This step is then the same for a standard transaction and a non standard transaction
+
+::
+
+  #The pubkey of the previous output can be found in the vout['scriptpubkey']['hex'] entry from the getrawtransaction command output from above : it’s 76a..
+  scriptsig = binascii.unhexlify('76a914ccd7179ee7e6fa0039f6c8a279cf1d7cad35741f88ac')
+  #Amount to send (0.97)
+  value = int(97000000).to_bytes(8, 'little')
+  #The vout
+  index = b'\x00\x00\x00\x00'
+
+Then the last step is to print what is needed for signing the transaction:
+
+::
+
+  print("to sign:")
+  print(serialize(prev_hash, index, scriptsig, value, spk2))
+
+The example can be seen here: 
+
+::
+
+  https://chainz.cryptoid.info/smly/tx.dws?322ec02926d74f2baac2beca804b43a2aaf7a32f7e435fb0a63f7b6df26d53f3.htm

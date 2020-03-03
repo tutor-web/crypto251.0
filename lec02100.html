@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Hash function introduction &#8212; Cryptocurrency and the Smileycoin (crypto251.0)  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Elliptic curves" href="lec02200.html" />
+    <link rel="prev" title="Cryptography and cryptocurrencies" href="lec02000.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="hash-function-introduction">
+<h1>Hash function introduction<a class="headerlink" href="#hash-function-introduction" title="Permalink to this headline">¶</a></h1>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Cryptocurrency and the Smileycoin (crypto251.0)</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lec00100.html">Introduction to cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00200.html">Bitcoin and Smileycoin basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00300.html">Picking up a wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00400.html">Compiling the wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00500.html">Introduction to the SMLY command line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01200.html">Basic cryptocurrency economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01400.html">The transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01500.html">The block and the blockchain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01600.html">Cryptocurrency mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02000.html">Cryptography and cryptocurrencies</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Hash function introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02200.html">Elliptic curves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03000.html">The trilogy: tutor-web, Smileycoin and Education in a Suitcase</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03100.html">The SmileyCoin Fund</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03200.html">Splitting the coinbase: No longer just a miner’s fee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03400.html">Staking and proof-of-stake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03500.html">The tutor-web as a faucet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec04000.html">The command line from a Linux script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec04500.html">Building slightly more complex transactions on the command line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec15000.html">Cryptocurrency exchanges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec15500.html">API access to exchanges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec26000.html">Automation on the blockchain  (stores, ATM, gambling etc)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec30000.html">The Bitcoin programming language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec30100.html">Fun and games with Bitcoin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec31000.html">The SmileyCoin Fund revisited</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec47000.html">Atomic swaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec47100.html">More on atomic swaps and smart contracts</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="lec02000.html" title="previous chapter">Cryptography and cryptocurrencies</a></li>
+      <li>Next: <a href="lec02200.html" title="next chapter">Elliptic curves</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Gunnar Stefansson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/lec02100.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

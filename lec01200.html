@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Basic cryptocurrency economics &#8212; Cryptocurrency and the Smileycoin (crypto251.0)  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The transaction" href="lec01400.html" />
+    <link rel="prev" title="Introduction to the SMLY command line" href="lec00500.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="basic-cryptocurrency-economics">
+<h1>Basic cryptocurrency economics<a class="headerlink" href="#basic-cryptocurrency-economics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>Prices of cryptocurrencies have fluctuated wildly</p>
+<p>Prices of several cryptocurrencies have started or risen to very high level before plummeting</p>
+<p>What are the driving factors behind these fluctuations?</p>
+</div>
+<div class="section" id="the-issues">
+<h2>The issues<a class="headerlink" href="#the-issues" title="Permalink to this headline">¶</a></h2>
+<p>The main issues which drive the price of cryptocurrencies appear to be</p>
+<ul class="simple">
+<li><p>supply and demand</p></li>
+<li><p>coinbase (mining)</p></li>
+<li><p>difficulty</p></li>
+<li><p>pump and dump</p></li>
+<li><p>hype and fud</p></li>
+<li><p>airdrop</p></li>
+<li><p>lack of - or increase in use cases</p></li>
+<li><p>speculation vs investment</p></li>
+<li><p>change (increase) in public interest</p></li>
+</ul>
+<p>These relate to <strong>supply and demand</strong>. Other economic aspects include</p>
+<ul class="simple">
+<li><p>Donations</p></li>
+<li><p>Divident payments</p></li>
+<li><p>Universal Basic Income (UBI)</p></li>
+</ul>
+</div>
+<div class="section" id="the-coinbase-difficulty-and-mining-strategy">
+<h2>The coinbase, difficulty and mining strategy<a class="headerlink" href="#the-coinbase-difficulty-and-mining-strategy" title="Permalink to this headline">¶</a></h2>
+<p>Each coin has a built-in plan for the generation of new blocks and new coins</p>
+<p>Bitcoin:</p>
+<ul class="simple">
+<li><p>A new block should be made every 10 minutes</p></li>
+<li><p>The coinbase for Bitcoin is currently 12.5 Satoshi</p></li>
+<li><p>The coinbase is also the miner’s fee</p></li>
+<li><p>The miner receives 12.5 BTC for mining a new block</p></li>
+</ul>
+<p>Smileycoin:</p>
+<ul class="simple">
+<li><p>Same principle but 10,000 SMLY and one block per 3 minutes</p></li>
+<li><p>Coinbase is halved approximately every 7 years</p></li>
+<li><p>Miner receives only 10% of the coinbase</p></li>
+</ul>
+<p>The strategy: The “hash” of the block must decrease (<strong>difficulty</strong> increases) if the blocks are generated too fast.</p>
+<div class="section" id="handout">
+<h3>Handout<a class="headerlink" href="#handout" title="Permalink to this headline">¶</a></h3>
+<p>The student should do some research into hash functions.</p>
+<p>See for example
+<a class="reference external" href="http://bit.ly/2PXIpYR">Example: Bitcoin http://bit.ly/2PXIpYR</a>.</p>
+<p>and
+<a class="reference external" href="http://bit.ly/2oCpdTZ">Example: Litecoin http://bit.ly/2oCpdTZ</a>.</p>
+</div>
+</div>
+<div class="section" id="mining-the-tragedy-of-the-commons">
+<h2>Mining: The tragedy of the commons<a class="headerlink" href="#mining-the-tragedy-of-the-commons" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Block</span> <span class="pre">Hash</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">5000</span>&#160;&#160; <span class="pre">000000004d78d2a8a93a1d20a24d721268690bebd2b51f7e80657d57e226eef9</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">10000</span>&#160; <span class="pre">0000000099c744455f58e6c6e98b671e1bf7f37346bfd4cf5d0274ad8ee660cb</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">25000</span>&#160; <span class="pre">00000000ae4b125eb183e689b7231eafa8c992d5b8c952d9f3cd30a79a788ddf</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">50000</span>&#160; <span class="pre">000000001aeae195809d120b5d66a39c83eb48792e068f8ea1fea19d84a4278a</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">100000</span> <span class="pre">000000000003ba27aa200b1cecaad478d2b00432346c3f1f3986da1afd33e506</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">200000</span> <span class="pre">000000000000034a7dedef4a161fa058a2d67a173a90155f3a2fe6fc132e0ebf</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">300000</span> <span class="pre">000000000000000082ccf8f1557c5d40b21edabb18d2d691cfbf87118bac7254</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">518367</span> <span class="pre">000000000000000000164ac8a0f61d8157b0920d13cb53cb7d47610bde077898</span></code></p>
+<p>This would be called the “tragedy of the commons” in fisheries: The problem is that there is open access to a new resource and the fee for entry (zero) is not high enough.</p>
+</div>
+<div class="section" id="mining-development">
+<h2>Mining development<a class="headerlink" href="#mining-development" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p>Bitcoin: Currently only large companies (“data centres”)</p></li>
+<li><p>Originally on desktop computer, then using GPSs, followed by ASICs</p></li>
+<li><p>Other coins: Commonly “mining pool” (grafarahópar?), but similar development</p></li>
+<li><p>SMLY: Still mostly “solo” mining (coinbase-split is difficult for pools to implement)</p></li>
+</ul>
+</div></blockquote>
+<p><a class="reference external" href="http://prohashing.com/">Example: http://prohashing.com/</a>.</p>
+</div>
+<div class="section" id="basic-economics">
+<h2>Basic economics<a class="headerlink" href="#basic-economics" title="Permalink to this headline">¶</a></h2>
+<p>Supply and demand drive the price of almost anything.</p>
+<p>The supply and demand of a cryptocurrency can be influenced by</p>
+<ul class="simple">
+<li><p>mining to generate new, the coinbase</p></li>
+<li><p>airdrop</p></li>
+<li><p>lack of - or increase in use cases</p></li>
+</ul>
+<p>Increased difficulty will make mining more expensive but will NOT directly affect the price over any period of time: The increased difficulty may mean that some miners will stop mining or technological development will lead to better ASICs being used.</p>
+<p>An <strong>airdrop</strong> is used to hand out large amounts of a cryptocurrency to groups of users. <strong>Auroracoin</strong> is such an example.</p>
+<p>Examples of <strong>pump and dump</strong> or <strong>hype and fud</strong> abound. These are techniques used by groups and individuals who intend to affect the prices of cryptocurrencies.</p>
+</div>
+<div class="section" id="investment-and-speculation">
+<h2>Investment and speculation<a class="headerlink" href="#investment-and-speculation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>speculation vs investment</p></li>
+<li><p>change (increase) in public interest</p></li>
+<li><p>like any asset, cryptocurrencies can be used for investments</p></li>
+</ul>
+<p>See handout at <a class="reference external" href="https://tutor-web.net/comp/crypto251.0/lec01200/sl01240">https://tutor-web.net/comp/crypto251.0/lec01200/sl01240</a> for Bitcoin price development</p>
+<div class="section" id="example-of-analysis-see-https-hackernoon-com-https-medium-com-zvnowman-building-a-cryptocurrency-portfolio-for-a-10-year-holding-period-e7ed407a9754handout">
+<h3>Example of analysis, see <a class="reference external" href="https://hackernoon.com/https-medium-com-zvnowman-building-a-cryptocurrency-portfolio-for-a-10-year-holding-period-e7ed407a9754Handout">https://hackernoon.com/https-medium-com-zvnowman-building-a-cryptocurrency-portfolio-for-a-10-year-holding-period-e7ed407a9754Handout</a><a class="headerlink" href="#example-of-analysis-see-https-hackernoon-com-https-medium-com-zvnowman-building-a-cryptocurrency-portfolio-for-a-10-year-holding-period-e7ed407a9754handout" title="Permalink to this headline">¶</a></h3>
+<p><strong>Bólur og svindl</strong></p>
+<p><a class="reference external" href="https://coinmarketcap.com/all/views/all/">https://coinmarketcap.com/all/views/all/</a></p>
+<p>Skrýtin verðþróun, en verð á gulli og demöntum ræðst líka af framboði og eftirspurn (þ.m.t. væntingum og spákaupmennsku)</p>
+<p><strong>Bitcoin verðþróun …</strong></p>
+<a class="reference internal image-reference" href="http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2013.png"><img alt="alternate text" class="align-center" src="http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2013.png" style="height: 125.0px;" /></a>
+<p>Bóla? Sprungin?</p>
+<p><strong>Bitcoin verðþróun út 2013</strong></p>
+<a class="reference internal image-reference" href="http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2013.png"><img alt="alternate text" class="align-center" src="http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2013.png" style="height: 125.0px;" /></a>
+<p>Bóla? Sprungin?</p>
+<p><strong>Bitcoin verðþróun til 2015</strong></p>
+<a class="reference internal image-reference" href="http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2015.png"><img alt="alternate text" class="align-center" src="http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2015.png" style="height: 125.0px;" /></a>
+<p>Bóla? Sprungin?</p>
+<p><strong>Bitcoin verðþróun inn í 2017</strong></p>
+<a class="reference internal image-reference" href="http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2017-a.png"><img alt="alternate text" class="align-center" src="http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2017-a.png" style="height: 125.0px;" /></a>
+<p>Bóla? Sprungin?</p>
+<p><strong>Bitcoin verðþróun út 2017</strong></p>
+<a class="reference internal image-reference" href="http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2017-b.png"><img alt="alternate text" class="align-center" src="http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2017-b.png" style="height: 125.0px;" /></a>
+<p>Bóla? Sprungin?</p>
+<p><strong>Bitcoin verðþróun út 2018</strong></p>
+<a class="reference internal image-reference" href="http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2018-allt.png"><img alt="alternate text" class="align-center" src="http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2018-allt.png" style="height: 125.0px;" /></a>
+<p>Bóla? Sprungin?</p>
+<p><strong>Bitcoin verðþróun árið 2018</strong></p>
+<a class="reference internal image-reference" href="http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2018-ytd.png"><img alt="alternate text" class="align-center" src="http://tutor-web.net/comp/crypto251.0/lec00100/bitcoin2018-ytd.png" style="height: 125.0px;" /></a>
+<p>Bóla? Sprungin?</p>
+<p>Example of analysis, see <a class="reference external" href="https://hackernoon.com/https-medium-com-zvnowman-building-a-cryptocurrency-portfolio-for-a-10-year-holding-period-e7ed407a9754">https://hackernoon.com/https-medium-com-zvnowman-building-a-cryptocurrency-portfolio-for-a-10-year-holding-period-e7ed407a9754</a></p>
+</div>
+</div>
+<div class="section" id="the-airdrop-fallacy">
+<h2>The airdrop fallacy<a class="headerlink" href="#the-airdrop-fallacy" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>airdrop</p></li>
+</ul>
+<p>Airdrop: Giving money to everyone</p>
+<p>Airdrop without incentive to invest or methods to spend: Useless :-)</p>
+</div>
+<div class="section" id="setting-up-use-cases">
+<h2>Setting up use cases<a class="headerlink" href="#setting-up-use-cases" title="Permalink to this headline">¶</a></h2>
+<p>The only way for a cryptocurrency to have a value in the long term is for it to have a use case</p>
+<p>The use case might simply be investment:</p>
+<ul class="simple">
+<li><p>Bitcoin is a classic case</p></li>
+<li><p>Cryptocurrencies appear to be used as investment portfolios</p></li>
+</ul>
+<p>Use cases can also consist of companies accepting a cryptocurrency as a payment (Bitcoin in particular, but also Auroracoin)</p>
+<p>Selling donated coupons is a common method used by non-profit organisations. Coupons can easily be sold for crypto (<a class="reference external" href="http://smly.is">http://smly.is</a>)</p>
+<p>In the early days of Auroracoin there were too few use cases to support holding or using the coin.</p>
+<p><strong>Note:</strong> Groups <strong>could</strong> agree that all members of a crypto group should put something up for sale and thus be ready to accept payments in the cryptocurrency.</p>
+</div>
+<div class="section" id="donations">
+<h2>Donations<a class="headerlink" href="#donations" title="Permalink to this headline">¶</a></h2>
+<p>Several cryptocurrencies encourage</p>
+<ul class="simple">
+<li><p>donations in the currency</p></li>
+</ul>
+<p>The effect on price would normally be none, unless the coinbase is used as a donation which goes directly into circulation.</p>
+<p>An interesting twist on donations is to use</p>
+<ul class="simple">
+<li><p>investment in the currency as a means to support a cause financed by the currency (Education in a Suitcase)</p></li>
+</ul>
+<p>See  <a class="reference external" href="http://www.quotenet.nl/Nieuws/Het-wonder-van-SmileyCoin-rijk-worden-met-donaties-209798">http://www.quotenet.nl/Nieuws/Het-wonder-van-SmileyCoin-rijk-worden-met-donaties-209798</a></p>
+</div>
+<div class="section" id="divident-payments">
+<h2>Divident payments<a class="headerlink" href="#divident-payments" title="Permalink to this headline">¶</a></h2>
+<p>Reasoning:</p>
+<ul class="simple">
+<li><p>Reduce dumping</p></li>
+<li><p>Increase investment incentive</p></li>
+</ul>
+<p>Smileycoin approach:</p>
+<ul class="simple">
+<li><p>Fixed portion, 45%, of coinbase goes to dividends</p></li>
+<li><p>Recipient group: Addresses with at least 25 M SMLY</p></li>
+<li><p>Method: Oldest untouched address receives entire next payment</p></li>
+</ul>
+<p>Key figures:</p>
+<ul class="simple">
+<li><p>Amount: 4500 SMLY per block</p></li>
+<li><p>Frequency: 480 payments per day</p></li>
+<li><p>Rich list: <a class="reference external" href="https://chainz.cryptoid.info/smly/#!rich">https://chainz.cryptoid.info/smly/#!rich</a></p></li>
+<li><p>180 addresses as of Sept 7, 2018</p></li>
+</ul>
+</div>
+<div class="section" id="the-smileycoin-economy">
+<h2>The SmileyCoin economy<a class="headerlink" href="#the-smileycoin-economy" title="Permalink to this headline">¶</a></h2>
+<img alt="http://tutor-web.net/comp/crypto251.0/images/token_model_v4.png" src="http://tutor-web.net/comp/crypto251.0/images/token_model_v4.png" />
+<div class="section" id="id1">
+<h3>Handout<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p><strong>The SmileyCoin economy</strong>:  Miners earn a few SMLY from mining but the coinbase is mostly (i) donated in 10 income streams to the Smiley Charity  (fully automatic and decentralised) or (ii) paid as dividends to over 200 large supporters (also fully automatic and decentralised). Donors can also donate fiat directly to the Smiley Charity. The SmileyCoin Fund supporting the tutor-web will support other projects. Students earn SMLY while studying in the tutor-web. Any holders of SMLY can sell SmileyCoin on cryptocurrency exchanges. Vendors supporting the projects provide various discount coupons for sale on smly.is where students and other can purchase them for SMLY. Students may redeem or donate their hard-earned SMLY; and non-redeemed SMLY are eventually donated to the Smiley Charity.</p>
+<p>Missing from the graphic is how the Smiley Charity pays forward the SmileyCoin income streams to include other charities as recipients. The forward payments are automatic and transparent.</p>
+</div>
+</div>
+<div class="section" id="cryptocurrencies-as-a-universal-basic-income">
+<h2>Cryptocurrencies as a Universal Basic Income<a class="headerlink" href="#cryptocurrencies-as-a-universal-basic-income" title="Permalink to this headline">¶</a></h2>
+<p>Universal Basic Income (UBI) is a popular term and commonly linked to technological developments which may eventually lead to mass unemployment.</p>
+<p>A cryptocurrency could in principle be used as for UBI through a number of means:</p>
+<ul class="simple">
+<li><p>airdrop</p></li>
+<li><p>splitting the coinbase</p></li>
+<li><p>splitting the transaction fee</p></li>
+</ul>
+<p>but all of these only increase supply, not demand. Hence, none of these will work unless there is simultaneously a setup which provides demand for the coin.</p>
+<p>An airdrop could be implemented through a premine, but experience to date suggests that this is not a very good idea (Auroracoin, Smileycoin) and it would be better to use the coinbase+fees for this purpose.</p>
+<p>Several cryptocurrency-based UBI projects are listed at <a class="reference external" href="https://bitcointalk.org/index.php?topic=3242065.0">https://bitcointalk.org/index.php?topic=3242065.0</a></p>
+</div>
+<div class="section" id="solving-ubi-implementation-issues-delivery-and-demand">
+<h2>Solving UBI implementation issues: delivery and demand<a class="headerlink" href="#solving-ubi-implementation-issues-delivery-and-demand" title="Permalink to this headline">¶</a></h2>
+<p>In addition to problems with a premine, the coinbase alone is unlikely to be enough (exercise: test the increase in supply and demand needed to make this work for Iceland with e.g. 100,000 recipients of a UBI equivalent of 100,000 ISK per month).</p>
+<p>If a coin is set up such that the UBI recipient are active parts of the community through</p>
+<ul class="simple">
+<li><p>sending the UBI to other addresses (generating a fee)</p></li>
+<li><p>putting a service or object up for sale</p></li>
+</ul>
+<p>then a UBI might be feasible.</p>
+<p>Supply would mostly be through the transaction fees.</p>
+<p>Demand would be generated by the users themselves.</p>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<p>Consider 100,000 recipients of a UBI equivalent of 100,000 ISK per month and suppose this has to come out of the coinbase.</p>
+<p>The coinbase of 10,000 new coins are generated in each block, every 3 minutes. With 20 blocks per hour, 480 blocks are generated per day, or 14,400 blocks per month. The total coinbase is therefore 144 million SMLY per month.</p>
+<p>For the above UBI, this coinbase of 144 million SMLY has to be worth 10,000 million ISK per month, so each SMLY needs to be worth 10000/144 or 69 ISK.</p>
+<p>There are currently almost 30 bn SMLY in circulation (30 10^9) so for the above to work, the market value of all SmileyCoin in circulation needs to be over 2 thousand billion ISK (2 10^12). For comparison, the amount of money in Iceland (as measured by M0) is about 40 bn. Even taking into account money in savings accounts etc (M3), the market value of SMLY needs to be far too high compared to a typical economy, if the UBI is to be generated from the coinbase alone.</p>
+<p>Of course in a typical economy, wages are not paid by printing money. Once paid, wages are first used to pay income taxes and then purchase goods, resulting in sales taxes. These taxes are subsequently used to pay wages again. A crypto-based UBI needs to mimic this circular behaviour of wages and taxes.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Cryptocurrency and the Smileycoin (crypto251.0)</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lec00100.html">Introduction to cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00200.html">Bitcoin and Smileycoin basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00300.html">Picking up a wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00400.html">Compiling the wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00500.html">Introduction to the SMLY command line</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic cryptocurrency economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01400.html">The transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01500.html">The block and the blockchain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01600.html">Cryptocurrency mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02000.html">Cryptography and cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02100.html">Hash function introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02200.html">Elliptic curves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03000.html">The trilogy: tutor-web, Smileycoin and Education in a Suitcase</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03100.html">The SmileyCoin Fund</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03200.html">Splitting the coinbase: No longer just a miner’s fee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03400.html">Staking and proof-of-stake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03500.html">The tutor-web as a faucet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec04000.html">The command line from a Linux script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec04500.html">Building slightly more complex transactions on the command line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec15000.html">Cryptocurrency exchanges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec15500.html">API access to exchanges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec26000.html">Automation on the blockchain  (stores, ATM, gambling etc)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec30000.html">The Bitcoin programming language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec30100.html">Fun and games with Bitcoin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec31000.html">The SmileyCoin Fund revisited</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec47000.html">Atomic swaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec47100.html">More on atomic swaps and smart contracts</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="lec00500.html" title="previous chapter">Introduction to the SMLY command line</a></li>
+      <li>Next: <a href="lec01400.html" title="next chapter">The transaction</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Gunnar Stefansson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/lec01200.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

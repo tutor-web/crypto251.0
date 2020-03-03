@@ -1,0 +1,16 @@
+The tutor-web as a faucet
+*************************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03500/sl03510
+Cryptocurrency faucets
+======================
+
+Faucets are...
+
+Examples of faucets:
+
+\* x \* y

@@ -1,0 +1,114 @@
+Compiling the wallet
+********************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00400/sl00410
+The Linux steps
+===============
+
+* Get a computer running Linux
+* Use git to download the SMLY wallet source
+* Run the tools to compile the code
+* Install the wallet where you want it
+
+`Quick video commenting on these slides <https://www.youtube.com/watch?v=3QekhlN0Xyo&list=PLzTQcKBiNWB3E7nh5egXI_PaHW1MLnXy8&index=8>`_
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00400/sl00420
+Get a computer running Linux
+============================
+
+Any Linux machine will do.
+
+Some favourites:
+
+* NUC
+* Raspberry pi
+* Any PC
+
+Caveat: An old computer will do, but if it is **very** small (low on memory/disc space/slow) then it may be difficult to compile or run the wallet.
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00400/sl00430
+Linux: Use git to download the SMLY wallet source
+=================================================
+
+Simple:
+
+`git clone http://github.com/tutor-web/smileyCoin`
+
+Gives a new folder, smileyCoin
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00400/sl00440
+Linux: Run the tools to compile the code
+========================================
+
+* ./autogen.sh
+* ./configure
+* make
+
+Caveat: May need to modify src/Makefile on a Raspberry pi.
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00400/sl00450
+Linux: Install the wallet where you want it
+===========================================
+
+Typical
+
+* cd
+* mkdir bin 
+* cd smileyCoin/src
+* mv smileycoind smileycoin-cli $HOME/bin
+Handout
+-------
+
+What the commands mean...
+
+missing
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00400/sl00460
+Windows: Compiling the wallet
+=============================
+
+missing...
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00400/sl00470
+Mac OSX: Compiling the wallet
+=============================
+
+missing...
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec00400/sl00800
+Overview
+========
+
+This section has given an overview of how to pick up a Smileycoin wallet
+
+The Handout subsection describes some homework. Your instructor will
+give more detail.
+Handout
+-------
+
+Homework: Add some material to any single subsection of this section.

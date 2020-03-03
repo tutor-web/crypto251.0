@@ -1,0 +1,18 @@
+API access to exchanges
+***********************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec15500/sl15510
+Automating access to cryptocurrency exchanges
+=============================================
+
+Most cryptocurrency exchanges allow some sort of programmed access.
+
+This is usually called an application programming interface or API and is normally done through a browser-style access (URL or URI). 
+
+For the user this implies that it is possible to write programs to monitor prices or even automate buying and selling in different markets.
+
+The programs can in principle be written in any programming language, but language support for HTML varies quite a bit.

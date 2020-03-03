@@ -1,0 +1,100 @@
+Splitting the coinbase: No longer just a miner's fee
+****************************************************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03200/sl03205
+Alternatives to premines and funds
+==================================
+
+A premine can be used to fund development or special projects
+
+A better approach is to set up a **formal fund** for the same purpose
+
+A still better approach is to formally program the mining process to donate to the projects
+
+This uses the **coinbase** for more than just the block reward for the miner
+Handout
+-------
+
+Recall from the previous section that a premine can be used to fund development or special projects. The premine is what the developers of a coin decide to mine before opening the coin to general mining.
+
+A better approach is to set up a **formal fund** for the same purpose as has been done in the case of the SmileyCoin Fund. In the case of the SmileyCoin, the remainder of the premine was moved to the Fund, but it could have been done at the outset. 
+
+A still better approach is to formally program the mining process to donate to the projects. 
+
+This implies using the **coinbase** for more than just a reward to the miner for finding the block.
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03200/sl03210
+Splitting the coinbase: Why?
+============================
+
+The **coinbase** is a prespecified number of coins which the miners can generate when they mine a new block
+
+Usually miners can send the coinbase to an address of their own choosing
+
+In this case the **coinbase** is the same as the (miner's) **block reward**
+
+A community can also decide to do something else with the coinbase
+
+If the miner's reward is too high then a large number of miners will start to mine the coin
+
+If a large pool starts to mine a small coin then the difficulty shoots up until the pool stops miningHandout
+-------
+
+The **coinbase** is a prespecified number of coins which the miners can generate when they mine a new block. For SmileyCoin this is initially set to 10 thousand SMLY per block.
+
+Usually miners can send the coinbase to an address of their own choosing. Thus a miner will normally keep the coinbase and it becomes the (miner's) **block reward**.
+ 
+But a community can also decide to do something else with the coinbase: If all the wallets, including the miners' wallets, are set to only accept blocks where the coinbase is used for donations, then this use has been hardwired into the coin.
+
+There can be many different reasons for choosing this path. 
+
+* If the miner's reward is too high then a large number of miners will start to mine the coin
+* If a large pool starts to mine a small coin then the difficulty shoots up until the pool stops mining
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03200/sl03215
+The SmileyCoin coinbase split
+=============================
+
+* 10% Miner's reward
+* 45% Donations
+* 40% Dividends
+
+Handout
+-------
+
+Since 2017, the SmileyCoin coinbase has been split three ways
+
+* 10% Miner's reward
+* 45% Donations
+* 40% Dividends
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03200/sl03220
+Effects of the coinbase split
+=============================
+
+* No large pools
+* 1bn SMLY in donations over 1-2 years
+* over 250 dividend-seekers
+
+Handout
+-------
+
+After the SmileyCoin coinbase was been split three ways, several changes were seen in the behaviour of the SMLY blockchain.
+
+* No large pools
+* 1bn SMLY in donations over 1-2 years
+* over 250 dividend-seekers
+

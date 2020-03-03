@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Building slightly more complex transactions on the command line &#8212; Cryptocurrency and the Smileycoin (crypto251.0)  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Cryptocurrency exchanges" href="lec15000.html" />
+    <link rel="prev" title="The command line from a Linux script" href="lec04000.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="building-slightly-more-complex-transactions-on-the-command-line">
+<h1>Building slightly more complex transactions on the command line<a class="headerlink" href="#building-slightly-more-complex-transactions-on-the-command-line" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="a-simple-transaction">
+<h2>A simple transaction<a class="headerlink" href="#a-simple-transaction" title="Permalink to this headline">¶</a></h2>
+<p>Recall how to create a simple transaction, with just one input and one output
+Use <a href="#id1"><span class="problematic" id="id2">``</span></a>smileycoin-cli listunspent``to find an UTXO</p>
+<p>Suppose this includes the output lines:</p>
+<p>``        “txid” : “cf808bcc1f38fdaa4930cb0bdf0ad71f970cd253994d4c571ad2fd08d3cd793d”,``</p>
+<p>``        “vout” : 0,``</p>
+<p>``        “amount” : 13493.00000000,``</p>
+<p><code class="docutils literal notranslate"><span class="pre">...</span></code></p>
+<p>``    },``</p>
+<p>``    {``</p>
+<p><code class="docutils literal notranslate"><span class="pre">...</span></code></p>
+<p>``        “address” : “B69QTo216bcaA3SD2Da7Q9arThMy7Z8ayJ”,``</p>
+<p><code class="docutils literal notranslate"><span class="pre">...</span></code></p>
+<p>Then the following one-line Linux command will aggregate the two addresses:</p>
+<div class="section" id="smileycoin-cli-createrawtransaction-txid-cf808bcc1f38fdaa4930cb0bdf0ad71f970cd253994d4c571ad2fd08d3cd793d-vout-0-b69qto216bcaa3sd2da7q9arthmy7z8ayj-13492-00000000-handout">
+<h3><a href="#id3"><span class="problematic" id="id4">``</span></a>smileycoin-cli createrawtransaction ‘[{“txid”:”cf808bcc1f38fdaa4930cb0bdf0ad71f970cd253994d4c571ad2fd08d3cd793d”,”vout”:0}]’ ‘{“B69QTo216bcaA3SD2Da7Q9arThMy7Z8ayJ”:13492.00000000}’<a href="#id5"><span class="problematic" id="id6">``</span></a>Handout<a class="headerlink" href="#smileycoin-cli-createrawtransaction-txid-cf808bcc1f38fdaa4930cb0bdf0ad71f970cd253994d4c571ad2fd08d3cd793d-vout-0-b69qto216bcaa3sd2da7q9arthmy7z8ayj-13492-00000000-handout" title="Permalink to this headline">¶</a></h3>
+<p>Create it</p>
+<p>``smileycoin-cli createrawtransaction
+’[“txid”:“cf808bcc1f38fdaa4930cb0bdf0ad71f970cd253994d4c571ad2fd08d3cd793d”,“vout”:0]’
+’“B69QTo216bcaA3SD2Da7Q9arThMy7Z8ayJ”:13492.00000000’```</p>
+<p>``01000000013d79cdd308fdd21a574c4d9953d20c971fd70adf0bcb3049aafd381fcc8b80cf0000000000ffffffff01003496223a0100001976a91412987f0ac5ac71d66bd672d6be6f227a0ec9895888ac00000000``</p>
+<p>Compare with the ``listunspent`` output – we did account for the
+transaction fee.</p>
+<p>Sign it</p>
+<p>``smileycoin-cli signrawtransaction
+01000000013d79cdd308fdd21a574c4d9953d20c971fd70adf0bcb3049aafd381fcc8b80cf0000000000ffffffff01003496223a0100001976a91412987f0ac5ac71d66bd672d6be6f227a0ec9895888ac00000000``</p>
+<p>```` `` “hex” :``
+``“01000000013d79cdd308fdd21a574c4d9953d20c971fd70adf0bcb3049aafd381fcc8b80cf000000006a473044022042f46f214e1d44f18f5f1ad7f3be64aac647d4827b9b5aa7f4599f995ca9e02d0220617058f66c89ba5dc2b8c6ce5ff5e0f7ff47c2b10858d6e366e7cc4f26096385012103cb8b5e31be52ed0d19250f4fa3efe6473bfb919d2b2609e7439b7bfcaeb77971ffffffff01003496223a0100001976a91412987f0ac5ac71d66bd672d6be6f227a0ec9895888ac00000000”,``
+`` “complete” : true`` ````</p>
+<p>Then just send it:</p>
+<p>``smileycoin-cli sendrawtransaction``
+``01000000013d79cdd308fdd21a574c4d9953d20c971fd70adf0bcb3049aafd381fcc8b80cf000000006a473044022042f46f214e1d44f18f5f1ad7f3be64aac647d4827b9b5aa7f4599f995ca9e02d0220617058f66c89ba5dc2b8c6ce5ff5e0f7ff47c2b10858d6e366e7cc4f26096385012103cb8b5e31be52ed0d19250f4fa3efe6473bfb919d2b2609e7439b7bfcaeb77971ffffffff01003496223a0100001976a91412987f0ac5ac71d66bd672d6be6f227a0ec9895888ac00000000``</p>
+<p>``5cc83b9728ec3eead163ce8640b7d65076ad43534734da47706d008f8db862ee``</p>
+</div>
+</div>
+<div class="section" id="maintaining-a-single-address">
+<h2>Maintaining a single address<a class="headerlink" href="#maintaining-a-single-address" title="Permalink to this headline">¶</a></h2>
+<p>It is often useful to maintain a single main address.</p>
+<p>Example: Anonymous user ‘Pine’ used <code class="docutils literal notranslate"><span class="pre">3P3QsMVK89JBNqZQv5zMAKG8FK3kJM4rjt</span></code> as the Bitcoin address for a fund of 5104 Bitcoin, as described at <a class="reference external" href="https://pineapplefund.org/">https://pineapplefund.org/</a></p>
+<p>A typical transaction is Bitcoin transaction <code class="docutils literal notranslate"><span class="pre">f065cc0bbede00d3fb56d1dd704fb8e85e706f7d22cee5ec554136d452697331</span></code>
+where Pineapplefund transfers 300 BTC to a destination address and sends the entire remainder of the fund back to the original address, <code class="docutils literal notranslate"><span class="pre">3P3QsMVK89JBNqZQv5zMAKG8FK3kJM4rjt</span></code>.</p>
+<p>This transaction is seen in
+<a class="reference external" href="https://www.blockchain.com/btc/tx/f065cc0bbede00d3fb56d1dd704fb8e85e706f7d22cee5ec554136d452697331">https://www.blockchain.com/btc/tx/f065cc0bbede00d3fb56d1dd704fb8e85e706f7d22cee5ec554136d452697331</a></p>
+<p>Such transactions are very easy to generate on the command line.</p>
+<p>Keeping the entire fund at a single address makes it extremely easy to publicly verify the development of the fund as grants are dispensed to recipients.
+Example
+——-</p>
+<p>Consider the following output from a <code class="docutils literal notranslate"><span class="pre">listunspent</span></code> command</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">&quot;txid&quot;</span> <span class="pre">:</span> <span class="pre">&quot;faadd4f329cc234a9b22368fe36131252002ff295ab466b9fdf4b2d1eb13d38c&quot;,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">&quot;vout&quot;</span> <span class="pre">:</span> <span class="pre">0,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">&quot;address&quot;</span> <span class="pre">:</span> <span class="pre">&quot;B69QTo216bcaA3SD2Da7Q9arThMy7Z8ayJ&quot;,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">&quot;account&quot;</span> <span class="pre">:</span> <span class="pre">&quot;&quot;,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">&quot;scriptPubKey&quot;</span> <span class="pre">:</span> <span class="pre">&quot;76a91412987f0ac5ac71d66bd672d6be6f227a0ec9895888ac&quot;,</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">&quot;amount&quot;</span> <span class="pre">:</span> <span class="pre">1975796.00000000,</span></code></p>
+</div></blockquote>
+<p>One can then send just 1000 SMLY to a destination address and keep the entire rest in the original address using</p>
+<p><code class="docutils literal notranslate"><span class="pre">smileycoin-cli</span> <span class="pre">createrawtransaction</span> <span class="pre">'[{&quot;txid&quot;:&quot;faadd4f329cc234a9b22368fe36131252002ff295ab466b9fdf4b2d1eb13d38c&quot;,&quot;vout&quot;:0}]'</span> <span class="pre">'{&quot;BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik&quot;:1000,&quot;B69QTo216bcaA3SD2Da7Q9arThMy7Z8ayJ&quot;:1974795}'</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">01000000018cd313ebd1b2f4fdb966b45a29ff0220253161e38f36229b4a23cc29f3d4adfa0000000000ffffffff0200e87648170000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac00ab72479bb300001976a91412987f0ac5ac71d66bd672d6be6f227a0ec9895888ac00000000</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">smileycoin-cli</span> <span class="pre">signrawtransaction</span> <span class="pre">01000000018cd313ebd1b2f4fdb966b45a29ff0220253161e38f36229b4a23cc29f3d4adfa0000000000ffffffff0200e87648170000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac00ab72479bb300001976a91412987f0ac5ac71d66bd672d6be6f227a0ec9895888ac00000000</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">{</span></code></p>
+<p>``    “hex” : “01000000018cd313ebd1b2f4fdb966b45a29ff0220253161e38f36229b4a23cc29f3d4adfa000000006b483045022100fcb221e7530002f91e0ff9e2e7b6ef70216f66cfcf8031302c0fc02ac4eba17702200bde8c7d7da8e74f57712915569ef9f05653352513c80daadd24b79a0c1454bd0121020b2242f11807f2d5404b0e17b63dedfd19600457d6555c2411b0da2b5b25e439ffffffff0200e87648170000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac00ab72479bb300001976a91412987f0ac5ac71d66bd672d6be6f227a0ec9895888ac00000000”,``</p>
+<p>``    “complete” : true``</p>
+<p><code class="docutils literal notranslate"><span class="pre">}</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">smileycoin-cli</span>&#160; <span class="pre">sendrawtransaction</span> <span class="pre">01000000018cd313ebd1b2f4fdb966b45a29ff0220253161e38f36229b4a23cc29f3d4adfa000000006b483045022100fcb221e7530002f91e0ff9e2e7b6ef70216f66cfcf8031302c0fc02ac4eba17702200bde8c7d7da8e74f57712915569ef9f05653352513c80daadd24b79a0c1454bd0121020b2242f11807f2d5404b0e17b63dedfd19600457d6555c2411b0da2b5b25e439ffffffff0200e87648170000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac00ab72479bb300001976a91412987f0ac5ac71d66bd672d6be6f227a0ec9895888ac00000000</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">1fa1ebcb69a361b56eeb283fb3adb87c0031ed88ca8b9e539fc3b33fcd225a38</span></code></p>
+<p>The output from the last command was the TxId and as always the transaction can be viewed in any block explorer, e.g.
+<code class="docutils literal notranslate"><span class="pre">https://chainz.cryptoid.info/smly/tx.dws?1fa1ebcb69a361b56eeb283fb3adb87c0031ed88ca8b9e539fc3b33fcd225a38.htm</span></code></p>
+</div>
+<div class="section" id="making-a-non-standard-transaction-using-p2sh">
+<h2>Making a non standard transaction using P2SH<a class="headerlink" href="#making-a-non-standard-transaction-using-p2sh" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="handout">
+<h3>Handout<a class="headerlink" href="#handout" title="Permalink to this headline">¶</a></h3>
+<p>by</p>
+<p>Magnea Haraldsdóttir</p>
+<p>The instructions that I followed are:</p>
+<ul class="simple">
+<li><p>Standard transaction: <a class="reference external" href="https://medium.com/&#64;darosior/bitcoin-raw-transactions-the-hard-way-f139615f195b">https://medium.com/&#64;darosior/bitcoin-raw-transactions-the-hard-way-f139615f195b</a></p></li>
+<li><p>P2SH transaction: <a class="reference external" href="https://medium.com/&#64;darosior/bitcoin-raw-transactions-part-2-p2sh-94df206fee8d">https://medium.com/&#64;darosior/bitcoin-raw-transactions-part-2-p2sh-94df206fee8d</a></p></li>
+</ul>
+<p>Using functions from these instructions I modified the code and functions and ended up with
+a small python program I am using for this.</p>
+<p>The functions that I am using are <code class="docutils literal notranslate"><span class="pre">hash160()</span></code> which is the <code class="docutils literal notranslate"><span class="pre">ripemd160(sha256())</span></code> frequently used in Smileycoin just like in Bitcoin</p>
+<p>The next function is just a sizeof() which gets the size in bytes of an integer</p>
+<p>Then we have the class Script() which represents a Smileycoin script and a function parse() that takes in the opcode names
+as strings and returns them as the hex value of that opcode. The last function is serialize() which takes in all elements of
+a transaction and makes the hex needed for the signrawtransaction in the smileycoin-cli.</p>
+<p>The main steps are taken after we have got all of these functions working:</p>
+<ol class="arabic simple">
+<li><p>We need to get the previous hash which is the txid of the smly that we want to spend, called prev_hash</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">prev_hash</span> <span class="o">=</span> <span class="n">binascii</span><span class="o">.</span><span class="n">unhexlify</span><span class="p">(</span><span class="s1">&#39;7b1e1d86d0ce8f614cfad93f1ab592a1973b097aba0fd357aa3acd6cd33643c2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The next step is done when wanting to make a standard transaction, described in the first link linked above
+2A. We need the public key of the address we want to send to, a new address can be obtained with <code class="docutils literal notranslate"><span class="pre">getnewaddress</span></code> in the smileycoin command line
+and the public key of that address is found by doing <code class="docutils literal notranslate"><span class="pre">validateaddress</span> <span class="pre">&lt;address&gt;</span></code>. After that we get the address not encoded with base58</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pubkey</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;02e0ec45655eb4f1b7cd76ea116f9cd80c4b1df060c2f2500ff7fd7e87528f8121&#39;</span>
+<span class="n">address</span> <span class="o">=</span> <span class="n">hash160</span><span class="p">(</span><span class="n">binascii</span><span class="o">.</span><span class="n">unhexlify</span><span class="p">(</span><span class="n">pubkey</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Then we need to make the scriptPubKey:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">script</span> <span class="o">=</span> <span class="s1">&#39;OP_DUP OP_HASH160 &#39;</span> <span class="o">+</span> <span class="n">address</span> <span class="o">+</span> <span class="s1">&#39; OP_EQUALVERIFY OP_CHECKSIG</span>
+<span class="n">scriptPubKey</span> <span class="o">=</span> <span class="n">Script</span><span class="p">(</span><span class="n">script</span><span class="p">)</span>
+<span class="n">scriptPubKey</span><span class="o">=</span> <span class="n">scriptPubKey</span><span class="o">.</span><span class="n">serialized</span>
+</pre></div>
+</div>
+<p>After this we go to step 3</p>
+<p>Step 2B is done when wanting to make a non standard transaction using P2SH 2B.</p>
+<p>Here we don’t need an address because the address will be the script we want to lock the transaction with.</p>
+<p>The script here is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">script</span> <span class="o">=</span> <span class="s1">&#39;OP_2 OP_ADD OP_4 OP_NUMEQUALVERIFY&#39;</span>
+<span class="n">scriptPubKey</span> <span class="o">=</span> <span class="n">Script</span><span class="p">(</span><span class="n">script</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We then need to get the hash160 of the scriptPubKey as that is how P2SH works, then I construct the lockingscript.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scriptPubKeyHash</span> <span class="o">=</span> <span class="n">hash160</span><span class="p">(</span><span class="n">scriptPubKey</span><span class="o">.</span><span class="n">serialized</span><span class="p">)</span>
+<span class="n">lockscript</span> <span class="o">=</span> <span class="s1">&#39;OP_HASH160 &#39;</span> <span class="o">+</span> <span class="n">spkhash</span> <span class="o">+</span> <span class="s1">&#39; OP_EQUAL&#39;</span>
+<span class="n">lockingScript</span> <span class="o">=</span> <span class="n">Script</span><span class="p">(</span><span class="n">lockscript</span><span class="p">)</span>
+<span class="n">lockingScript</span> <span class="o">=</span> <span class="n">lockingScript</span><span class="o">.</span><span class="n">serialized</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>This step is then the same for a standard transaction and a non standard transaction</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#The pubkey of the previous output can be found in the vout[&#39;scriptpubkey&#39;][&#39;hex&#39;] entry from the getrawtransaction command output from above : it’s 76a..</span>
+<span class="n">scriptsig</span> <span class="o">=</span> <span class="n">binascii</span><span class="o">.</span><span class="n">unhexlify</span><span class="p">(</span><span class="s1">&#39;76a914ccd7179ee7e6fa0039f6c8a279cf1d7cad35741f88ac&#39;</span><span class="p">)</span>
+<span class="c1">#Amount to send (0.97)</span>
+<span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">97000000</span><span class="p">)</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;little&#39;</span><span class="p">)</span>
+<span class="c1">#The vout</span>
+<span class="n">index</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00\x00\x00\x00</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<p>Then the last step is to print what is needed for signing the transaction:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;to sign:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">serialize</span><span class="p">(</span><span class="n">prev_hash</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">scriptsig</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">spk2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The example can be seen here:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>https://chainz.cryptoid.info/smly/tx.dws?322ec02926d74f2baac2beca804b43a2aaf7a32f7e435fb0a63f7b6df26d53f3.htm
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Cryptocurrency and the Smileycoin (crypto251.0)</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lec00100.html">Introduction to cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00200.html">Bitcoin and Smileycoin basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00300.html">Picking up a wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00400.html">Compiling the wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00500.html">Introduction to the SMLY command line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01200.html">Basic cryptocurrency economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01400.html">The transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01500.html">The block and the blockchain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01600.html">Cryptocurrency mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02000.html">Cryptography and cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02100.html">Hash function introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02200.html">Elliptic curves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03000.html">The trilogy: tutor-web, Smileycoin and Education in a Suitcase</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03100.html">The SmileyCoin Fund</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03200.html">Splitting the coinbase: No longer just a miner’s fee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03400.html">Staking and proof-of-stake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03500.html">The tutor-web as a faucet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec04000.html">The command line from a Linux script</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Building slightly more complex transactions on the command line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec15000.html">Cryptocurrency exchanges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec15500.html">API access to exchanges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec26000.html">Automation on the blockchain  (stores, ATM, gambling etc)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec30000.html">The Bitcoin programming language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec30100.html">Fun and games with Bitcoin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec31000.html">The SmileyCoin Fund revisited</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec47000.html">Atomic swaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec47100.html">More on atomic swaps and smart contracts</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="lec04000.html" title="previous chapter">The command line from a Linux script</a></li>
+      <li>Next: <a href="lec15000.html" title="next chapter">Cryptocurrency exchanges</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Gunnar Stefansson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/lec04500.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

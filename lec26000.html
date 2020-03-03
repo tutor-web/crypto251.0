@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Automation on the blockchain (stores, ATM, gambling etc) &#8212; Cryptocurrency and the Smileycoin (crypto251.0)  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The Bitcoin programming language" href="lec30000.html" />
+    <link rel="prev" title="API access to exchanges" href="lec15500.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="automation-on-the-blockchain-stores-atm-gambling-etc">
+<h1>Automation on the blockchain  (stores, ATM, gambling etc)<a class="headerlink" href="#automation-on-the-blockchain-stores-atm-gambling-etc" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="doing-stuff-on-the-blockchain">
+<h2>Doing stuff on the blockchain<a class="headerlink" href="#doing-stuff-on-the-blockchain" title="Permalink to this headline">¶</a></h2>
+<p>The blockchain can be used for a lot more than transactions:</p>
+<ul class="simple">
+<li><p>Sending data, using the data fields</p></li>
+<li><p>Coding data into the amounts</p></li>
+<li><p>Monitoring transactions</p></li>
+<li><p>Executing code as a response to transactions</p></li>
+</ul>
+</div>
+<div class="section" id="so-how-do-you-do-stuff">
+<h2>So how do you do stuff?<a class="headerlink" href="#so-how-do-you-do-stuff" title="Permalink to this headline">¶</a></h2>
+<p>Method 1: the config file…</p>
+<p>option to monitor incoming transactions:</p>
+<p><code class="docutils literal notranslate"><span class="pre">walletnotify=/home/user/bin/command</span> <span class="pre">%s</span></code></p>
+<p>code everything into the transactions</p>
+<p>Benefits: No changes to the wallets</p>
+<p>Method 2: Change the wallet, add wallet commands</p>
+<p>Benefits: No changes to the protocol</p>
+<p>Method 3: Change the protocol</p>
+</div>
+<div class="section" id="gambling-on-the-blockchain">
+<h2>Gambling on the blockchain<a class="headerlink" href="#gambling-on-the-blockchain" title="Permalink to this headline">¶</a></h2>
+<p><strong>basics…</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">sendtoaddress</span> <span class="pre">BCJW4iZw7PechFHgtqqSdHmymjnFA6LjNJ</span> <span class="pre">10</span></code></p>
+<p>etc</p>
+<p>vanity address: Betzy…</p>
+<p><code class="docutils literal notranslate"><span class="pre">sendtoaddress</span> <span class="pre">BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik</span> <span class="pre">10</span></code></p>
+<p>… needs to be written up</p>
+<p>See <a class="reference external" href="https://steemit.com/blockchain/&#64;gstefans/double-or-nothing-on-the-blockchain">https://steemit.com/blockchain/&#64;gstefans/double-or-nothing-on-the-blockchain</a></p>
+</div>
+<div class="section" id="messages-on-the-blockchain">
+<h2>Messages on the blockchain<a class="headerlink" href="#messages-on-the-blockchain" title="Permalink to this headline">¶</a></h2>
+<p>See github thread sendwithmessage for Smileycoin</p>
+<p>Can send messages by coding it into the blockchain</p>
+<p><code class="docutils literal notranslate"><span class="pre">smileycoin-cli</span> <span class="pre">sendwithmessage</span> <span class="pre">BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik</span> <span class="pre">1000</span> <span class="pre">&quot;Hello,</span> <span class="pre">Betzyy&quot;</span></code></p>
+<p>See transaction <code class="docutils literal notranslate"><span class="pre">daf75d1ae31877b51856b4dee931600a5a5db819f52a5d98627f8a070a72b723</span></code>:</p>
+<p><a class="reference external" href="https://chainz.cryptoid.info/smly/search.dws?q=daf75d1ae31877b51856b4dee931600a5a5db819f52a5d98627f8a070a72b723">https://chainz.cryptoid.info/smly/search.dws?q=daf75d1ae31877b51856b4dee931600a5a5db819f52a5d98627f8a070a72b723</a></p>
+<p>Note how the coding uses ASCII characters 32-128 (0x20-0x7F), requiring 2 bytes per character, see <a class="reference external" href="http://www.asciitable.com/">http://www.asciitable.com/</a> (subtracting 32 dec from each ASCII code)</p>
+</div>
+<div class="section" id="a-very-simple-atm-on-the-blockchain">
+<h2>A very simple ATM on the blockchain<a class="headerlink" href="#a-very-simple-atm-on-the-blockchain" title="Permalink to this headline">¶</a></h2>
+<p>An Automatic Teller Machine, ATM, dispenses money when you put in a credit card.</p>
+<p>An ATM could also dispense Euro when you put in USD.</p>
+<p>A blockchain ATM could dispense SMLY when you put in LTC.</p>
+<p>For this you need to use two chains, the LTC and SMLY chains.</p>
+<ul class="simple">
+<li><p>To “put in LTC” means to send LTC to an address.</p></li>
+<li><p>To “dispense SMLY” means to send SMLY to a SMLY address.</p></li>
+</ul>
+<p>For this to work (1) the ATM needs to have a LTC address and (2) the ATM needs to be told about a SMLY address.</p>
+<p>This can be done by sending a SMLY address encoded in a LTC transaction.</p>
+<p>For more info see</p>
+<p><a class="reference external" href="https://steemit.com/blockchain/&#64;gstefans/more-messing-around-with-the-blockchain-an-atm-for-smly">https://steemit.com/blockchain/&#64;gstefans/more-messing-around-with-the-blockchain-an-atm-for-smly</a></p>
+</div>
+<div class="section" id="a-more-elaborate-atm-on-the-blockchain">
+<h2>A more elaborate ATM on the blockchain<a class="headerlink" href="#a-more-elaborate-atm-on-the-blockchain" title="Permalink to this headline">¶</a></h2>
+<p>for more info see</p>
+<p><a class="reference external" href="https://steemit.com/crypto/&#64;gstefans/on-line-atm-looking-for-testers">https://steemit.com/crypto/&#64;gstefans/on-line-atm-looking-for-testers</a></p>
+</div>
+<div class="section" id="traditional-data">
+<h2>Traditional data<a class="headerlink" href="#traditional-data" title="Permalink to this headline">¶</a></h2>
+<p>Normal use is through the op return</p>
+<p>usually limited to 80 characters, but see</p>
+<p><a class="reference external" href="https://bitcoin.stackexchange.com/questions/78572/op-return-max-bytes-clarification">https://bitcoin.stackexchange.com/questions/78572/op-return-max-bytes-clarification</a></p>
+<div class="section" id="and-example-belowexamples">
+<h3>and example belowExamples<a class="headerlink" href="#and-example-belowexamples" title="Permalink to this headline">¶</a></h3>
+<p>Example of the use of the data field in a SmileyCoin transaction:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">createrawtransaction</span>
+  <span class="s1">&#39;[{&quot;txid&quot;:&quot;b99f638e3a2763f55dba9515382ba6a9f23f6789989660bb893047430c335105&quot;,</span>
+     <span class="s2">&quot;vout&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">}]</span><span class="s1">&#39;</span>
+  <span class="s1">&#39;{&quot;BQLegZNT2hid77hNXgyFK1vZJ1BU2AvcdV&quot;:9,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span><span class="s2">&quot;31313131&quot;</span><span class="p">}</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<p>The reader should try to generate several such transactions to see exactly what changes in the hex code by
+including strings of different lengths.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Cryptocurrency and the Smileycoin (crypto251.0)</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lec00100.html">Introduction to cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00200.html">Bitcoin and Smileycoin basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00300.html">Picking up a wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00400.html">Compiling the wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00500.html">Introduction to the SMLY command line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01200.html">Basic cryptocurrency economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01400.html">The transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01500.html">The block and the blockchain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01600.html">Cryptocurrency mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02000.html">Cryptography and cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02100.html">Hash function introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02200.html">Elliptic curves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03000.html">The trilogy: tutor-web, Smileycoin and Education in a Suitcase</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03100.html">The SmileyCoin Fund</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03200.html">Splitting the coinbase: No longer just a miner’s fee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03400.html">Staking and proof-of-stake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03500.html">The tutor-web as a faucet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec04000.html">The command line from a Linux script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec04500.html">Building slightly more complex transactions on the command line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec15000.html">Cryptocurrency exchanges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec15500.html">API access to exchanges</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Automation on the blockchain  (stores, ATM, gambling etc)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec30000.html">The Bitcoin programming language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec30100.html">Fun and games with Bitcoin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec31000.html">The SmileyCoin Fund revisited</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec47000.html">Atomic swaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec47100.html">More on atomic swaps and smart contracts</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="lec15500.html" title="previous chapter">API access to exchanges</a></li>
+      <li>Next: <a href="lec30000.html" title="next chapter">The Bitcoin programming language</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Gunnar Stefansson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/lec26000.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

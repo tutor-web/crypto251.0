@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Fun and games with Bitcoin &#8212; Cryptocurrency and the Smileycoin (crypto251.0)  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The SmileyCoin Fund revisited" href="lec31000.html" />
+    <link rel="prev" title="The Bitcoin programming language" href="lec30000.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="fun-and-games-with-bitcoin">
+<h1>Fun and games with Bitcoin<a class="headerlink" href="#fun-and-games-with-bitcoin" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="puzzles-poetry-bounties-etc-etc">
+<h2>Puzzles, poetry, bounties etc etc<a class="headerlink" href="#puzzles-poetry-bounties-etc-etc" title="Permalink to this headline">¶</a></h2>
+<p>The Bitcoin blockchain has been used for many things other than transferring funds.</p>
+<p>Some examples of puzzles in the blockchain:</p>
+<p><a class="reference external" href="https://en.bitcoin.it/wiki/Script#Transaction_puzzle">https://en.bitcoin.it/wiki/Script#Transaction_puzzle</a></p>
+<p>Poetry and other text has also been inserted into the chain</p>
+<p>The blockchain also contains bounties: They are automatically paid out to anyone who can solve a specified task. Similar to generic puzzles, a bounty can also serve a purpose.  See below for bounties to find <cite>sha</cite> collisions.</p>
+</div>
+<div class="section" id="sticking-data-into-the-blockchain-0">
+<h2>Sticking data into the blockchain - 0<a class="headerlink" href="#sticking-data-into-the-blockchain-0" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-op-return-operator-can-be-used-to-insert-data-into-a-transactio-examples">
+<h3>The OP_RETURN operator can be used to insert data into a transactio Examples<a class="headerlink" href="#the-op-return-operator-can-be-used-to-insert-data-into-a-transactio-examples" title="Permalink to this headline">¶</a></h3>
+<p>Consider the text</p>
+<dl class="simple">
+<dt>::</dt><dd><p>Betzyy is the double or nothing game BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik abcdefgh</p>
+</dd>
+</dl>
+<p>which is 80 single-byte characters.</p>
+<p>When encoded using 80 hexadecimal ASCII codes, this string becomes</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">4265747</span><span class="n">a79792069732074686520646f75626c65206f</span> \
+<span class="mf">72206e6</span><span class="n">f7468696e672067616d65204245745a797959</span> \
+<span class="mi">714458716</span><span class="n">d524a4a34356e6e4c313563754153666958</span> \
+<span class="mi">673959696</span><span class="n">b206162636465666768</span>
+</pre></div>
+</div>
+<p>(all on one line, no spaces).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">smileycoin</span><span class="o">-</span><span class="n">cli</span>  <span class="n">createrawtransaction</span>
+  <span class="s1">&#39;[{&quot;txid&quot;:&quot;b9cd1f1b74ff1445cc1dd6bfb1540d7d4f06c080538edf9933c5bc1a7ad4073a&quot;,&quot;vout&quot;:1}]&#39;</span>
+  <span class="s1">&#39;{&quot;BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik&quot;:6,</span>
+  <span class="s2">&quot;data&quot;</span><span class="p">:</span><span class="s2">&quot;4265747a79792069732074686520646f75626c65206f</span>
+          <span class="mf">72206e6</span><span class="n">f7468696e672067616d65204245745a797959</span>
+          <span class="mi">714458716</span><span class="n">d524a4a34356e6e4c313563754153666958</span>
+          <span class="mi">673959696</span><span class="n">b206162636465666768</span><span class="s2">&quot;}&#39;</span>
+</pre></div>
+</div>
+<p>The resulting hex string can then be signed and broadcast to the network.</p>
+<p>In this case, the resulting transaction is</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">c629a1d1e4680d26c44726c672d33022737d637f8c6ca2a441b221c7feba174e</span>
+</pre></div>
+</div>
+<p>which can be seen in a <a class="reference external" href="https://chainz.cryptoid.info/smly/tx.dws?c629a1d1e4680d26c44726c672d33022737d637f8c6ca2a441b221c7feba174e.htm">blockchain explorer</a> or viewed using a data-enabled wallet.</p>
+<p>01000000013a07d47a1abcc53399df8e5380c0064f7d0d54b1bfd61dcc4514ff741b1fcdb90100000000ffffffff020046c323000000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac0000000000000000536a4c504265747a79792069732074686520646f75626c65206f72206e6f7468696e672067616d65204245745a797959714458716d524a4a34356e6e4c313563754153666958673959696b20616263646566676800000000</p>
+</div>
+</div>
+<div class="section" id="sticking-data-into-the-blockchain-1">
+<h2>Sticking data into the blockchain - 1<a class="headerlink" href="#sticking-data-into-the-blockchain-1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>The OP_RETURN operator can be used to insert data into a transactio Examples<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Consider the text</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Betzyy</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">double</span> <span class="ow">or</span> <span class="n">nothing</span> <span class="n">game</span> <span class="n">BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik</span> <span class="n">abcdefgh</span>
+</pre></div>
+</div>
+<p>which is 80 single-byte characters.</p>
+<p>When encoded using 80 hexadecimal ASCII codes, this string becomes</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">4265747</span><span class="n">a79792069732074686520646f75626c65206f</span> \
+<span class="mf">72206e6</span><span class="n">f7468696e672067616d65204245745a797959</span> \
+<span class="mi">714458716</span><span class="n">d524a4a34356e6e4c313563754153666958</span> \
+<span class="mi">673959696</span><span class="n">b206162636465666768</span>
+</pre></div>
+</div>
+<p>(all on one line, no spaces).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">smileycoin</span><span class="o">-</span><span class="n">cli</span>  <span class="n">createrawtransaction</span>
+  <span class="s1">&#39;[{&quot;txid&quot;:&quot;b9cd1f1b74ff1445cc1dd6bfb1540d7d4f06c080538edf9933c5bc1a7ad4073a&quot;,&quot;vout&quot;:1}]&#39;</span>
+  <span class="s1">&#39;{&quot;BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik&quot;:6,</span>
+  <span class="s2">&quot;data&quot;</span><span class="p">:</span><span class="s2">&quot;4265747a79792069732074686520646f75626c65206f</span>
+          <span class="mf">72206e6</span><span class="n">f7468696e672067616d65204245745a797959</span>
+          <span class="mi">714458716</span><span class="n">d524a4a34356e6e4c313563754153666958</span>
+          <span class="mi">673959696</span><span class="n">b206162636465666768</span><span class="s2">&quot;}&#39;</span>
+</pre></div>
+</div>
+<p>The resulting hex string can then be signed and broadcast to the network.</p>
+<p>In this case, the resulting transaction is</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">c629a1d1e4680d26c44726c672d33022737d637f8c6ca2a441b221c7feba174e</span>
+</pre></div>
+</div>
+<p>which can be seen in a <a class="reference external" href="https://chainz.cryptoid.info/smly/tx.dws?c629a1d1e4680d26c44726c672d33022737d637f8c6ca2a441b221c7feba174e.htm">blockchain explorer</a> or viewed using a data-enabled wallet.</p>
+<p>01000000013a07d47a1abcc53399df8e5380c0064f7d0d54b1bfd61dcc4514ff741b1fcdb90100000000ffffffff020046c323000000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac0000000000000000536a4c504265747a79792069732074686520646f75626c65206f72206e6f7468696e672067616d65204245745a797959714458716d524a4a34356e6e4c313563754153666958673959696b20616263646566676800000000</p>
+</div>
+</div>
+<div class="section" id="sticking-data-into-the-blockchain-2">
+<h2>Sticking data into the blockchain - 2<a class="headerlink" href="#sticking-data-into-the-blockchain-2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>The OP_RETURN operator can be used to insert data into a transactio Examples<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Consider the text</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Betzyy</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">double</span> <span class="ow">or</span> <span class="n">nothing</span> <span class="n">game</span> <span class="n">BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik</span> <span class="n">abcdefgh</span>
+</pre></div>
+</div>
+<p>which is 80 single-byte characters.</p>
+<p>When encoded using 80 hexadecimal ASCII codes, this string becomes</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">4265747</span><span class="n">a79792069732074686520646f75626c65206f</span> \
+<span class="mf">72206e6</span><span class="n">f7468696e672067616d65204245745a797959</span> \
+<span class="mi">714458716</span><span class="n">d524a4a34356e6e4c313563754153666958</span> \
+<span class="mi">673959696</span><span class="n">b206162636465666768</span>
+</pre></div>
+</div>
+<p>(all on one line, no spaces).</p>
+<p>Note that each byte is represented as a 2-digit hex code (0x00-0xff) so the original 80-byte string now needs 160 hex numerals (0-f).</p>
+<p>To write this into the SMLY blockchain we first find a UTXO to use as input. In this case we can use
+<code class="docutils literal notranslate"><span class="pre">vout=1</span></code> from transaction
+<code class="docutils literal notranslate"><span class="pre">b9cd1f1b74ff1445cc1dd6bfb1540d7d4f06c080538edf9933c5bc1a7ad4073a</span></code>.</p>
+<p>We are now in a position to set up a transaction including this hex-encoded string as a data field.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">smileycoin</span><span class="o">-</span><span class="n">cli</span>  <span class="n">createrawtransaction</span>
+  <span class="s1">&#39;[{&quot;txid&quot;:&quot;b9cd1f1b74ff1445cc1dd6bfb1540d7d4f06c080538edf9933c5bc1a7ad4073a&quot;,&quot;vout&quot;:1}]&#39;</span>
+  <span class="s1">&#39;{&quot;BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik&quot;:6,</span>
+  <span class="s2">&quot;data&quot;</span><span class="p">:</span><span class="s2">&quot;4265747a79792069732074686520646f75626c65206f</span>
+          <span class="mf">72206e6</span><span class="n">f7468696e672067616d65204245745a797959</span>
+          <span class="mi">714458716</span><span class="n">d524a4a34356e6e4c313563754153666958</span>
+          <span class="mi">673959696</span><span class="n">b206162636465666768</span><span class="s2">&quot;}&#39;</span>
+</pre></div>
+</div>
+<p>The resulting output is the hex coded version of the transaction and can be signed and broadcast to the network.</p>
+<p>In this case, the resulting transaction is</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">c629a1d1e4680d26c44726c672d33022737d637f8c6ca2a441b221c7feba174e</span>
+</pre></div>
+</div>
+<p>which can be seen in a <a class="reference external" href="https://chainz.cryptoid.info/smly/tx.dws?c629a1d1e4680d26c44726c672d33022737d637f8c6ca2a441b221c7feba174e.htm">blockchain explorer</a> or viewed using a data-enabled wallet.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">01000000013</span><span class="n">a07d47a1abcc53399df8e5380c0064f7d0d54b1bfd61dcc4514ff741b1fcdb90100000000ffffffff020046c323000000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac0000000000000000536a4c504265747a79792069732074686520646f75626c65206f72206e6f7468696e672067616d65204245745a797959714458716d524a4a34356e6e4c313563754153666958673959696b20616263646566676800000000</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="bounties-reporting-hash-collisions">
+<h2>Bounties: Reporting hash collisions<a class="headerlink" href="#bounties-reporting-hash-collisions" title="Permalink to this headline">¶</a></h2>
+<p>Taken from <a class="reference external" href="https://en.bitcoin.it/wiki/Script#Incentivized_finding_of_hash_collisions">https://en.bitcoin.it/wiki/Script#Incentivized_finding_of_hash_collisions</a></p>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<p>In 2013 Peter Todd created scripts that result in true if a hash collision is found. Bitcoin addresses resulting from these scripts can have money sent to them. If someone finds a hash collision they can spend the bitcoins on that address, so this setup acts as an incentive for somebody to do so.</p>
+<p>For example the SHA1 script:</p>
+<ul class="simple">
+<li><p>scriptPubKey: <code class="docutils literal notranslate"><span class="pre">OP_2DUP</span> <span class="pre">OP_EQUAL</span> <span class="pre">OP_NOT</span> <span class="pre">OP_VERIFY</span> <span class="pre">OP_SHA1</span> <span class="pre">OP_SWAP</span> <span class="pre">OP_SHA1</span> <span class="pre">OP_EQUAL</span></code></p></li>
+<li><p>scriptSig: &lt;preimage1&gt; &lt;preimage2&gt;</p></li>
+</ul>
+<p>What this means:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">OP_2DUP</span>        <span class="mi">110</span>     <span class="mh">0x6e</span>    <span class="n">x1</span> <span class="n">x2</span>   <span class="n">x1</span> <span class="n">x2</span> <span class="n">x1</span> <span class="n">x2</span>     <span class="n">Duplicates</span> <span class="n">the</span> <span class="n">top</span> <span class="n">two</span> <span class="n">stack</span> <span class="n">items</span><span class="o">.</span>
+<span class="n">OP_EQUAL</span>       <span class="mi">135</span>     <span class="mh">0x87</span>    <span class="n">x1</span> <span class="n">x2</span>   <span class="kc">True</span> <span class="o">/</span> <span class="n">false</span>    <span class="n">Returns</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">the</span> <span class="n">inputs</span> <span class="n">are</span> <span class="n">exactly</span> <span class="n">equal</span><span class="p">,</span> <span class="mi">0</span> <span class="n">otherwise</span><span class="o">.</span>
+<span class="n">OP_NOT</span> <span class="mi">145</span>     <span class="mh">0x91</span>    <span class="ow">in</span>      <span class="n">out</span>     <span class="n">If</span> <span class="n">the</span> <span class="nb">input</span> <span class="ow">is</span> <span class="mi">0</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">,</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">flipped</span><span class="o">.</span> <span class="n">Otherwise</span> <span class="n">the</span> <span class="n">output</span> <span class="n">will</span> <span class="n">be</span> <span class="mf">0.</span>
+<span class="n">OP_VERIFY</span>      <span class="mi">105</span>     <span class="mh">0x69</span>    <span class="kc">True</span> <span class="o">/</span> <span class="n">false</span>    <span class="n">Nothing</span> <span class="o">/</span> <span class="n">fail</span>  <span class="n">Marks</span> <span class="n">transaction</span> <span class="k">as</span> <span class="n">invalid</span> <span class="k">if</span> <span class="n">top</span> <span class="n">stack</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">true</span><span class="o">.</span> <span class="n">The</span> <span class="n">top</span> <span class="n">stack</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">removed</span><span class="o">.</span>
+<span class="n">OP_SHA1</span>        <span class="mi">167</span>     <span class="mh">0xa7</span>    <span class="ow">in</span>      <span class="nb">hash</span>    <span class="n">The</span> <span class="nb">input</span> <span class="ow">is</span> <span class="n">hashed</span> <span class="n">using</span> <span class="n">SHA</span><span class="o">-</span><span class="mf">1.</span>
+<span class="n">OP_SWAP</span>        <span class="mi">124</span>     <span class="mh">0x7c</span>    <span class="n">x1</span> <span class="n">x2</span>   <span class="n">x2</span> <span class="n">x1</span>   <span class="n">The</span> <span class="n">top</span> <span class="n">two</span> <span class="n">items</span> <span class="n">on</span> <span class="n">the</span> <span class="n">stack</span> <span class="n">are</span> <span class="n">swapped</span><span class="o">.</span>
+<span class="n">OP_SHA1</span>        <span class="mi">167</span>     <span class="mh">0xa7</span>    <span class="ow">in</span>      <span class="nb">hash</span>    <span class="n">The</span> <span class="nb">input</span> <span class="ow">is</span> <span class="n">hashed</span> <span class="n">using</span> <span class="n">SHA</span><span class="o">-</span><span class="mf">1.</span>
+<span class="n">OP_EQUAL</span>       <span class="mi">135</span>     <span class="mh">0x87</span>    <span class="n">x1</span> <span class="n">x2</span>   <span class="kc">True</span> <span class="o">/</span> <span class="n">false</span>    <span class="n">Returns</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">the</span> <span class="n">inputs</span> <span class="n">are</span> <span class="n">exactly</span> <span class="n">equal</span><span class="p">,</span> <span class="mi">0</span> <span class="n">otherwise</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Cryptocurrency and the Smileycoin (crypto251.0)</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lec00100.html">Introduction to cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00200.html">Bitcoin and Smileycoin basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00300.html">Picking up a wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00400.html">Compiling the wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec00500.html">Introduction to the SMLY command line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01200.html">Basic cryptocurrency economics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01400.html">The transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01500.html">The block and the blockchain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec01600.html">Cryptocurrency mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02000.html">Cryptography and cryptocurrencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02100.html">Hash function introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec02200.html">Elliptic curves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03000.html">The trilogy: tutor-web, Smileycoin and Education in a Suitcase</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03100.html">The SmileyCoin Fund</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03200.html">Splitting the coinbase: No longer just a miner’s fee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03400.html">Staking and proof-of-stake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec03500.html">The tutor-web as a faucet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec04000.html">The command line from a Linux script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec04500.html">Building slightly more complex transactions on the command line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec15000.html">Cryptocurrency exchanges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec15500.html">API access to exchanges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec26000.html">Automation on the blockchain  (stores, ATM, gambling etc)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec30000.html">The Bitcoin programming language</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Fun and games with Bitcoin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec31000.html">The SmileyCoin Fund revisited</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec47000.html">Atomic swaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lec47100.html">More on atomic swaps and smart contracts</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="lec30000.html" title="previous chapter">The Bitcoin programming language</a></li>
+      <li>Next: <a href="lec31000.html" title="next chapter">The SmileyCoin Fund revisited</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Gunnar Stefansson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/lec30100.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

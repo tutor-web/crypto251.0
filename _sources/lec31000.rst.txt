@@ -1,0 +1,451 @@
+The SmileyCoin Fund revisited
+*****************************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec31000/sl31010
+Background
+==========
+
+The SmileyCoin Fund has been briefly explained earlier
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec31000/sl31020
+Purpose of the Fund
+===================
+
+The SmileyCoin Fund is set up to support education, educational technologies and projects which enhance the use of tutor-web and SmileyCoin
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec31000/sl31030
+The Board of the SmileyCoin Fund
+================================
+
+A formal Fund needs to have a process to handle applications
+
+The SmileyCoin Fund has 4 Board members, nominated by 4 different organisations
+
+Handout
+-------
+
+The SmileyCoin Fund has a **Board** which accept applications for funding. 
+
+The Board has members from four different organisations, including the Rector's office of the University of Iceland, as described in a
+`public announcement <https://english.hi.is/news/supporting_smileycoin_reward_system>`_.
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec31000/sl31040
+The Mandate
+===========
+
+A formal Mandate has been written and signed by all parties to the Board of the SmileyCoin Fund.
+
+The signed Mandate is publicly available.
+
+Handout
+-------
+
+The Board has a `formal mandate <http://bit.ly/SMLYmandate>`_.
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec31000/sl31050
+The multisig address for the Fund
+=================================
+
+The entire SmileyCoin Fund is stored in
+
+`one **multisig** address
+<https://chainz.cryptoid.info/smly/address.dws?3JT9LAzuMChCifVoQQK18BQV9z4BzpbQVH.htm>`_
+is available.
+
+
+A technical document has been written to describe the details of how to operate the addressHandout
+-------
+
+The entire SmileyCoin Fund is stored in one **multisig** address
+
+::
+
+ 3JT9LAzuMChCifVoQQK18BQV9z4BzpbQVH
+
+This address can be viewed in a SmileyCoin
+`block explorer
+<https://chainz.cryptoid.info/smly/address.dws?3JT9LAzuMChCifVoQQK18BQV9z4BzpbQVH.htm>`_
+.
+
+A technical document has been written to describe the details of how to operate the address. 
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec31000/sl31060
+Creating, signing and broadcasting a multisig transaction
+=========================================================
+
+Some care is needed when sending from a multisig address
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec31000/sl31070
+Signing the Mandate electronically
+==================================
+
+In addition to signing a piece of paper, a corresponding PDF file can be signed electronically.
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec31000/sl31080
+Storing the signatures in public
+================================
+
+Once a document has been signed, the signatures can be made public
+
+The SMLY blockchain is the obvious place to store SmileyCoin-related signatures
+Handout
+-------
+
+Step 1: Get the final document in shape, including official signatures and addresses and scan it back in as PDF. This is in file mandate_signed.pdf
+
+Step 2: Get the hash of the file
+
+::
+
+  sha256sum < mandate_signed.pdf
+  09d3b7814390b0badfdf9550d848396f9ee7be202f8c61f6c678d71169ba0f9a  -
+
+Step 3: each party signs the message
+
+::
+
+  UI:   
+
+  signmessage BPbwDW2AWsE9KmFDRi1K6QrUdrHvkfbxfn 
+    09d3b7814390b0badfdf9550d848396f9ee7be202f8c61f6c678d71169ba0f9a  
+  IOYu+G3MZibkoVJigY3VaveGWvFqkbWliiqkp5Q/AYC01u8Rffj3QypV6Pyb6yVLdTdlqIp5+H8y/pm/0dVMTNk=
+
+  EIAS: 
+
+  signmessage BSZNAqFuQCH3hZTqwmrqv8LDYPJuEYWfyv 
+    09d3b7814390b0badfdf9550d848396f9ee7be202f8c61f6c678d71169ba0f9a  
+  H5Wr/hJYWTgfZp2fPHAzh5wU7VFuARysMCXekIgOq7rwK9kArEURn9Zy9g430yFC4UyMwamwOVIu1HYPV9nxpq8=
+
+  STL:  
+
+  signmessage BLE92S2zXshaczZ8GrojAXp8yD54UGRHDk 
+    09d3b7814390b0badfdf9550d848396f9ee7be202f8c61f6c678d71169ba0f9a  
+  IJ2pW06+guacTtmW6MdzWxcafjviD6MUvRM0Wssfm3Hqtesap6gRFQ6U2VT85/aRs1AvUnTeQRuQQ+e1HhGbxz4=
+
+  AMI:  
+  signmessage BMv1CU9d9ghzB5HdtahWYz9N6NGpFVpSVB 
+    09d3b7814390b0badfdf9550d848396f9ee7be202f8c61f6c678d71169ba0f9a  
+  IMB3gDqc/al4h9GsaEz7UtypHbCrD7daQ2qIi0s1SJhguYT0J0FVgLk4HrMU2Q6mCdbfVOvUlOt0WGh6cgMw67Q=
+
+
+
+Step 4: Verify all signatures
+
+UI
+
+::
+
+  verifymessage BPbwDW2AWsE9KmFDRi1K6QrUdrHvkfbxfn 
+    'IOYu+G3MZibkoVJigY3VaveGWvFqkbWliiqkp5Q/AYC01u8Rffj3QypV6Pyb6yVLdTdlqIp5+H8y/pm/0dVMTNk=' 
+    09d3b7814390b0badfdf9550d848396f9ee7be202f8c61f6c678d71169ba0f9a  
+
+EIAS
+
+::
+
+  verifymessage BSZNAqFuQCH3hZTqwmrqv8LDYPJuEYWfyv 
+    'H5Wr/hJYWTgfZp2fPHAzh5wU7VFuARysMCXekIgOq7rwK9kArEURn9Zy9g430yFC4UyMwamwOVIu1HYPV9nxpq8=' 
+    09d3b7814390b0badfdf9550d848396f9ee7be202f8c61f6c678d71169ba0f9a  
+
+STL
+
+::
+
+  verifymessage BLE92S2zXshaczZ8GrojAXp8yD54UGRHDk 
+    'IJ2pW06+guacTtmW6MdzWxcafjviD6MUvRM0Wssfm3Hqtesap6gRFQ6U2VT85/aRs1AvUnTeQRuQQ+e1HhGbxz4=' 
+    09d3b7814390b0badfdf9550d848396f9ee7be202f8c61f6c678d71169ba0f9a  
+
+AMI 
+
+::
+
+  verifymessage BMv1CU9d9ghzB5HdtahWYz9N6NGpFVpSVB 
+    IMB3gDqc/al4h9GsaEz7UtypHbCrD7daQ2qIi0s1SJhguYT0J0FVgLk4HrMU2Q6mCdbfVOvUlOt0WGh6cgMw67Q= 
+    09d3b7814390b0badfdf9550d848396f9ee7be202f8c61f6c678d71169ba0f9a
+
+
+
+
+Step 5: Convert all the signatures to hex
+
+::
+
+  python3
+  >>> import base64
+
+UI
+
+::
+
+  base64.decodestring(b'IOYu+G3MZibkoVJigY3VaveGWvFqkbWliiqkp5Q/AYC01u8R
+  ffj3QypV6Pyb6yVLdTdlqIp5+H8y/pm/0dVMTNk=').hex()
+  '20e62ef86dcc6626e4a15262818dd56af7865af16a91b5a58a2aa4a7943f0180
+  b4d6ef117df8f7432a55e8fc9beb254b753765a88a79f87f32fe99bfd1d54c4cd9'
+
+EIAS
+
+::
+
+  base64.decodestring(b'H5Wr/hJYWTgfZp2fPHAzh5wU7VFuARysMCXekIgOq7rwK9kArE
+  URn9Zy9g430yFC4UyMwamwOVIu1HYPV9nxpq8=').hex()
+  '1f95abfe125859381f669d9f3c7033879c14ed516e011cac3025de90880eabbaf02bd
+  900ac45119fd672f60e37d32142e14c8cc1a9b039522ed4760f57d9f1a6af'
+
+STL
+
+::
+
+  >>> base64.decodestring(b'IJ2pW06+guacTtmW6MdzWxcafjviD6MUvRM0Wssfm3Hqtesap6gR
+     FQ6U2VT85/aRs1AvUnTeQRuQQ+e1HhGbxz4=').hex()
+  '209da95b4ebe82e69c4ed996e8c7735b171a7e3be20fa314bd13345acb1f9b71eab5eb1aa7a811 
+  150e94d954fce7f691b3502f5274de411b9043e7b51e119bc73e'
+
+AMI
+
+::
+
+ >>> base64.decodestring(b'IMB3gDqc/al4h9GsaEz7UtypHbCrD7daQ2qIi0s1SJhguYT0J0FVgLk4HrMU
+   2Q6mCdbfVOvUlOt0WGh6cgMw67Q=').hex()
+  '20c077803a9cfda97887d1ac684cfb52dca91db0ab0fb75a436a888b4b35489860b984f427415580b9381e
+  b314d90ea609d6df54ebd494eb7458687a720330ebb4'
+
+
+
+Step 6: Stick the signatures into a single block
+
+Next we need to pick any 4 UTXOs and create 4 transactions, which spend those outputs and send the signatures as data in these transactions, one per transaction. EIAS did this by setting up 4 UTXOs to a new address:
+
+::
+
+  gstefans@eias_master:~$ smileycoin-cli sendtoaddress B9W6pvnb2WZpPWTA57Z9HZkbe7W3ZNvT1G 11
+  b867c61387570529e2905ba5c0dfc5912410a4cf9a6d52411e306c0d7128e8e0
+  gstefans@eias_master:~$ smileycoin-cli sendtoaddress B9W6pvnb2WZpPWTA57Z9HZkbe7W3ZNvT1G 11
+  2c2fdea0a9c6ecde1680c407dd9c6a821ffc60989dcfb245ce51276403a21f20
+  gstefans@eias_master:~$ smileycoin-cli sendtoaddress B9W6pvnb2WZpPWTA57Z9HZkbe7W3ZNvT1G 11
+  8235efa0a79b9fe42de292f51bf3860a25c719e5a7e5119531c8c5a7bdbc97cf
+  gstefans@eias_master:~$ smileycoin-cli sendtoaddress B9W6pvnb2WZpPWTA57Z9HZkbe7W3ZNvT1G 11
+  cc15dacac264763ac681cb08ef8e50a53a8e202e638e11c93a3e4f2e4065fac1
+
+Check:
+
+::
+
+  smileycoin-cli decoderawtransaction `smileycoin-cli getrawtransaction 
+  b867c61387570529e2905ba5c0dfc5912410a4cf9a6d52411e306c0d7128e8e0`
+  smileycoin-cli decoderawtransaction `smileycoin-cli getrawtransaction 
+  2c2fdea0a9c6ecde1680c407dd9c6a821ffc60989dcfb245ce51276403a21f20`
+  smileycoin-cli decoderawtransaction `smileycoin-cli getrawtransaction 
+  8235efa0a79b9fe42de292f51bf3860a25c719e5a7e5119531c8c5a7bdbc97cf`
+  smileycoin-cli decoderawtransaction `smileycoin-cli getrawtransaction 
+  cc15dacac264763ac681cb08ef8e50a53a8e202e638e11c93a3e4f2e4065fac1`
+
+It is seen that each has a vout=0 of 11 SMLY to B9W6pvnb2WZpPWTA57Z9HZkbe7W3ZNvT1G.
+
+Next we set up the actual commands. Note that in each case we only transmit 10 SMLY to the destination, leaving 1 SMLY for the transaction fee. We will simply use Betzyy, the EIAS donation address, for the destination.
+
+
+So the 4 signatures:
+
+::
+
+ 
+ 20e62ef86dcc6626e4a15262818dd56af7865af16a91b5a58a2aa4a7943f0180b4d6ef117df8f7432a55e8fc9beb254b753765a88a79f87f32fe99bfd1d54c4cd9
+ 
+ 1f95abfe125859381f669d9f3c7033879c14ed516e011cac3025de90880eabbaf02bd900ac45119fd672f60e37d32142e14c8cc1a9b039522ed4760f57d9f1a6af
+ 
+ 209da95b4ebe82e69c4ed996e8c7735b171a7e3be20fa314bd13345acb1f9b71eab5eb1aa7a811150e94d954fce7f691b3502f5274de411b9043e7b51e119bc73e
+ 
+ 20c077803a9cfda97887d1ac684cfb52dca91db0ab0fb75a436a888b4b35489860b984f427415580b9381eb314d90ea609d6df54ebd494eb7458687a720330ebb4
+
+need to be paired with the 4 UTXOs 
+
+::
+
+  b867c61387570529e2905ba5c0dfc5912410a4cf9a6d52411e306c0d7128e8e0
+  2c2fdea0a9c6ecde1680c407dd9c6a821ffc60989dcfb245ce51276403a21f20
+  8235efa0a79b9fe42de292f51bf3860a25c719e5a7e5119531c8c5a7bdbc97cf
+  cc15dacac264763ac681cb08ef8e50a53a8e202e638e11c93a3e4f2e4065fac1
+
+in transactions, using the createrawtransaction
+command, i.e. using
+
+::
+
+  smileycoin-cli createrawtransaction "[{\"txid\":\"TTTTT\",\"vout\":0}]" " 
+ {\"BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik\":10,\"data\":\"SSSSS\"}"
+
+where TTTTT is the transaction Id for the UTXO and SSSSS is the hex representation of the signature.
+
+::
+
+  smileycoin-cli createrawtransaction 
+   "[{\"txid\":\"b867c61387570529e2905ba5c0dfc5912410a4cf9a6d52411e306c0d7128e8e0\",
+   \"vout\":0}]" 
+   "{\"BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik\":10,
+  \"data\":\"20e62ef86dcc6626e4a15262818dd56af7865af16a91b5a58a2aa4a7943f01
+  80b4d6ef117df8f7432a55e8fc9beb254b753765a88a79f87f32fe99bfd1d54c4cd9\"}"
+
+  smileycoin-cli createrawtransaction 
+  "[{\"txid\":\"2c2fdea0a9c6ecde1680c407dd9c6a821ffc60989dcfb245ce51276403a21f20\",
+  \"vout\":0}]" 
+  "{\"BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik\":10,
+  \"data\":\"1f95abfe125859381f669d9f3c7033879c14ed516e011cac3025de90880eabbaf02bd900a
+    c45119fd672f60e37d32142e14c8cc1a9b039522ed4760f57d9f1a6af\"}"
+
+  smileycoin-cli createrawtransaction 
+   "[{\"txid\":\"8235efa0a79b9fe42de292f51bf3860a25c719e5a7e5119531c8c5a7bdbc97cf\",
+   \"vout\":0}]" "{\"BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik\":10,
+     \"data\":\"209da95b4ebe82e69c4ed996e8c7735b171a7e3be20fa314bd13345acb1f9b
+     71eab5eb1aa7a811150e94d954fce7f691b3502f5274de411b9043e7b51e119bc73e\"}"
+
+  smileycoin-cli createrawtransaction 
+    "[{\"txid\":\"cc15dacac264763ac681cb08ef8e50a53a8e202e638e11c93a3e4f2e4065fac1\",
+       \"vout\":0}]" "{\"BEtZyyYqDXqmRJJ45nnL15cuASfiXg9Yik\":10,
+       \"data\":\"20c077803a9cfda97887d1ac684cfb52dca91db0ab0fb75a436a888b4b35489860b
+        984f427415580b9381eb314d90ea609d6df54ebd494eb7458687a720330ebb4\"}"
+
+
+Finally each is signed
+
+::
+
+  smileycoin-cli signrawtransaction  
+ 
+ 0100000001e0e828710d6c301e41526d9acfa4102491c5dfc0a55b90e22905578713c667b80000000000ffffffff0200ca9a3b000000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac0000000000000000436a4120e62ef86dcc6626e4a15262818dd56af7865af16a91b5a58a2aa4a7943f0180b4d6ef117df8f7432a55e8fc9beb254b753765a88a79f87f32fe99bfd1d54c4cd900000000
+
+  smileycoin-cli signrawtransaction  
+ 
+ 0100000001201fa203642751ce45b2cf9d9860fc1f826a9cdd07c48016deecc6a9a0de2f2c0000000000ffffffff0200ca9a3b000000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac0000000000000000436a411f95abfe125859381f669d9f3c7033879c14ed516e011cac3025de90880eabbaf02bd900ac45119fd672f60e37d32142e14c8cc1a9b039522ed4760f57d9f1a6af00000000
+
+  smileycoin-cli signrawtransaction  
+ 
+ 0100000001cf97bcbda7c5c8319511e5a7e519c7250a86f31bf592e22de49f9ba7a0ef35820000000000ffffffff0200ca9a3b000000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac0000000000000000436a41209da95b4ebe82e69c4ed996e8c7735b171a7e3be20fa314bd13345acb1f9b71eab5eb1aa7a811150e94d954fce7f691b3502f5274de411b9043e7b51e119bc73e00000000
+  smileycoin-cli signrawtransaction  
+ 
+ 0100000001c1fa65402e4f3e3ac9118e632e208e3aa5508eef08cb81c63a7664c2cada15cc0000000000ffffffff0200ca9a3b000000001976a9147283560a1a0e4d5ba2868e3ec7a7d98c6816d4e188ac0000000000000000436a4120c077803a9cfda97887d1ac684cfb52dca91db0ab0fb75a436a888b4b35489860b984f427415580b9381eb314d90ea609d6df54ebd494eb7458687a720330ebb400000000
+
+and broadcast using sendrawtransaction
+
+
+These transactions were mined into block 538357.
+
+
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec31000/sl31090
+Validating data from the blockchain
+===================================
+
+To check data stored in the blockchain, the reverse of the insertion sequence needs to be used.Handout
+-------
+
+It is not enough to be able to store data on the blockchain, as it needs to be possible to verify the data
+and check any claims made.
+
+First, look at the block. This is block 538357 and can be fetched directly using `getblockhash` followed by `getblock`, or viewed using a blockchain explorer:
+
+::
+
+  https://chainz.cryptoid.info/smly/search.dws?q=538357
+
+Pick one of these transactions, say `a40d1b13ffb741d64e6630e0726ef82397d0930f93d639fa3126a519ea49b4af` to find the data which goes with the `OP_RETURN` operator: 
+
+::
+
+  6a4120e62ef86dcc6626e4a15262818dd56af7865af16a91b5a
+  58a2aa4a7943f0180b4d6ef117df8f7432a55e8fc9beb254b75
+  3765a88a79f87f32fe99bfd1d54c4cd9
+
+(all on one line with no spaces).
+
+As with other hex codes, each character is codes as a two-digit hexadecimal number. The first two are `6a` and `41` and the rest is the actual data string. The `6a` is the code for `OP_RETURN` (see `this link <https://en.bitcoin.it/wiki/Script/>`_). 
+
+The actual hex coding is therefore 130 hexadecimal numbers or 65 bytes and since 65 in decimal is 41 hex (or 0x41), this explains the second code, `41`, being the length of the data field.
+
+To decode the string, a few python3 commands are useful:
+
+::
+ 
+  codecs.encode(codecs.decode('20c077803a9cfda97887d1ac684cfb52dca91db0ab
+  0fb75a436a888b4b35489860b984f427415580b9381eb314d90ea609d6df54ebd494eb7458687a720330ebb4', 'hex'),
+ 'base64').decode()
+ 'IMB3gDqc/al4h9GsaEz7UtypHbCrD7daQ2qIi0s1SJhguYT0J0FVgLk4HrMU2Q6mCdbfVOvUlOt0\nWGh6cgMw67Q=\n'
+
+The two newline characters need to be removed from this string, resulting in a signature of
+
+::
+
+ 'IMB3gDqc/al4h9GsaEz7UtypHbCrD7daQ2qIi0s1SJhguYT0J0FVgLk4HrMU2Q6mCdbfVOvUlOt0WGh6cgMw67Q='
+
+Recall that the original hash to be signed was
+
+::
+
+  09d3b7814390b0badfdf9550d848396f9ee7be202f8c61f6c678d71169ba0f9a
+
+and it was signed by 4 addresses:
+
+::
+
+  BPbwDW2AWsE9KmFDRi1K6QrUdrHvkfbxfn
+  BSZNAqFuQCH3hZTqwmrqv8LDYPJuEYWfyv
+  BLE92S2zXshaczZ8GrojAXp8yD54UGRHDk
+  BMv1CU9d9ghzB5HdtahWYz9N6NGpFVpSVB
+
+One can now verify this signature using the appropriate address:
+
+::
+
+  smileycoin-cli verifymessage BMv1CU9d9ghzB5HdtahWYz9N6NGpFVpSVB 
+   'IMB3gDqc/al4h9GsaEz7UtypHbCrD7daQ2qIi0s1SJhguYT0J0FVgLk4HrMU2Q6mCdbfVOvUlOt0WGh6cgMw67Q=' 
+   '09d3b7814390b0badfdf9550d848396f9ee7be202f8c61f6c678d71169ba0f9a'
+
+which returns  `true` as it should.
+
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec31000/sl31095
+Open accounting on the blockchain
+=================================
+
+Transparency is one part of good governance
+
+It is important for formal funds to demonstrate where grant allocations go
+
+This can be done using a cryptocurrency and announcing exactly what is being done with the funds
+
+Handout
+-------
+
+Announcements of spending are sent out on `Twitter <https://twitter.com/SmileycoinNews/status/1164017294567256064>`_.

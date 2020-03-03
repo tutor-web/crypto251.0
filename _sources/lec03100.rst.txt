@@ -1,0 +1,85 @@
+The SmileyCoin Fund
+*******************
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03100/sl03105
+Premining a cryptocurrency
+==========================
+
+A **premine** is a process where originators of a new coin mine it before the chain is open for general mining
+
+A premine is generally not a good idea
+
+
+Handout
+-------
+
+A **premine** is a process where the originators of a new coin mine it before the chain is open for general mining. This approach has been used for a number of coins, and for different reasons. For example, Auroracoin was premined and the premine was mostly distributed in an **airdrop** to Icelanders. In some cases this is easily justified.
+
+However, a premine is generally not a good idea as it can be used to hide spending and abnormally reward coin developers. Thus, even with the best intentions, coin developers will need to go to extreme lengths to explain why their coin has a premine.
+
+If a premine is to be used, it needs to be implemented as openly as possible.
+
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03100/sl03110
+The SmileyCoin premine
+======================
+
+The SmileyCoin was originally premined
+
+The purpose of the coin was to reward students in the tutor-web system
+
+The premine was mostly used for this (but also for development and grants)
+
+Other methods **could** have been used instead of the premine (see chapter **splitting the coinbase**)
+
+
+Handout
+-------
+
+The SmileyCoin was originally premined: Of the 48 bn SMLY to be mined, 50% were premined and kept for use in the tutor-web. 
+
+Planned and actual use of the SmileyCoin premine was discussed in a `public forum <https://bitcointalk.org/index.php?topic=845761.0;all>`_ and the use was subsequently described, also in a `public forum <https://tutor-web.info/smileycoin>`_, as well as described on `Twitter <https://twitter.com/SmileycoinNews/status/1090697739623694337>`_
+
+In spite of openness, a premine will always face considerable criticism.
+
+Better approaches are needed.
+
+
+
+
+..
+    Slide http://ui-tutorweb.clifford.shuttlethread.com/comp/crypto251.0/lec03100/sl03115
+Setting up a cryptocurrency fund: The SmileyCoin Fund
+=====================================================
+
+The SmileyCoin premine has been changed to a formal cryptocurrency fund: **The SmileyCoin Fund**
+
+The SmileyCoin Fund has a **Board** which accept applications for funding
+
+The process of spending has moved to be open and transparent
+
+This is explained in more detail in a later section
+Handout
+-------
+
+The remainder of the SmileyCoin premine was moved to a formal cryptocurrency fund: **The SmileyCoin Fund**.
+
+The SmileyCoin Fund has a **Board** which accept applications for funding. The Board has members from four different organisations, including the Rector's office of the University of Iceland, as described in a
+`public announcement <https://english.hi.is/news/supporting_smileycoin_reward_system>`_.
+
+The Board has a `formal mandate <http://bit.ly/SMLYmandate>`_, and announcements of spending are sent out on `Twitter <https://twitter.com/SmileycoinNews/status/1164017294567256064>`_.
+
+The entire SmileyCoin Fund is stored in **one multisig address** which corresponds to four private keys. Two of these keys are needed to sign any transfer from the fund.  Each Board member holds exactly one of these private keys. All of the corresponding addresses are publicly known and transfers can therefore be verified by anyone with Internet access.
+
+The process of spending has thus moved to be open and transparent.
+
+The details of the methods are given in a later chapter.
+
