@@ -25,7 +25,8 @@ sys.path.insert(0, server_dir)
 
 project = 'Cryptocurrency and the Smileycoin (crypto251.0)'
 copyright = '%s, Gunnar Stefansson' % (
-    subprocess.check_output("/usr/bin/git log -1 --format=%ai".split()).decode('utf8').split('-', 1)[0],
+    '2020',
+    # TODO: Doesn't work under github actions? subprocess.check_output("/usr/bin/git log -1 --format=%ai".split()).decode('utf8').split('-', 1)[0],
 )
 author = 'Gunnar Stefansson'
 
