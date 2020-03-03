@@ -25,7 +25,7 @@ sys.path.insert(0, server_dir)
 
 project = 'Cryptocurrency and the Smileycoin (crypto251.0)'
 copyright = '%s, Gunnar Stefansson' % (
-    subprocess.check_output("git log -1 --format=%ai".split()).decode('utf8').split('-', 1)[0],
+    subprocess.check_output("/usr/bin/git log -1 --format=%ai".split()).decode('utf8').split('-', 1)[0],
 )
 author = 'Gunnar Stefansson'
 
