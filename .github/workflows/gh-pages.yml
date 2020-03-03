@@ -13,9 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-    - uses: ammaraskar/sphinx-action@master
-      with:
-        docs-folder: "."
+      - uses: ammaraskar/sphinx-action@master
+        with:
+          docs-folder: "."
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v2
